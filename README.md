@@ -32,7 +32,7 @@
     recommendations based on their scanned pantry items.
 
 ## General Info
-![icon of phone with recipe generator](https://bitbucket.org/cs3398-luna-s25/recipe_generator/src/main/DALL%C2%B7E%202025-01-30%2018.15.07%20-%20A%20modern%2C%20minimalist%20app%20icon%20for%20a%20cooking%20assistant.%20The%20icon%20should%20feature%20a%20smartphone%20camera%20capturing%20pantry%20items%2C%20with%20a%20magic%20wand%20or%20spark%20.webp)
+![icon of phone with recipe generator](icon.png)
 
 ## Technologies
 - Front-End:
