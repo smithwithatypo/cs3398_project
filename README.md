@@ -13,8 +13,8 @@
     - Tushig Battulga
     - Denise Boler
     - Amanda Orozco
-    - Elliot Sonoqui
     - Stephen Smyth
+    - Elliot Sonoqui
 - What are we creating?
     A mobile application that helps users generate recipes based on available 
     ingredients, online content, and personal preferences. We want to bring 
@@ -40,8 +40,8 @@
     - HTML 
     - CSS 
 - Back-End:
-    Languages: python
-    APIs: Instagram, Spoonacular, OpenAI
+    - Languages: python
+    - APIs: Instagram, Spoonacular, OpenAI
 
 ## Features
 - Feature 1: User input to recipe generatoin
