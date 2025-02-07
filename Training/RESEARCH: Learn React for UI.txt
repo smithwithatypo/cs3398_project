@@ -1,0 +1,9 @@
+RESEARCH: Learn React for UI
+
+Why you are doing it: To gain proficiency in React for building dynamic and responsive user interfaces for the project.
+
+What you expect to learn/do: I expect to learn React basics, including components, state management, props, and lifecycle methods. I will focus on understanding how to create reusable UI components.
+
+What do you expect to do with it, including any code you expect to write: I expect to write React components for the UI, such as the navigation bar, forms, and a user dashboard. I will also integrate React with the backend to fetch and display data.
+
+What task(s) in Jira represent the work you will do that was/is dependent on the research/training: The tasks in Jira that are dependent on this research include “Build UI for user dashboard” and “Implement forms for user input.”
