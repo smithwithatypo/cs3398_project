@@ -1,0 +1,5 @@
+Title or Name of Research/Training: "Research React for front end."
+Why You Are Doing It: I need to learn React to contribute to the frontend. React will help me build interactive UI components.
+What You Expect to Learn/Do: I expect to learn how to build and integrate a stateful React component
+What Do You Expect to Do With It (Including Specific Code): Build the shopping list page in ShoppingList.js.
+What Task(s) in Jira Represent the Work Dependent on the Research/Training: The research supports the tasks
