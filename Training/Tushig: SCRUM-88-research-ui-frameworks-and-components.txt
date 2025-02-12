@@ -1,0 +1,14 @@
+RESEARCH: UI Frameworks & Components
+Why you are doing it:
+To speed up development and maintain UI consistency by choosing an appropriate styling framework (Tailwind, Material UI, Shadcn). Using component libraries can reduce development time.
+
+What you expect to learn/do:
+
+Pros and cons of Tailwind CSS, Material UI, and Shadcn
+How each impacts performance, ease of use, and customization
+Whether to use pre-built components or custom components
+What do you expect to do with it, including any code you expect to write:
+
+Implement small tests using different frameworks
+Decide on the styling approach for the app
+Apply the chosen UI framework to the starter page

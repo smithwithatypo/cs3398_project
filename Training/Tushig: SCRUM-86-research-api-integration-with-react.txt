@@ -1,0 +1,13 @@
+RESEARCH: API Integration
+Why you are doing it:
+To connect the frontend to the backend and allow data to be fetched from the Node.js server. Understanding error handling ensures a smooth user experience.
+
+What you expect to learn/do:
+
+How to make API calls using fetch vs. Axios
+Best practices for handling loading states and errors
+What do you expect to do with it, including any code you expect to write:
+
+Implement a basic API call from React to a simple Node.js endpoint
+Add error handling and loading states
+Decide on whether to use fetch or Axios for API calls
