@@ -1,9 +1,0 @@
-Title or name of research/training: Learn Flask for Backend Development
-
-Why you are doing it: To understand how to build and manage the backend of the application using Flask, a lightweight web framework for Python.
-
-What you expect to learn/do: I expect to learn how to set up a Flask application, create API routes, handle requests and responses, connect to a database, and implement authentication.
-
-What do you expect to do with it, including any code you expect to write: I will use Flask to develop the backend for the project, including setting up API endpoints for user authentication, data retrieval, and processing. Specific tasks include writing the app.py file, defining routes, and integrating Flask with a database.
-
-What task(s) in Jira represent the work you will do that was/is dependent on the research/training: The tasks in Jira that depend on this research include “Develop API endpoints for user authentication” and “Implement database connection in Flask
