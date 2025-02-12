@@ -1,0 +1,12 @@
+Research: REACT Hooks
+Sources:
+    - W3 School https://www.w3schools.com/react/react_hooks.asp 
+    - Medium https://medium.com/@dan_abramov/making-sense-of-react-hooks-fdbde8803889  
+
+- What are REACT hooks?
+    - Hooks provide a solution for fully breaking down UI components beyond without being restricted by state
+    - Hooks allow us to organize logic INSIDE a component into isolated resuasable pieces 
+    - Functions are good ways of reusing code, but functions scope are limited to their LOCAL React state
+        - This is where hooks come into play, they expand the scope of functions beyond the local state 
+
+
