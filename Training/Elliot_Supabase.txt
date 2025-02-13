@@ -1,0 +1,147 @@
+Create a Supabase Account & Project
+--------------------------------------
+Go to Supabase and sign up.
+Click "New Project" and enter:
+Project Name (e.g., recipe-app)
+Database Password (Save this securely!)
+Choose a Region
+Click "Create New Project" and wait for the database to be set up.
+
+
+Get Supabase Connection Details
+-------------------------------
+Go to Project Settings > Database.
+
+Find the Connection string under the "Connection Pooling" section. It should look like this:
+
+bash
+Copy
+Edit
+postgresql://username:password@db.supabase.co:5432/dbname
+You will also need your Supabase API URL and Anon/Public Key from:
+
+Project Settings > API
+
+
+Install Supabase Client in Node.js
+------------------------------------
+Inside your Node.js project, install the Supabase client:
+
+sh
+Copy
+Edit
+npm install @supabase/supabase-js
+Create a supabase.js file to configure the database:
+
+js
+Copy
+Edit
+const { createClient } = require('@supabase/supabase-js');
+
+const SUPABASE_URL = 'https://your-project.supabase.co';
+const SUPABASE_KEY = 'your-anon-key';
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+module.exports = supabase;
+
+
+Create a Recipes Table in Supabase
+----------------------------------
+Go to Database > Table Editor > Create Table.
+
+Name the table recipes.
+
+Add columns:
+
+id → uuid (Primary Key, default: gen_random_uuid())
+name → text
+ingredients → text[]
+instructions → text
+image_url → text
+created_at → timestamp (Default: now())
+Click "Save".
+
+
+Insert and Fetch Recipes in Node.js
+---------------------------------------
+Create a new file routes/recipes.js:
+
+js
+Copy
+Edit
+const express = require('express');
+const supabase = require('../supabase');
+const router = express.Router();
+
+// Create a new recipe
+router.post('/add', async (req, res) => {
+    const { name, ingredients, instructions, image_url } = req.body;
+
+    const { data, error } = await supabase
+        .from('recipes')
+        .insert([{ name, ingredients, instructions, image_url }]);
+
+    if (error) return res.status(400).json({ error: error.message });
+    res.json(data);
+});
+
+// Get all recipes
+router.get('/', async (req, res) => {
+    const { data, error } = await supabase
+        .from('recipes')
+        .select('*');
+
+    if (error) return res.status(400).json({ error: error.message });
+    res.json(data);
+});
+
+module.exports = router;
+
+
+Connect Routes to Express Server
+---------------------------------
+In server.js, add:
+
+js
+Copy
+Edit
+const express = require('express');
+const cors = require('cors');
+const recipeRoutes = require('./routes/recipes');
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+app.use('/recipes', recipeRoutes);
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+
+
+Run Your API
+-------------
+Start the server:
+
+sh
+Copy
+Edit
+node server.js
+Test the API using Postman or cURL:
+
+Add a Recipe
+
+sh
+Copy
+Edit
+curl -X POST http://localhost:5000/recipes/add \
+     -H "Content-Type: application/json" \
+     -d '{"name":"Pasta","ingredients":["Tomato","Basil","Garlic"],"instructions":"Boil pasta, add sauce.","image_url":"https://image.url"}'
+Get All Recipes
+
+sh
+Copy
+Edit
+curl http://localhost:5000/recipes
