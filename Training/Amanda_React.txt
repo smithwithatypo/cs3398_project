@@ -1,13 +1,161 @@
-Title or Name of Research/Training: Developing and Integrating a features with React
-Why You Are Doing It: 
-I am conducting this research to gain the knowledge needed to implement features that enhances user experience and meets our expectations.
+Title or Name of Research/Training: Developing and Integrating a Filter Components in React.
+Why You Are Doing It: I am conducting this research to gain the knowledge needed to implement filtera that enhances user experience and meets our dietary requirements/ goals.
+What You Expect to Learn/Do: I expect to learn how to build and integrate a stateful React component, specifically affecting the RecipeList and new VegetarianFilter modules.
+What Do You Expect to Do With It (Including Specific Code): 
+What Task(s) in Jira Represent the Work Dependent on the Research/Training: The research supports the tasks that include interactive features like:
+filtering, UI builds, styling and state management.
 
-What You Expect to Learn/Do: 
-I expect to learn how to build and integrate a React component, specifically affecting the RecipeList and new feature modules.
+------Notes-------
 
-What Do You Expect to Do With It (Including Specific Code):
-I plan to write a new feature components, update them to incorporate filters, and implement event handling and API integration code.
+Q&A:
 
-What Task(s) in Jira Represent the Work Dependent on the Research/Training:
-The research supports the tasks UI/UX Design for features,
-Implement Front-End specifically the user stories I plan to do.
+What is React specifically?
+
+React is used to build dynamic, interactive web applications. 
+
+What are it primary uses?
+
+    - Components: Breaking the UI into reusable pieces (like buttons, forms, or recipe cards).
+    - State Management: Keeping track of data (like user input or fetched recipes) and updating the UI when the data changes.
+    - Props: Passing data between components to share information easily.
+    - Virtual DOM: Making updates to the UI faster by only changing what’s necessary.
+    - JSX: Writing HTML-like code inside JavaScript to make it easier to describe the UI.
+
+
+
+------Findings-------
+
+Tools and Libraries to Use with React
+
+    React Router: For navigation between pages.
+    Axios/Fetch: For making API requests.
+    Context API/Redux: For state management (if the app grows complex).
+    Material-UI or Chakra UI: For pre-built UI components.
+    Firebase: For backend services like authentication and database.
+    Spoonacular API: A popular API for recipe data.
+
+
+------Ideas-------
+
+1. Building the User Interface
+
+  Use React components to create reusable UI elements like:
+    - A search bar for users to input ingredients or preferences.
+    - Recipe cards to display recipes with images, titles, and descriptions.
+    - Filters for dietary restrictions (e.g., vegan, gluten-free) and goals (e.g., weight loss, muscle gain).
+    - A pantry input form where users can list the ingredients they have.
+
+
+2. Managing User Input and State
+
+  Use React’s state management to track:
+    - User input (e.g., ingredients in the pantry, dietary preferences).
+    - Selected filters (e.g., vegan, low-carb).
+    - The list of recipes fetched from an API or database.
+
+Mapping idea for app:
+
+UI: *Material-UI or Chakra UI for pre-built components.
+State Management: Context API or Recoil for managing user preferences and saved recipes.
+Routing: React Router for navigation between pages.
+Data Fetching: Axios or React Query to fetch recipes from the Spoonacular API.
+Forms: Formik or React Hook Form for handling user input (e.g., pantry items, dietary restrictions).
+Styling: Tailwind CSS or Styled Components for custom styles.
+Backend: Firebase or Supabase for authentication and saving user data.
+Deployment: Vercel or Netlify for hosting your app.
+
+* 
+Which One to Choose?
+Material-UI: Best for enterprise applications and those needing a structured, Material Design aesthetic.
+Chakra UI: Best for developer experience, flexibility, and custom theming.
+
+Material-UI (MUI)
+Based on Google’s Material Design guidelines.
+Offers a rich set of components like buttons, modals, tables, and form inputs.
+Highly customizable with themes and styles (using styled-components or sx prop).
+Used in enterprise applications with a polished, professional look.
+Example:
+
+import { Button } from '@mui/material';
+
+function App() {
+  return <Button variant="contained" color="primary">Click Me</Button>;
+}
+2. Chakra UI
+Focuses on simplicity and accessibility with a flexible, modern design.
+Uses styled-system for easy theming and responsive design.
+Built-in dark mode support.
+More intuitive API, making styling easier with props like bg, color, and p.
+Example:
+
+import { Button } from "@chakra-ui/react";
+
+function App() {
+  return <Button colorScheme="blue">Click Me</Button>;
+}
+
+
+------Quick Notes-------
+
+1. React is Declarative
+    Describe the UI state, and React updates the DOM efficiently.
+    Example: const App = () => <h1>Hello, React!</h1>;
+
+2. Component-Based Architecture
+    UI is split into reusable components.
+    Functional components (with hooks) are preferred over class components.
+    Example: const RecipeCard = ({ recipe }) => <h2>{recipe.name}</h2>;
+
+3. One-Way Data Flow
+    Data flows from parent to child via props.
+    Example: <RecipeCard recipe={recipeData} />
+
+4. Virtual DOM
+    React updates a virtual DOM and applies changes efficiently to the real DOM.
+
+5. JSX (JavaScript XML)
+    Write HTML-like syntax in JavaScript.
+    Example: const element = <h1>Hello, React!</h1>;
+
+6. Hooks in React
+    useState: Manages component state.
+    useEffect: Handles side effects.
+    useContext: Avoids prop drilling.
+    useRef: Accesses DOM elements.
+
+    Example: const [count, setCount] = useState(0);
+
+7. React is Just the View Layer
+    Use additional libraries:
+    React Router (Routing)
+    Redux/Zustand (State Management)
+    Axios/Fetch (HTTP Requests)
+
+8. Performance Optimization
+    React.memo: Prevents unnecessary re-renders.
+    useCallback & useMemo: Memoizes functions and values.
+    Code splitting: Load components lazily.
+
+9. React Ecosystem
+    Next.js: Server-side rendering (SSR) and static site generation (SSG).
+    Gatsby: Static site generator.
+    React Native: Mobile development.
+
+10. Learning Curve
+    Start with components, props, state, then move to hooks, context, performance optimization.
+
+
+11. Testing in React
+    Jest: Unit testing.
+    React Testing Library: Component testing.
+    Cypress: End-to-end testing.
+
+12. Accessibility (a11y)
+    Use semantic HTML & ARIA attributes.
+    Libraries: React Aria, Reach UI.
+
+13. React & SEO
+    SPAs struggle with SEO; use Next.js (SSR) or React Helmet for meta tags.
+
+14. React DevTools
+A browser extension for debugging React apps.
