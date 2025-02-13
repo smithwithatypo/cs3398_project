@@ -1,0 +1,50 @@
+Understanding Node.js
+---------------------
+Node.js is a runtime environment that allows you to run JavaScript on the server side. It's built on Chrome's V8 engine.
+
+Why use Node.js?
+-------------------------------
+Non-blocking I/O for handling multiple requests efficiently.
+JavaScript on both frontend & backend, making development smoother.
+Scalability for handling user interactions, searches, and large recipe data.
+
+
+Backend Framework Options
+--------------------------
+Express.js – A lightweight and flexible Node.js framework for building REST APIs.
+NestJS – A more structured and scalable framework for enterprise-level apps.
+
+API & Data Handling
+--------------------
+REST API with Express.js – Create routes for recipes, users, and favorites.
+
+
+----------------------------
+INSTRUCTIONS FOR INSTALL
+Setting Up a Basic Node.js App
+--------------------------------
+Install Node.js
+Download from Node.js official site.
+Initialize a project
+sh
+Copy
+Edit
+mkdir recipe-app && cd recipe-app
+npm init -y
+Install Dependencies
+sh
+Copy
+Edit
+npm install express mongoose dotenv multer jsonwebtoken cors
+Set up a basic Express server
+js
+Copy
+Edit
+const express = require('express');
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+app.get('/', (req, res) => res.send('Recipe App API'));
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
