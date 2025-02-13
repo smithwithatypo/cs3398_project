@@ -1,12 +1,24 @@
 Research: REACT Hooks
 Sources:
+    - React Reference https://react.dev/reference/react
     - W3 School https://www.w3schools.com/react/react_hooks.asp 
     - Medium https://medium.com/@dan_abramov/making-sense-of-react-hooks-fdbde8803889  
 
-- What are REACT hooks?
+- What are REACT hooks? 
     - Hooks provide a solution for fully breaking down UI components beyond without being restricted by state
     - Hooks allow us to organize logic INSIDE a component into isolated resuasable pieces 
     - Functions are good ways of reusing code, but functions scope are limited to their LOCAL React state
-        - This is where hooks come into play, they expand the scope of functions beyond the local state 
+        * this is where hooks come into play, they expand the scope of functions beyond the local state)
+
+- Hook rules:
+    - Hooks can only be used INSIDE React function components
+    - Hooks can only be called at the top level of a component
+    - Hooks can NOT be conditional 
+
+- Types of hooks:
+    - State: useState, useReducer
+    - Context: useContext
+    - Effect: useEffect
+    - Performance: useMemo, useCallback
 
 
