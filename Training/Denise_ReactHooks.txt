@@ -49,3 +49,9 @@ Sources:
         - general implementation: const cachedFunction = useCallback(function, dependencies)
         - forget-me-nots: hook rule #2, react will not throw away the cached function unless there is a specific reason to
 
+- How could hooks be used in this project? 
+    React hooks are a great way to: simplify state management, write resuable code,  manage fullstack communications and 
+    applications, and create scalable code. We could use useState hooks for handling UI changes with user form inputs or 
+    toggles. For backend data fetching, we could use useEffect hooks. To enforce a global state for authentication or 
+    even themes, we could use useContext hooks. Lastly to prevent unnecessary computations and even improve performance, 
+    we could use useMemo and useCallback hooks. 
