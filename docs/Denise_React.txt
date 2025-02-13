@@ -1,0 +1,9 @@
+Research: Research REACT
+- Why You Are Doing It?
+    I need to learn React to contribute to the frontend for voice/microphone buttons for an interactive UI
+- What You Expect to Learn/Do?
+    I expect to be able to learn the basics of using REACT for front-end development
+- What Do You Expect to Do With It (Including Specific Code)?
+    Build an interface where users can interact via clicking, speaking, texting, etc 
+- What Task(s) in Jira Represent the Work Dependent on the Research/Training?
+    To understand how create and manipulate the front-end with a rich UI

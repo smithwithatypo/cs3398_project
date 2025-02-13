@@ -1,0 +1,9 @@
+Research: Flask Unit Testing
+- Why You Are Doing It?
+    I am unfamiliar with Flask and new to unit testing. Researching this will allow me to not utilize useful libraries and create valuable unit test
+- What You Expect to Learn/Do?
+    I expect to be able to learn the basics of creating unit test in flask 
+- What Do You Expect to Do With It (Including Specific Code)?
+    Create and write unit test 
+- What Task(s) in Jira Represent the Work Dependent on the Research/Training?
+    To understand how create valuable unit test that properly test flask elements
