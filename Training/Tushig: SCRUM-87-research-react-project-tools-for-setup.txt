@@ -1,0 +1,174 @@
+SCRUM-87-research-react-project-tools-for-setup
+Why you are doing it:
+To establish the foundation of the project and choose the best tools for development efficiency and performance. Understanding the differences between Create React App (CRA) and Vite will help determine the right build tool. A good folder structure ensures scalability and maintainability.
+
+What you expect to learn/do:
+
+The pros and cons of CRA vs. Vite (performance, ease of setup, maintainability)
+Best practices for organizing React project files (components, hooks, assets, API calls)
+What do you expect to do with it, including any code you expect to write:
+
+Choose the best project setup method and document the reasoning
+Set up the initial project with the chosen tool
+Implement the recommended folder structure
+
+
+------
+Notes:
+
+Best to use Create React App CRA rather than Vite, since CRA is much more beginner friendly and simpler. Although, if the app gets really intensive, Vite is a better choice but for now I think CRA is clearly the better choice. Especially since either choice won't influence how the frontend will interact with the backend with Node anyway.
+
+Best Practices for React Project Structure
+A well-structured project makes development easier and more maintainable. Here’s a recommended folder structure:
+
+my-app/
+│── public/         # Static assets (index.html, images)
+│── src/
+│   │── components/ # Reusable UI components
+│   │── pages/      # Page-level components
+│   │── hooks/      # Custom hooks
+│   │── context/    # Global state management (if needed)
+│   │── utils/      # Helper functions
+│   │── services/   # API calls
+│   │── styles/     # Global styles
+│   │── App.jsx     # Main component
+│   │── main.jsx    # Renders the app (entry point)
+│── package.json    # Project dependencies
+│── vite.config.js  # Vite configuration
+
+Explanation of Each Folder:
+components/ → Holds reusable UI components (e.g., buttons, cards).
+pages/ → Holds full pages (e.g., Home, About).
+hooks/ → Stores custom React hooks (useFetch, useAuth).
+context/ → For global state management (if using Context API).
+services/ → Handles API calls (fetch or Axios).
+utils/ → Contains helper functions (e.g., formatting dates).
+styles/ → Global CSS or Tailwind styles. 
+
+
+This structure will allow our app to stay organized while maintaining for scalability. 
+
+
+More tips:
+
+Keep components small and reusable.
+Separate concerns (UI logic in components/, business logic in services/).
+Use absolute imports (import Button from '@/components/Button' instead of ../../../components/Button).
+
+
+
+Since we are using Node.js, we may need to set up a proxy in package.json to handle API requests to our backend during development.
+- we need this because the frontend and backend run on different ports - resource sharing issues.
+- the proxy will configure the CRA to proxy the api requests to the backend automatically with "proxy": "http://localhost:5000"
+- since we have multiple api's  (look to end)
+
+
+
+
+Setting up the React project with CRA:
+
+npx create-react-app my-app
+cd my-app
+npm install
+npm start
+
+📌 Setting up a proxy for your Node.js backend (if needed):
+Inside package.json, add:
+
+"proxy": "http://localhost:5000"
+
+This ensures that frontend API calls like fetch('/api/ingredients') are forwarded to your Node.js backend running on port 5000.
+
+
+
+Resolution to multiple apis: Since we have are going to utilize multiple APIs, the best solution would be for us to use setupProxy.js, route through Node.js backend, and then use "proxy" in package.json.
+- this makes it so the frontend only makes the api requests to our own backend with node.js
+- then our backend fetches the data to our database and then sends it to our frontend
+- more secure, and easier to manage with multiple APIs.
+
+
+
+Tutorial:
+How to Implement This Solution
+
+We’ll go step by step:
+
+Step 1: Set Up Your Node.js Backend
+If you haven't already set up a Node.js backend, do this:
+
+Initialize a Node.js project (if not done yet):
+mkdir backend
+cd backend
+npm init -y
+Install dependencies:
+npm install express axios cors dotenv
+express: Web framework to handle API requests.
+axios: Makes HTTP requests to external APIs.
+cors: Allows cross-origin requests (optional, but useful for development).
+dotenv: Manages API keys securely in an environment file.
+Step 2: Create the Server File
+Create a file server.js in your backend folder.
+
+📌 Basic structure of server.js:
+
+require('dotenv').config();
+const express = require('express');
+const axios = require('axios');
+const cors = require('cors');
+
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+app.use(cors()); // Allows cross-origin requests (for development)
+app.use(express.json()); // Middleware to parse JSON
+
+// Sample local endpoint
+app.get('/api/ingredients', (req, res) => {
+  res.json({ ingredients: ['Tomato', 'Cheese', 'Basil'] });
+});
+
+// Proxy request to an external API (e.g., Spoonacular)
+app.get('/api/recipes', async (req, res) => {
+  try {
+    const response = await axios.get('https://api.spoonacular.com/recipes/random', {
+      params: { apiKey: process.env.SPOONACULAR_API_KEY }
+    });
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching recipes' });
+  }
+});
+
+// Start the backend server
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+Step 3: Secure API Keys with .env
+Create a .env file in your backend folder:
+
+SPOONACULAR_API_KEY=your_api_key_here
+Then, make sure your server.js file loads environment variables using dotenv:
+
+require('dotenv').config();
+🚨 Do not expose API keys in your frontend! By keeping them in .env, they are safe.
+
+Step 4: Connect Your React Frontend to the Backend
+In your React frontend, make API calls to http://localhost:5000/api/... instead of calling external APIs directly.
+
+Example API request from React:
+
+useEffect(() => {
+  fetch('/api/recipes') // Calls your Node.js backend
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+}, []);
+Since React and your backend run on different ports, you must prefix requests with http://localhost:5000 in production or configure a reverse proxy.
+
+Step 5: Run Your Project
+Start the backend:
+node server.js
+or if using nodemon (auto-restarts server on changes):
+
+npx nodemon server.js
+Start the frontend (inside your React project):
+npm start
+Now, your React app will successfully fetch data through your Node.js backend without CORS issues.

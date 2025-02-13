@@ -1,0 +1,116 @@
+RESEARCH: Routing
+Why you are doing it:
+To enable navigation between different pages of the application. Deciding between public and private routes will be important for future authentication features.
+
+What you expect to learn/do:
+
+How to set up React Router
+Differences between public and private routes
+Best practices for handling navigation
+What do you expect to do with it, including any code you expect to write:
+
+Implement a basic navigation system with React Router
+Set up route structure for the application
+Configure private/public route handling
+
+
+--------
+Notes:
+- A structure that has both public pages for all users and private ones for authenticated users is best.
+	Authenticated users in this case can be the individual profiles for each user with
+	their personal information like dietary preferences, etc.
+
+Example code with public and private route:
+// App.js
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+import PrivateRoute from './components/PrivateRoute';
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        
+        {/* Private Route Example */}
+        <Route 
+          path="/dashboard" 
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          } 
+        />
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
+
+
+
+
+User flow can be like this at least for the starter page:
+1. Starter page (/ )
+	can determine if the user is existing one or new
+2. If new, onboarding page (/onboarding)
+	can collect user information like dietary habits here
+
+3. User profile page (/profile)
+	should be private route obviously
+
+Then the other features like the text to text or text to voice can have their own buttons
+Which lead to different pages.
+
+	Since we are just working on the starter page and in a limited scope, I think
+	these notes are enough for right now.
+
+
+Example React code for routing:
+// App.js
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import StarterPage from './pages/StarterPage';
+import OnboardingPage from './pages/OnboardingPage';
+import UserProfile from './pages/UserProfile';
+import IngredientRecognition from './pages/IngredientRecognition';
+import RecipeSearch from './pages/RecipeSearch';
+import PrivateRoute from './components/PrivateRoute';
+import Layout from './components/Layout';
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/" element={<StarterPage />} />
+        <Route path="/onboarding" element={<OnboardingPage />} />
+
+        {/* Private Routes within a common layout */}
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <Layout />
+            </PrivateRoute>
+          }
+        >
+          <Route path="profile" element={<UserProfile />} />
+          <Route path="ingredients" element={<IngredientRecognition />} />
+          <Route path="recipes" element={<RecipeSearch />} />
+        </Route>
+
+        {/* Catch-all for undefined routes */}
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
