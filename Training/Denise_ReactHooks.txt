@@ -1,0 +1,57 @@
+Research: REACT Hooks
+Sources:
+    - React Reference https://react.dev/reference/react
+    - W3 School https://www.w3schools.com/react/react_hooks.asp 
+    - Medium https://medium.com/@dan_abramov/making-sense-of-react-hooks-fdbde8803889 
+    
+- What are REACT hooks? 
+    - Hooks provide a solution for fully breaking down UI components beyond without being restricted by state
+    - Hooks allow us to organize logic INSIDE a component into isolated resuasable pieces 
+    - Functions are good ways of reusing code, but functions scope are limited to their LOCAL React state
+        * this is where hooks come into play, they expand the scope of functions beyond the local state)
+
+- Hook rules:
+    1. Hooks can only be used INSIDE React function components
+    2. Hooks can only be called at the top level of a component
+    3. Hooks can NOT be conditional 
+
+- Types of hooks:
+    - State: useState
+        - purpose: allows a component to remember user imput data - retains values between renders
+        - returns: an array with exactly 2 values; the current state and set function
+        - general implementation: const [something, setSomething] = useState(newSomething)
+        - forget-me-nots: hook rule #2
+    - Context: useContext
+        - purpose: allows you to read and subscribe context from your component - a way to manage state globally
+            * can be used togetheer with useState for deeply nested components
+        - returns: the context values for the calling component
+        - general implementation: const contextValue = useContext(context)
+        - forget-me-nots: hook rule #2 and the corresponding <Context.Provider> must be above the component calling useContext
+    - Effect: useEffect
+        - purpose: allows you to synchronize a component with an external system, allows side effects in components
+        - returns: undefined or the cleanup function with cleanup code
+        - general implementation: useEffect(function, dependencies)
+        - forget-me-nots: runs on every render, only runs on the client (they do not run during server rendering)
+    - Performance: useMemo, useCallback
+        useMemo:
+        - purpose: allows you to cache the result of a calculation between re-renders
+        - returns: 
+            - intial render: result of calling calculateValue with no arguments
+            - next renders: already stored value or call calculateValue again 
+        - general implementation: const cachedValue = useMemo(calculateValue, dependencies)
+        - forget-me-nots: hook rule #2, react will not throw away the cached value unless there is a specific reason to,
+            if code does not work without it then there exist an underlying issue 
+        useCallback:
+        - purpose: allows you to cache a function definition between re-renders
+        - returns: 
+            - initial render: function passed
+            - next renders: already stored function or function passed 
+        - general implementation: const cachedFunction = useCallback(function, dependencies)
+        - forget-me-nots: hook rule #2, react will not throw away the cached function unless there is a specific reason to
+
+- How could hooks be used in this project? 
+    React hooks are a great way to: simplify state management, write resuable code,  manage fullstack communications and 
+    applications, and create scalable code. We could use useState hooks for handling UI changes with user form inputs or 
+    toggles. For backend data fetching, we could use useEffect hooks. To enforce a global state for authentication or 
+    even themes, we could use useContext hooks. Lastly to prevent unnecessary computations and even improve performance, 
+    we could use useMemo and useCallback hooks. 
