@@ -12,3 +12,34 @@ What do you expect to do with it, including any code you expect to write:
 Implement small tests using different frameworks
 Decide on the styling approach for the app
 Apply the chosen UI framework to the starter page
+
+
+
+-------
+Notes:
+Tailwind CSS: allows the most for customization, but does take more time do each component and may not be as consistent as the other options.
+- Due to these reasons Tailwind does not seem like an ideal choice.
+
+MateriaUI: best for speed and standardized components. Helps the team build components quickly with the small things like buttons, inputs, navigation, etc.
+- Design may feel slightly generic but the trade off seems to work in my opinion.
+
+Shadcn: is geared for more lighter and modular projects and is used often together with Tailwind. This really doesn't apply to our project so MaterialUI seems to be the best choice going forward.
+
+
+
+MaterialUI
+
+In looking at examples of websites online using MUI, it does have a very clean feel to it. Since our project focuses heavily on the backend with the API and user features, having this simple UI makes sense.
+
+- The prebuilt fields like buttons, textfields, navigation bar, etc. will be useful for us getting started right away.
+- The consistent look will help us as we have 6 members, so consistency is quite important.
+- There is a good amount of documentation and forum posts to troubleshoot as well.
+
+
+Installation is easy in our react project
+npm install @mui/material @emotion/react @emotion/styled
+
+From there on we can set up the theme and then begin using the components provided to us by materialUI.
+
+
+
