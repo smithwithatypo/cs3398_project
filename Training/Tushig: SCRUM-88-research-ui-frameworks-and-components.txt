@@ -14,6 +14,10 @@ Decide on the styling approach for the app
 Apply the chosen UI framework to the starter page
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> SCRUM-88-research-ui-frameworks-and-components
 -------
 Notes:
 Tailwind CSS: allows the most for customization, but does take more time do each component and may not be as consistent as the other options.
