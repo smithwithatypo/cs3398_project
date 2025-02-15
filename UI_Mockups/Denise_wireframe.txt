@@ -1,0 +1,4 @@
+Link to Figma wireframe: https://www.figma.com/design/yxMM5comqHXSbj5AkIUoUT/Wireframe?node-id=8-135&t=H9D14wJwmlPiFWwx-1 
+    - this is a just a wireframe (so no color or code -- just UI architecture ideas)
+    - using this link you have access to edit and leave comments on the wireframe 
+    - screenshots are also provided in this folder as well  
