@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.navbar {
+    @apply bg-gray-800 text-white p-4 flex justify-between items-center;
+}
+
+.navbar-logo {
+    @apply text-xl font-bold;
+}
+
+.navbar-links {
+    @apply flex space-x-4;
+}
+
+.navbar-link {
+    @apply text-white hover:text-gray-400;
+}
