@@ -7,3 +7,4 @@ Research: Research REACT
     Create a file structure that makes sense and is easy to navigate.
 - What Task(s) in Jira Represent the Work Dependent on the Research/Training?
     SCRUM-66 - Organize the file structure for the project
+    
