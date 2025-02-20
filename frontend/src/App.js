@@ -1,18 +1,19 @@
 // import logo from './assets/logo.svg';
-import './App.css';
-import Example from './components/example';
-import Navbar from './shared/navbar/navbar';
+import { useState } from "react";
+import "./App.css";
+import Navbar from "./shared/navbar/navbar";
+import Home from "./components/home";
+import Pantry from "./components/pantry";
 
-
-
-
-function App() {
+const App = () => {
+  const [page, setPage] = useState("home");
   return (
     <div className="App">
-      <Navbar />
-      <Example />
+      <Navbar setPage ={setPage} />
+      {page === "home" &&  <Home />}
+      {page === "pantry" && <Pantry />}
     </div>
   );
-}
+};
 
 export default App;
