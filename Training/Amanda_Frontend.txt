@@ -1,0 +1,48 @@
+Title or Name of Research/Training:
+Exploring SupaBase & Flask for Backend Implementation
+Why You Are Doing It:I am researching SupaBase and Flask to determine the best backend approach for the Recipe_Generator project Understanding their features 
+will help decide whether to use SupaBase for database management or integrate Flask for API handling
+What Do You Expect to Do With It:I expect to map out how SupaBase and Flask can be implemented to handle user authentication, data storage, and API requests This research will guide 
+the backend structure, ensuring scalability and efficiency
+What Task(s) in Jira Represent the Work Dependent on the Research/Training:
+Jira tasks include evaluating SupaBase vs MongoDB, setting up Flask API endpoints, and designing the database schema Other tasks involve testing 
+authentication methods, integrating recipe data storage, and determining the best deployment strategy for the backend
+
+
+---Notes-----
+
+Research SupaBase & Flask to determine the best backend setup
+Explore tutorials and best practices for using them together
+Map out how these tools fit into the Recipe_Generator project
+
+
+SupaBase Overview:
+    Open-source PostgreSQL-based backend with built-in authentication & storage
+    Provides real-time data syncing and easy API generation
+    Ideal for user management, recipe storage, and real-time updates
+
+    Open-source backend-as-a-service built on PostgreSQL
+    Provides authentication, database, storage, and real-time capabilities without managing infrastructure
+    Direct alternative to Firebase but uses SQL instead of NoSQL
+    Built-in REST & GraphQL APIs to interact with the database easily
+
+What SupaBase Does
+    Authentication → Handles user sign-ups, logins, and role-based access
+    Database → Uses PostgreSQL for structured and scalable data storage
+    Storage → Manages file uploads (images, documents, etc)
+    Real-time Updates → Syncs data changes instantly across clients
+    Edge Functions → Serverless functions for backend logic (similar to AWS Lambda)
+
+
+
+Flask Overview
+    Lightweight Python web framework for building APIs
+    Great for handling backend logic, routing, and database integration
+    Supports SQLAlchemy for database management and Marshmallow for data serialization
+    Ideal for custom business logic and integrating with other APIs (OpenAI, Spoonacular, etc)
+
+What Flask Does
+    Handles API requests (GET, POST, PUT, DELETE)
+    Manages user authentication (JWT, OAuth)
+    Processes external API calls (eg, fetching recipes from Spoonacular)
+    Interacts with a database (SQLAlchemy for PostgreSQL, MongoDB, or SQLite)
