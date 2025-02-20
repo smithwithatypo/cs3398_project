@@ -1,0 +1,149 @@
+Title or Name of Research/Training:
+Backend Development for Recipe_Generator App
+Why You Are Doing It: I am conducting this research to build a structured and efficient backend for the recipe app, ensuring data processing and API integration 
+Understanding backend technologies will help in managing user preferences, pantry items, and generating custom recipes
+What Do You Expect to Do With It:I plan to implement anorganized backend using Nodejs, Expressjs, and MongoDB to handle user requests and store data efficiently 
+Additionally, I will integrate external APIs like OpenAI and Spoonacular to enhance the recipe generation process
+
+What Task(s) in Jira Represent the Work Dependent on the Research/Training:Setting up the backend infrastructure, designing database schemas, and 
+developing API endpoints for user and pantry management Other tasks involve integrating third-party APIs, implementing authentication, and deploying the 
+backend using Docker
+
+
+
+
+----Notes-----
+Backend Basics
+
+The backend is responsible for handling requests from the frontend, processing data, and managing the database
+
+1 Server Setup (serverjs)
+    The serverjs file is the main entry point of your backend
+    It sets up Expressjs (a framework for handling API requests)
+    It enables CORS (so the frontend can communicate with the backend)
+    It connects to the MongoDB database
+
+
+2 Folder Structure
+Your backend should be modular Here's a basic structure:
+
+/backend
+│── serverjs          # Main entry file
+│── config/            # Configuration files (eg, database connection)
+│── routes/            # Handles different API routes
+│── controllers/       # Contains logic for handling API requests
+│── services/          # Processes data (API calls, database queries)
+│── models/            # Defines database schemas (User, Recipe)
+│── middleware/        # Security/authentication handling
+│── utils/             # Helper functions
+
+3 Routes (API Endpoints)
+    Routes define how the backend responds to requests from the frontend
+    Each route calls a controller which processes the request
+
+
+4 Controllers (Processing Requests)
+    Controllers handle the business logic for each API endpoint
+    They fetch or modify data using services
+
+5 Models (Database Structure)
+    MongoDB stores data in collections (like tables in SQL)
+    Schemas define how the data is structured
+
+
+6 Services (Processing Data & External APIs)
+    Services are responsible for handling complex logic, like calling external APIs
+
+7 Connecting Everything
+    Frontend makes a request to /api/user/123/pantry (for example)
+    Route (userRoutesjs) matches the request and calls updateUserPantry()
+    Controller (userControllerjs) processes the request and updates the database
+    Database (Userjs) stores the new pantry data
+    Response is sent back to the frontend
+
+
+---Tools in Detail-------
+
+Nodejs
+
+    What It Is: A JavaScript runtime that allows running JS outside the browser
+    What It Does: Handles backend logic, API requests, and server-side processing
+    Why It's Helpful:
+    Uses non-blocking, event-driven architecture → Fast & efficient
+    Supports asynchronous programming → Handles multiple requests simultaneously
+    Works well with JavaScript frontend (React) → Full-stack JavaScript development
+
+Expressjs
+
+    What It Is: A lightweight Nodejs framework for building web applications and APIs
+    What It Does:
+    Manages routes (URL paths for API endpoints)
+    Handles middleware (functions that modify requests before responses)
+    Supports RESTful API design (GET, POST, PUT, DELETE operations)
+    Why It's Helpful:
+    Simplifies API development compared to raw Nodejs
+    Flexible & minimal → Can be customized based on project needs
+    Works with middlewares (like authentication, logging, error handling)
+
+Axios
+
+    What It Is: A library for making HTTP requests in JavaScript
+    What It Does: Fetches data from external APIs (like OpenAI, Spoonacular)
+    Why It's Helpful:
+    Handles API calls efficiently (with built-in error handling)
+    Supports async/await for cleaner, more readable code
+    Allows setting global configurations (eg, base URLs, headers, tokens)
+
+env (Environment Variables)
+
+    What It Is: A file used to store sensitive credentials & configuration settings
+    What It Does:
+    Stores API keys, database credentials, and other secrets
+    Prevents exposing sensitive data in code
+    Why It's Helpful:
+    Security best practice → Keeps API keys safe
+    Easier configuration → Change settings without modifying the code
+    Example Usage:
+        Create a env file and store credentials:
+        API_KEY=your_api_key_here
+        Load it in Nodejs:
+        require('dotenv')config();
+        const apiKey = processenvAPI_KEY;
+
+CORS (Cross-Origin Resource Sharing)
+
+    What It Is: A security feature that controls how resources are shared between different domains
+    What It Does:
+    Allows frontend (React) to communicate with backend (Node/Express) securely
+    Prevents unauthorized requests from unknown sources
+    Why It's Helpful:
+    Needed when frontend and backend are hosted on different domains (eg, localhost:3000 and localhost:5000)
+    Avoids CORS errors when making API calls from the browser
+    Example Usage in Express:
+        const cors = require('cors');
+        appuse(cors());
+
+
+Methodologies & Best Practices ||
+
+Backend-for-Frontend (BFF) Approach
+    What It Is: The backend handles all API calls and processes data before sending it to the frontend
+    Why It's Helpful:
+    Reduces frontend complexity by providing clean, pre-processed data
+    Improves performance by limiting unnecessary API calls from the frontend
+
+Security Best Practices
+Store API keys in env to prevent leaks
+Use CORS to control access to backend APIs
+Implement authentication (JWT, OAuth) to protect user data
+
+Modular Architecture
+    Separate concerns into routes, controllers, and services for cleaner code
+    Example Structure:
+    backend/
+    ├── routes/       # API route handlers
+    ├── controllers/  # Business logic (processing API requests)
+    ├── services/     # External API calls, database interactions
+    ├── models/       # Database schemas
+    ├── serverjs     # Main entry point
+
