@@ -1,0 +1,10 @@
+Research: Research REACT
+- Why You Are Doing It?
+    We want to start with a good foundation before we start building complex things on top of it.
+- What You Expect to Learn/Do?
+    I want to organize the files in a coherent way that make it easy to add to in the future.
+- What Do You Expect to Do With It (Including Specific Code)?
+    Create a file structure that makes sense and is easy to navigate.
+- What Task(s) in Jira Represent the Work Dependent on the Research/Training?
+    SCRUM-66 - Organize the file structure for the project
+    
