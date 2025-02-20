@@ -1,0 +1,122 @@
+Title or Name of Research/Training: Exploring SupaBase & Flask for Backend Implementation.
+Why You Are Doing It: I am researching SupaBase and Flask to determine the best backend approach for the Recipe_Generator project by understanding 
+their features for database management and API handling.
+What Do You Expect to Do With It: I expect to map out how SupaBase and Flask can be used for user authentication, data storage, and API requests to guide a 
+scalable and efficient backend structure.
+What Task(s) in Jira Represent the Work Dependent on the Research/Training: Jira tasks include evaluating SupaBase vs MongoDB,
+setting up Flask API endpoints, designing the database schema, testing authentication methods, integrating recipe data storage, 
+and determining the best backend deployment strategy.
+
+
+Setting Up MongoDB for Node.js & Express (Windows & macOS)
+
+1. Install MongoDB
+
+For Windows
+
+        Download MongoDB Community Edition from MongoDB Download Center.
+
+        Install and choose "Complete" setup.
+
+        Add MongoDB to your system PATH.
+
+        Start MongoDB server using:
+
+        mongod --dbpath C:\data\db
+
+For macOS (Homebrew)
+
+        brew tap mongodb/brew
+        brew install mongodb-community@6.0
+        brew services start mongodb-community@6.0
+
+Option: Use MongoDB Atlas (Cloud Solution)
+
+Go to MongoDB Atlas.
+
+Create a free account.
+
+Create a new shared cluster.
+
+Get the MongoDB connection string from your cluster (e.g., mongodb+srv://your-username:your-password@cluster.mongodb.net/yourDB).
+
+
+
+2. Install Dependencies in Node.js Project
+
+    Navigate to your project directory and install MongoDB-related packages:
+
+    npm install mongoose dotenv
+
+3. Set Up MongoDB Connection
+
+        Create a .env file in your project root and add:
+
+        MONGO_URI=mongodb+srv://your-username:your-password@cluster.mongodb.net/yourDB
+
+        In your server.js or app.js file, set up the connection:
+
+        require("dotenv").config();
+        const mongoose = require("mongoose");
+
+        mongoose.connect(process.env.MONGO_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+        })
+        .then(() => console.log("MongoDB Connected"))
+        .catch(err => console.log(err));
+
+4. Define a Mongoose Model
+
+        Create a models/recipe.js file:
+
+        const mongoose = require("mongoose");
+
+        const recipeSchema = new mongoose.Schema({
+        title: { type: String, required: true },
+        ingredients: [{ type: String, required: true }],
+        instructions: { type: String, required: true },
+        createdAt: { type: Date, default: Date.now }
+        });
+
+        module.exports = mongoose.model("Recipe", recipeSchema);
+
+5. Create API Routes for CRUD Operations
+
+Create routes/recipeRoutes.js:
+
+        const express = require("express");
+        const Recipe = require("../models/recipe");
+        const router = express.Router();
+
+        // Get all recipes
+        router.get("/", async (req, res) => {
+        try {
+            const recipes = await Recipe.find();
+            res.json(recipes);
+        } catch (err) {
+            res.status(500).json({ message: err.message });
+        }
+        });
+
+        // Add a new recipe
+        router.post("/", async (req, res) => {
+        try {
+            const newRecipe = new Recipe(req.body);
+            await newRecipe.save();
+            res.status(201).json(newRecipe);
+        } catch (err) {
+            res.status(400).json({ message: err.message });
+        }
+        });
+
+        module.exports = router;
+
+        Add this to server.js:
+
+        const recipeRoutes = require("./routes/recipeRoutes");
+        app.use("/recipes", recipeRoutes);
+
+6. Start the Server & Test
+
+
