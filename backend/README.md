@@ -24,6 +24,11 @@ Make sure you have Node.js and npm installed on your machine.
     ```bash
     npm install
     ```
+4. Rename the .env.sample file:
+    ```bash
+    mv .env.sample .env
+    ```
+5. In your .env file, update your variables to match your API keys, etc
 
 ### Running the Project
 
