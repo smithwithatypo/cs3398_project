@@ -1,0 +1,37 @@
+Sources:
+Learn React UI: https://react.dev/learn/describing-the-ui
+Adding Interactivity: https://react.dev/learn/adding-interactivity
+
+Title or name of research/training: Introduction to React and Navigation Implementation
+
+Why you are doing it: 
+    - I am researching React and its navigation capabilities to implement a navigation bar on the homepage of our 
+    website. Our first task is for the bar to include:
+        - An icon button that redirects users to the homepage when clicked.
+        - A pantry button that navigates users to a separate pantry management page.
+    - More buttons will be added as we progress and implement more features.
+
+What you expect to learn/do:
+    - I expect to gain knowledge on:
+        - React Router – How to implement client-side routing for seamless page navigation.
+        - Component Structure in React – Best practices for structuring reusable components.
+        - Event Handling in React – Managing onClick events for navigation buttons.
+        - CSS Styling for Navigation Bars – Ensuring responsive and aesthetic UI design.
+
+Be specific by identifying what code/modules will be affected by theresearch/training:
+    - Navigation Component – The main file handling site navigation.
+    - App Router Configuration – Managing different page routes.
+    - CSS/Styling Modules – Ensuring consistent UI/UX.
+
+What do you expect to do with it: 
+    - Implement a nav element with Link components for routing.
+    - Add an img element for the logo, which redirects users to the homepage.
+    - Configure BrowserRouter, Routes, and Route components in App.js.
+    - Define paths for homepage (/) and pantry page (/pantry).
+    - Make it responsive using CSS.
+
+What task(s) in Jira represent the work you will do that was/is dependent on the research/training:
+    - Scrum-72 Create Navigation Bar
+    - Scrum-73 Implement Icon and Pantry Button
+
+    
