@@ -1,15 +1,10 @@
-import React from 'react';
-
-const Navbar = () => {
-    return (
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    );
+const Navbar = ({ setPage }) => {
+    <nav className="navbar">
+        <h1>Recipe Generator</h1>
+        <ul>
+            <li><button onClick={() => setPage("home")}>Home</button></li>
+            <li><button onClick={() => setPage("pantry")}>Pantry</button></li>
+        </ul>
+    </nav>
 };
-
 export default Navbar;
