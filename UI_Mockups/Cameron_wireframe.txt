@@ -1,0 +1,5 @@
+Link to Figma: https://www.figma.com/proto/pQWZ3mxqSaH6VNbKN6at4R/Recipe-Generator?node-id=0-1&t=lPmvN9BGXPlV0hPB-1
+
+- This is a very minimal mock design of the starter page and pantry page.
+- Colors for the actual web page can be chosen using: https://colormagic.app/
+    - Good for finding color palettes that compliment each other.
