@@ -1,0 +1,101 @@
+February 18 Meeting Documentation
+
+Frontend (React)
+Technologies:
+✅ React.js - Component-based UI framework
+✅ Tailwind CSS - little harder but more customizable and marketable
+✅ Axios - For making requests to the backend
+✅ React Router - For navigation and routing between pages
+✅ State Management Approach:
+useState → UI toggles, form inputs
+useContext → User settings (e.g., dietary preferences, expertise level)
+Redux → Shared global state (API calls, user profile, recommendations) (needs more research)
+“Prop drilling” - one main parent that handles all api calls, then sends out the data to childs components (an analogy is like passing parameters into a function).
+Methodologies:
+Component-based architecture → Reusable and maintainable UI components
+State management strategy → Using multiple state management techniques based on use case
+Separation of concerns → Backend handles API calls, frontend focuses on UI
+
+Backend (Node.js & Express)
+Technologies:
+✅ Node.js - JavaScript runtime for handling API logic
+✅ Express.js - Lightweight backend framework for handling routes and API calls
+✅ Axios - Used in the backend to call external APIs (OpenAI, Spoonacular, etc.)
+
+✅ .env - For storing API keys securely
+✅ Cors - For handling cross-origin requests between frontend and backend
+		Hard but we will need.
+Methodologies:
+Backend-for-frontend (BFF) approach → The backend handles all API calls and sends clean data to the frontend
+Security best practices → Storing API keys in .env, not exposing them in frontend
+Modular architecture → Separate routes/controllers for different API functionalities
+
+Database
+Technologies:
+✅ MongoDB - NoSQL database for storing user preferences, saved recipes, and interactions.
+Methodologies:
+Document-based storage → Ideal for flexible data (e.g., recipes, user preferences)
+RESTful API design → API endpoints will allow CRUD operations on user data
+
+Summary of Tech Stack:
+Layer
+Technology Used
+Frontend
+React.js, Tailwind CSS
+Backend
+Node.js, Express.js, Axios
+Database
+MongoDB
+API Integration
+OpenAI, Spoonacular, and other cooking APIs
+
+
+
+
+Recipe_Regenerator Structure
+
+
+Backend
+server.js
+Main entry point
+Handles CORS
+Handles ports
+
+Routes
+Routes for features
+	Each route will call controllers
+		Controllers will call services (how dell organizes)			
+
+Services
+	Handling requests like external api calls
+		Api data will be stored on mongoDB - one service connects to database to create an object and then the second service will use the database object for any other service.
+
+
+
+
+
+Front End
+Components - each component will have 2 files associated with it. JSX + javascript logic, CSS styles.
+Pages
+Child components of the page (need to research file naming structure)	
+	
+Shared
+	Navbar, buttons, headers, etc. - parts that will used on every page pretty much)
+	
+
+
+Other Tips
+We will use Docker for deployment. Some people don’t have to know for their roles but I would recommend learning.
+Front End for Startup Page tasks
+Existing user page first
+Create navigation bar
+Search
+My pantry
+
+Back End for Startup Page tasks
+We will just get a json file from the frontend and it’s the backend’s job to deal with that.
+
+
+Data modeling - data architecture
+What data do we want for the user
+
