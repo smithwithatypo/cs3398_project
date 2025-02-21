@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Title or Name of Research/Training: Developing and Integrating a Filter Components in React.
 Why You Are Doing It: I am conducting this research to gain the knowledge needed to implement filtera that enhances user experience and meets our dietary requirements/ goals.
 What You Expect to Learn/Do: I expect to learn how to build and integrate a stateful React component, specifically affecting the RecipeList and new VegetarianFilter modules.
@@ -159,3 +160,12 @@ function App() {
 
 14. React DevTools
 A browser extension for debugging React apps.
+=======
+Title or Name of Research/Training: "Developing and Integrating a Vegetarian Filter Component in React."
+Why You Are Doing It: I am conducting this research to gain the knowledge needed to implement a dynamic vegetarian filter that enhances user experience and meets our dietary requirements.
+What You Expect to Learn/Do: I expect to learn how to build and integrate a stateful React component, specifically affecting the RecipeList and new VegetarianFilter modules.
+What Do You Expect to Do With It (Including Specific Code): I plan to write a new VegetarianFilter.js component, update RecipeList.js to incorporate filter logic, and implement event handling 
+and API integration code.
+What Task(s) in Jira Represent the Work Dependent on the Research/Training: The research supports the tasks "UI/UX Design for Vegetarian Filter Component," 
+"Implement Front-End Vegetarian Filter Component in React," and "Write Unit Tests for the Front-End Filter Component."
+>>>>>>> SCRUM-59-create-a-home-page
