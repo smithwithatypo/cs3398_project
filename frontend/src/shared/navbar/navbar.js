@@ -1,10 +1,15 @@
-const Navbar = ({ setPage }) => {
+import { Link } from "react-router-dom";
+
+const Navbar = () => {
+  return (
     <nav className="navbar">
-        <h1>Recipe Generator</h1>
-        <ul>
-            <li><button onClick={() => setPage("home")}>Home</button></li>
-            <li><button onClick={() => setPage("pantry")}>Pantry</button></li>
-        </ul>
+      <h1>Recipe Generator</h1>
+      <ul>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/pantry">Pantry</Link></li>
+      </ul>
     </nav>
+  );
 };
+
 export default Navbar;
