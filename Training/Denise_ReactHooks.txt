@@ -55,3 +55,5 @@ Sources:
     toggles. For backend data fetching, we could use useEffect hooks. To enforce a global state for authentication or 
     even themes, we could use useContext hooks. Lastly to prevent unnecessary computations and even improve performance, 
     we could use useMemo and useCallback hooks. 
+
+    * we could use react-router-dom for navigating the pages of the site and useState for the changes on each page
