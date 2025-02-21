@@ -1,18 +1,21 @@
 // import logo from './assets/logo.svg';
-import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 import Navbar from "./shared/navbar/navbar";
 import Home from "./components/home";
 import Pantry from "./components/pantry";
 
 const App = () => {
-  const [page, setPage] = useState("home");
   return (
-    <div className="App">
-      <Navbar setPage ={setPage} />
-      {page === "home" &&  <Home />}
-      {page === "pantry" && <Pantry />}
-    </div>
+    <Router>
+      <div className="App">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/pantry" element={<Pantry />} />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 
