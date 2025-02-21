@@ -1,13 +1,3 @@
-Title or Name of Research/Training: Exploring SupaBase & Flask for Backend Implementation.
-Why You Are Doing It: I am researching SupaBase and Flask to determine the best backend approach for the Recipe_Generator project by understanding 
-their features for database management and API handling.
-What Do You Expect to Do With It: I expect to map out how SupaBase and Flask can be used for user authentication, data storage, and API requests to guide a 
-scalable and efficient backend structure.
-What Task(s) in Jira Represent the Work Dependent on the Research/Training: Jira tasks include evaluating SupaBase vs MongoDB,
-setting up Flask API endpoints, designing the database schema, testing authentication methods, integrating recipe data storage, 
-and determining the best backend deployment strategy.
-
-
 Setting Up MongoDB for Node.js & Express (Windows & macOS)
 
 1. Install MongoDB
