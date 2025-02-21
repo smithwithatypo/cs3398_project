@@ -1,16 +1,12 @@
-import React from "react";
-import "./home.css";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
+
   return (
-    <div className="home-container">
-      <div className="how-it-works">
-        <h2>How it works:</h2>
-        <p>
-        Easily turn your ingredients into delicious meals with just a few taps. Enter the ingredients you have, and we’ll suggest recipes you can make. Ready to start cooking? Search for a recipe or add your ingredients to begin! 
-        </p>
-        <button className="start-button">Start Here!</button>
-      </div>
+    <div className="home">
+      <h2>Welcome to the Recipe Generator</h2>
+      <button onClick={() => navigate("/pantry")}>Go to Pantry</button>
     </div>
   );
 };
