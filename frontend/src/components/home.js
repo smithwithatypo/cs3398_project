@@ -16,10 +16,7 @@ const Home = () => {
       <section className="how-it-works">
         <h2>How it works:</h2>
         <p>
-          Bacon ipsum dolor amet tri-tip cow capicola, strip steak prosciutto
-          andouille venison pork belly salami bacon jowl ham hock leberkas. Jowl
-          turducken boudin cupim ground round ball tip filet mignon frankfurter
-          beef t-bone.
+        Welcome to Recipe Generator! Easily turn your ingredients into delicious meals with just a few taps. Enter the ingredients you have, and we’ll suggest recipes you can make. Ready to start cooking? Search for a recipe or add your ingredients to begin!
         </p>
         <button className="start-button" onClick={() => navigate("/pantry")}>
           Start Here!
