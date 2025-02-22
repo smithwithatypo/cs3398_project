@@ -1,0 +1,72 @@
+.pantry-layout {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+  }
+.how-it-works {
+    background-color: #d9b75e;
+    padding: 20px;
+    max-width: 400px;
+    text-align: left;
+    border-radius: 8px;
+}
+.recipe-card {
+    background-color: #d0ded5;
+    padding: 15px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: left;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+.input-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+input {
+    flex: 1;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.start-button {
+    background-color: #1e2d3d;
+    color: white;
+    padding: 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.start-button:hover {
+    background-color: #16232e;
+}
+.pantry-items {
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+}
+.pantry-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+  }
+.remove-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 8px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+.remove-button:hover {
+    background-color: darkred;
+  }
+  
