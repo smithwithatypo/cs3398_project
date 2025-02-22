@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./pantry.css"; // Import the CSS file
+import "./pantry.css"; 
 
 const Pantry = () => {
   const [items, setItems] = useState([]);
@@ -19,16 +19,13 @@ const Pantry = () => {
   return (
     <div className="home-container">
       <div className="pantry-layout">
-        {/* How It Works Section */}
         <div className="how-it-works">
           <h2> Your Pantry</h2>
           <h4> How it works: </h4>
-          <p>Add and manage your pantry items to generate recipes based on what you have.</p>
+          <p> Update your pantry by adding or removing items to generate personalized recipes just for you!</p>
         </div>
-
-        {/* Pantry Inventory Section */}
         <div className="recipe-card">
-          <h3>Pantry Inventory</h3>
+          <h3>Pantry Inventory </h3>
           <div className="input-container">
             <input
               type="text"
@@ -38,11 +35,9 @@ const Pantry = () => {
             />
             <button className="start-button" onClick={addItem}>Add Item</button>
           </div>
-
-          {/* Pantry Items List */}
           <div className="pantry-items">
             {items.length === 0 ? (
-              <p>No items in the pantry.</p>
+              <p> No items currently in pantry.</p>
             ) : (
               items.map((item, index) => (
                 <div key={index} className="pantry-item">
