@@ -10,6 +10,10 @@ const Pantry = () => {
     }
   };
 
+  const removeItem = (index) => {
+    setItems(items.filter((_, i) => i !== index));
+  };
+
   return(
     <div>
       <h2>Pantry</h2>
@@ -23,6 +27,18 @@ const Pantry = () => {
           onChange={(e) => setNewItem(e.target.value)} />
         <button onClick={addItem}>Add Item</button>
         </div>
+        <div>
+            {items.length === 0 ? (
+              <p>No items in the pantry.</p>
+            ) : (
+              items.map((item, index) => (
+                <div key={index}>
+                  <button onClick={() => removeItem(index)}>X</button>
+                  <span>{item}</span>
+                </div>
+              ))
+            )}
+          </div>
     </div>
   );
 };
