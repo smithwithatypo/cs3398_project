@@ -66,4 +66,7 @@ input {
     border-radius: 5px;
     cursor: pointer;
   }
+.remove-button:hover {
+    background-color: darkred;
+  }
   
