@@ -21,7 +21,8 @@ const Pantry = () => {
       <div className="pantry-layout">
         {/* How It Works Section */}
         <div className="how-it-works">
-          <h2>How It Works</h2>
+          <h2> Your Pantry</h2>
+          <h4> How it works: </h4>
           <p>Add and manage your pantry items to generate recipes based on what you have.</p>
         </div>
 
