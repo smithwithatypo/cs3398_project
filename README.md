@@ -1,13 +1,15 @@
 # Phone to Table - CS3398 Project
 
 ## Table of Contents
-* [Description](#description)
-* [General Info](#general-info)
+* [Team](#team)
+* [Vision](#vision)
 * [Features](#features)
 * [Technologies](#technologies)
 * [Features](#features)
+* [Contributions](#constributions)
+* [Reports](#reports)
 
-## Description
+## Team
 - Who are our teammates?
     - Cameron Archuleta
     - Tushig Battulga
@@ -15,6 +17,9 @@
     - Amanda Orozco
     - Stephen Smyth
     - Elliot Sonoqui
+
+## Vision
+![icon of phone with recipe generator](icon.png)
 - What are we creating?
     A mobile application that helps users generate recipes based on available 
     ingredients, online content, and personal preferences. We want to bring 
@@ -31,16 +36,15 @@
     Additionally, it will simplify meal planning by providing tailored recipe 
     recommendations based on their scanned pantry items.
 
-## General Info
-![icon of phone with recipe generator](icon.png)
-
 ## Technologies
 - Front-End:
     - REACT 
     - HTML 
     - CSS 
+    - JavaScript
 - Back-End:
-    - Languages: python
+    - MongoDB
+    - JavaScript
     - APIs: Instagram, Spoonacular, OpenAI
 
 ## Features
@@ -56,3 +60,48 @@
     - User Stories:
         - As an health-consciencous user, I want to be able to know the macros of 
         recipes to make macro tracking easier
+
+## Contributitions
+Sprint 1:
+
+- Cameron Archuleta: "<sentence_on_what_you_did_this_sprint>"
+    - Jira Task: <Jira_Task_Name>
+    - Commit History: <Bitbucket_commits>
+- Tushig Battulga: "<sentence_on_what_you_did_this_sprint>"
+    - Jira Task: <Jira_Task_Name>
+    - Commit History: <Bitbucket_commits>
+- Denise Boler: "<sentence_on_what_you_did_this_sprint>"
+    - Jira Task: <Jira_Task_Name>
+    - Commit History: <Bitbucket_commits>
+- Amanda Orozco: "<sentence_on_what_you_did_this_sprint>"
+    - Jira Task: <Jira_Task_Name>
+    - Commit History: <Bitbucket_commits>
+- Stephen Smyth: "<sentence_on_what_you_did_this_sprint>"
+    - Jira Task: <Jira_Task_Name>
+    - Commit History: <Bitbucket_commits>
+- Elliot Sonoqui: "<sentence_on_what_you_did_this_sprint>"
+    - Jira Task: <Jira_Task_Name>
+    - Commit History: <Bitbucket_commits>
+
+Report:
+![image of Sprint 1 burnup chart](Sprint1_BurnupChart.png)
+
+Next Steps:
+- Cameron Archuleta
+    - this
+    - that
+- Tushig Battulga
+    - this
+    - that
+- Denise Boler
+    - this
+    - that
+- Amanda Orozco
+    - this
+    - that
+- Stephen Smyth
+    - this
+    - that
+- Elliot Sonoqui
+    - this
+    - that
