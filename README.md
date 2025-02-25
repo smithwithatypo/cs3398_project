@@ -81,18 +81,24 @@ Sprint 1:
     - Commit History: <Bitbucket_commits>
 
 - Elliot Sonoqui: "I did research about the different components we are using, created UI mockups for our application, and created the homepage using react router and useNavigate to jump from page to page."
-    - Jira Task: Research REACT/Supabase/Flask/OpenAI
-    - Commit History: **[(SCRUM53)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-53)**
-    - Jira Task: Download Apps/Logins
-    - Commit History: **[(SCRUM54)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-54)**
-    - Jira Task: upload zoom video and transcript explaining code
-    - Commit History: **[(SCRUM93)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-93)**
-    - Jira Task: add hex color scheme
-    - Commit History: **[(SCRUM58)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-58)**
-    - Jira Task: Work on UI for the app
-    - Commit History: **[(SCRUM61)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-61)**
-    - Jira Task: create a home page
-    - Commit History: **[(SCRUM59)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-59)**
+    - Jira Task: **[(SCRUM53)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-53)**
+    - Commit History: **[(bitbucket)](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/feature/SCRUM-53-research-react-supabase/flask/o)**
+    
+    - Jira Task: **[(SCRUM54)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-54)**
+    - Commit History: **[(bitbucket)](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-54-download-apps-logins)**
+
+    - Jira Task: **[(SCRUM93)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-93)**
+    - Commit History: **[(bitbucket)](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-93-upload-zoom-video-and-transcrip)**
+
+    - Jira Task: **[(SCRUM58)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-58)**
+    - Commit History: **[(bitbucket)](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-58-add-hex-color-scheme)**
+
+    - Jira Task: **[(SCRUM61)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-61)**
+    - Commit History: **[(bitbucket)](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-61-work-on-ui-for-the-app)**
+
+    - Jira Task: **[(SCRUM59)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-59)**
+    - Commit History: **[(bitbucket)](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-61-work-on-ui-for-the-app)**
+
 
 Report:
 ![image of Sprint 1 burnup chart](Sprint1_BurnupChart.png)
