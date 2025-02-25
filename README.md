@@ -67,9 +67,26 @@ Sprint 1:
 - Cameron Archuleta: "<sentence_on_what_you_did_this_sprint>"
     - Jira Task: <Jira_Task_Name>
     - Commit History: <Bitbucket_commits>
-- Tushig Battulga: "<sentence_on_what_you_did_this_sprint>"
-    - Jira Task: <Jira_Task_Name>
-    - Commit History: <Bitbucket_commits>
+
+- Tushig Battulga:
+    - Organized meeting to come to a consensus on the UI and delegate teams and tasks for the backend + frontend.  
+    *[Agree upon starter page and delegate work to team members (SCRUM-92)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-92)*  
+
+    - Setup my environment for our project (JavaScript, React, Node, etc.)  
+    *[React Project Tools for Setup (SCRUM-87)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-87)*  
+
+    - Researched, learned, and compiled notes for React state management.  
+    *[Research: React State Management (SCRUM-84)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-84)*  
+
+    - Researched, learned, and compiled notes for UI working with React.  
+    *[Research: UI Frameworks and Components (SCRUM-88)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-88)*  
+
+    - Researched, learned, and compiled notes for routing navigation.  
+    *[Research: Routing for navigation between pages (SCRUM-89)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-89)*  
+
+    - Created demo for backend, that takes in a sample JSON file with ingredients and uses the ingredients as a prompt to OpenAI's API to generate a recipe.  
+    *[OpenAI API Integration with sample JSON ingredients file (SCRUM-86)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-86)*  
+
 - Denise Boler: "<sentence_on_what_you_did_this_sprint>"
     - Jira Task: <Jira_Task_Name>
     - Commit History: <Bitbucket_commits>
@@ -108,8 +125,9 @@ Next Steps:
     - this
     - that
 - Tushig Battulga
-    - this
-    - that
+    - implement a database with MongoDB that stores the ingredients and their quantities in the pantry
+    - make the pantry database editable in regards to entries and quantity
+    - connect the frontend with the backend
 - Denise Boler
     - this
     - that
