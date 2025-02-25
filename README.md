@@ -79,9 +79,20 @@ Sprint 1:
 - Stephen Smyth: "<sentence_on_what_you_did_this_sprint>"
     - Jira Task: <Jira_Task_Name>
     - Commit History: <Bitbucket_commits>
-- Elliot Sonoqui: "<sentence_on_what_you_did_this_sprint>"
-    - Jira Task: <Jira_Task_Name>
-    - Commit History: <Bitbucket_commits>
+    
+- Elliot Sonoqui: "I did research about the different components we are using, created UI mockups for our application, and created the homepage using react router and useNavigate to jump from page to page."
+    - Jira Task: Research REACT/Supabase/Flask/OpenAI
+    - Commit History:https://cs3398-luna-spring.atlassian.net/browse/SCRUM-53
+    - Jira Task: Download Apps/Logins
+    - Commit History: https://cs3398-luna-spring.atlassian.net/browse/SCRUM-54
+    - Jira Task: upload zoom video and transcript explaining code
+    - Commit History: https://cs3398-luna-spring.atlassian.net/browse/SCRUM-93
+    - Jira Task: add hex color scheme
+    - Commit History: https://cs3398-luna-spring.atlassian.net/browse/SCRUM-58
+    - Jira Task: Work on UI for the app
+    - Commit History: https://cs3398-luna-spring.atlassian.net/browse/SCRUM-61
+    - Jira Task: create a home page
+    - Commit History: https://cs3398-luna-spring.atlassian.net/browse/SCRUM-59
 
 Report:
 ![image of Sprint 1 burnup chart](Sprint1_BurnupChart.png)
