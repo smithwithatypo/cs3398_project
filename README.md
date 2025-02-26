@@ -88,8 +88,6 @@
     - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-63-research-supabase-flask-designs)
 - [SCRUM-50](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-50) Research React
     - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-50-research-react)
-- [SCRUM-54](https://cs3398-luna-spring.atlassian.net/jira/software/projects/SCRUM/boards/1/timeline?selectedIssue=SCRUM-54) Download Apps/Logins
-    - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/commits/branch/SCRUM-54-download-apps-logins)
 - [SCRUM-94](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-94) Backend Database Startup
     - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-94-backend-database-startup)
 
