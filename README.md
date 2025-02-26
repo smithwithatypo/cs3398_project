@@ -70,22 +70,17 @@ Sprint 1:
 
 - Tushig Battulga:
     - Organized meeting to come to a consensus on the UI and delegate teams and tasks for the backend + frontend.  
-    *[Agree upon starter page and delegate work to team members (SCRUM-92)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-92)*  
-
+    [JIRA - SCRUM-92](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-92) | [Bitbucket - Commits](https://bitbucket.org/cs3398-luna-s25/{45b01286-1397-4155-a753-0c05200a2659}/branch/SCRUM-92-agree-upon-starter-page-and-delegate-work-to-team-members)  
     - Setup my environment for our project (JavaScript, React, Node, etc.)  
-    *[React Project Tools for Setup (SCRUM-87)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-87)*  
-
+    [JIRA - SCRUM-87](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-87) | [Bitbucket - Commits](https://bitbucket.org/cs3398-luna-s25/{45b01286-1397-4155-a753-0c05200a2659}/branch/SCRUM-87-research-react-project-tools-for-setup)  
     - Researched, learned, and compiled notes for React state management.  
-    *[Research: React State Management (SCRUM-84)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-84)*  
-
+    [JIRA - SCRUM-84](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-84) | [Bitbucket - Commits](https://bitbucket.org/cs3398-luna-s25/{45b01286-1397-4155-a753-0c05200a2659}/branch/SCRUM-84-research-react-state-management)  
     - Researched, learned, and compiled notes for UI working with React.  
-    *[Research: UI Frameworks and Components (SCRUM-88)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-88)*  
-
+    [JIRA - SCRUM-88](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-88) | [Bitbucket - Commits](https://bitbucket.org/cs3398-luna-s25/{45b01286-1397-4155-a753-0c05200a2659}/branch/SCRUM-88-research-ui-frameworks-and-components)  
     - Researched, learned, and compiled notes for routing navigation.  
-    *[Research: Routing for navigation between pages (SCRUM-89)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-89)*  
-
+    [JIRA - SCRUM-89](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-89) | [Bitbucket - Commits](https://bitbucket.org/cs3398-luna-s25/{45b01286-1397-4155-a753-0c05200a2659}/branch/SCRUM-89-research-routing-for-navigation)  
     - Created demo for backend, that takes in a sample JSON file with ingredients and uses the ingredients as a prompt to OpenAI's API to generate a recipe.  
-    *[OpenAI API Integration with sample JSON ingredients file (SCRUM-86)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-86)*  
+    [JIRA - SCRUM-86](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-86) | [Bitbucket - Commits](https://bitbucket.org/cs3398-luna-s25/{45b01286-1397-4155-a753-0c05200a2659}/branch/SCRUM-86-open-ai-api-integration-with-sample-json-ingredients-file)  
 
 - Denise Boler: "<sentence_on_what_you_did_this_sprint>"
     - Jira Task: <Jira_Task_Name>
