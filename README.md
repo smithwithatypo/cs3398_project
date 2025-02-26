@@ -93,7 +93,7 @@
 - [SCRUM-94](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-94) Backend Database Startup
     - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-94-backend-database-startup)
 
-> **Stephen Smyth**  *"For Sprint 1, I researched how we could organize the code, helped set up dev environments, and coded 
+> **Stephen Smyth**  *"For Sprint 1, I researched how we could organize the code, helped set up dev environments, and coded"*
 - [SCRUM-65](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-65?atlOrigin=eyJpIjoiMDJiY2U2OTQzMTcyNDU2YWI2NjE2MDc3Mjc5NDNhYWQiLCJwIjoiaiJ9) Research how to organize a large project
     - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-65-research-how-to-organize-a-larg)
 - [SCRUM-66](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-66?atlOrigin=eyJpIjoiYzQzYTIzOGE5MmI1NDkwOWFiM2IyYmZlZDQ5ZGRmZjEiLCJwIjoiaiJ9) Make scaffolding for frontend and backend
