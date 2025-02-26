@@ -53,9 +53,16 @@
 ## Contributitions
 ### Sprint 1
 
->**Cameron Archuleta** *"<sentence_on_what_you_did_this_sprint>"*
-- <Jira_Task_Name>
-    - <Bitbucket_commits>
+>**Cameron Archuleta** *""I researched the different tools that we will be using for this project. Created a wireframe using figma
+                        to give an idea of what our website will look like and created a navbar that links our home & pantry page.""*
+- [SCRUM-90](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-90) Research: React & HTML
+    - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-90-research-react-html)
+- [Scrum-91](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-91) Create a Mock Design of Starter Page
+    - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-91-create-a-mock-design-of-starter)
+- [Scrum-72](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-72) Create Navigation Bar
+    - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/commits/a0e193d713be17baa3a67890ac6f411aacda1c0d)
+- [Scrum-73](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-73) Implement Icon & Pantry Button
+    - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/commits/a0e193d713be17baa3a67890ac6f411aacda1c0d)
 
 >**Tushig Battulga** *"Organized meeting to come to a consensus on the UI and delegate teams and tasks for the backend + frontend. Setup my environment for our project (JavaScript, React, Node, etc.) Researched, learned, and compiled notes for React state management. Created demo for backend, that takes in a sample JSON file with ingredients and uses the ingredients as a prompt to OpenAI's API to generate a recipe. Researched, learned, and compiled notes for routing navigation."*
 - [SCRUM-92](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-92) Agree upon starter page and delegate work to team
@@ -117,8 +124,8 @@
 
 > ### Next Steps: 
 > * **Cameron Archuleta**
->    - this
->    - that
+>    - Continue working on nav bar / linking new pages & features.
+>    - Continue building home page to help users understand what we provide.
 > * **Tushig Battulga**
 >    - implement a database with MongoDB that stores the ingredients and their quantities in the pantry
 >    - make the pantry database editable in regards to entries and quantity
