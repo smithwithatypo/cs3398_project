@@ -90,9 +90,23 @@ Sprint 1:
 - Denise Boler: "<sentence_on_what_you_did_this_sprint>"
     - Jira Task: <Jira_Task_Name>
     - Commit History: <Bitbucket_commits>
-- Amanda Orozco: "<sentence_on_what_you_did_this_sprint>"
-    - Jira Task: <Jira_Task_Name>
-    - Commit History: <Bitbucket_commits>
+- Amanda Orozco: "Provided research materials, documentation, and tutorial resources for both frontend and backend development, with a focus on integrating MongoDB, optimizing backend features, and enhancing SupaBase and Flask functionality."
+    - **Jira Task: Backend Features and Design**
+        - **[(SCRUM-64)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-64)**  
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-64-backend-features-and-design)**
+    - **Jira Task: SupaBase/Flask Features**
+        - **[(SCRUM-63)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-63)**  
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-63-research-supabase-flask-designs)**
+    - **Jira Task: Research React**
+        - **[(SCRUM-50)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-50)**  
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-50-research-react)**
+    - **Jira Task: Download Apps/Logins**
+        - **[(SCRUM-54)](https://cs3398-luna-spring.atlassian.net/jira/software/projects/SCRUM/boards/1/timeline?selectedIssue=SCRUM-54)**  
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/commits/branch/SCRUM-54-download-apps-logins)**
+    - **Jira Task: Backend Database Startup** 
+        - **[(SCRUM-94)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-94)** 
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-94-backend-database-startup)**
+
 - Stephen Smyth: "<sentence_on_what_you_did_this_sprint>"
     - Jira Task: <Jira_Task_Name>
     - Commit History: <Bitbucket_commits>
@@ -132,8 +146,8 @@ Next Steps:
     - this
     - that
 - Amanda Orozco
-    - this
-    - that
+    - Develop the database with MongoDB and have it interact with the JSON file
+    - Writing unit test cases for backend
 - Stephen Smyth
     - this
     - that
