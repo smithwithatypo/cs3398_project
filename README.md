@@ -107,9 +107,10 @@ Sprint 1:
         - **[(SCRUM-94)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-94)** 
         - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-94-backend-database-startup)**
 
-- Stephen Smyth: "<sentence_on_what_you_did_this_sprint>"
-    - Jira Task: <Jira_Task_Name>
-    - Commit History: <Bitbucket_commits>
+- Stephen Smyth: "For Sprint 1, I researched how we could organize the code, helped set up dev environments, and coded a basic backend server"
+    - Jira Task: [Research how to organize a large project](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-65?atlOrigin=eyJpIjoiMDJiY2U2OTQzMTcyNDU2YWI2NjE2MDc3Mjc5NDNhYWQiLCJwIjoiaiJ9) -- [bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-65-research-how-to-organize-a-larg)
+    - Jira Task: [Make scaffolding for frontend and backend](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-66?atlOrigin=eyJpIjoiYzQzYTIzOGE5MmI1NDkwOWFiM2IyYmZlZDQ5ZGRmZjEiLCJwIjoiaiJ9) -- [bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-66-make-scaffolding-for-frontend-a)
+    - Jira Task: [Make basic backend server](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-95?atlOrigin=eyJpIjoiMmQwYzk4MDA4YTBiNGRkYmI3YWNlZWQxNjYxNDZkNTQiLCJwIjoiaiJ9) -- [bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-95-make-basic-backend-server)
 
 - Elliot Sonoqui: "I did research about the different components we are using, created UI mockups for our application, and created the homepage using react router and useNavigate to jump from page to page."
     - Jira Task: **[Research REACT/Supabase/Flask/OpenAI(SCRUM53)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-53)**
@@ -149,8 +150,8 @@ Next Steps:
     - Develop the database with MongoDB and have it interact with the JSON file
     - Writing unit test cases for backend
 - Stephen Smyth
-    - this
-    - that
+    - Make structures for routes, controllers, and services in backend
+    - Set up CICD pipeline and deployment
 - Elliot Sonoqui
     - Create a Form for ingredient input
     - Create a recipe search 
