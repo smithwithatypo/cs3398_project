@@ -64,6 +64,92 @@
 - [Scrum-73](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-73) Implement Icon & Pantry Button
     - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/commits/a0e193d713be17baa3a67890ac6f411aacda1c0d)
 
+<<<<<<< HEAD
+- Tushig Battulga: "Led a meeting to finalize the UI and delegate tasks, set up the development environment, researched React state management, UI frameworks, and routing, and built a backend demo integrating OpenAI’s API for recipe generation."  
+    - Jira Task: Agree upon starter page and delegate work to team members  
+        - [(SCRUM-92)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-92) | [Bitbucket](https://bitbucket.org/cs3398-luna-s25/{45b01286-1397-4155-a753-0c05200a2659}/branch/SCRUM-92-agree-upon-starter-page-and-delegate-work-to-team-members) 
+    - Jira Task: React Project Tools for Setup  
+        - [(SCRUM-87)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-87) | [Bitbucket](https://bitbucket.org/cs3398-luna-s25/{45b01286-1397-4155-a753-0c05200a2659}/branch/SCRUM-87-research-react-project-tools-for-setup)  
+    - Jira Task: Research React State Management  
+        - [(SCRUM-84)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-84) | [Bitbucket](https://bitbucket.org/cs3398-luna-s25/{45b01286-1397-4155-a753-0c05200a2659}/branch/SCRUM-84-research-react-state-management)  
+    - Jira Task: Research UI Frameworks and Components  
+        - [(SCRUM-88)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-88) | [Bitbucket](https://bitbucket.org/cs3398-luna-s25/{45b01286-1397-4155-a753-0c05200a2659}/branch/SCRUM-88-research-ui-frameworks-and-components)  
+    - Jira Task: Research Routing for Navigation Between Pages  
+        - [(SCRUM-89)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-89) | [Bitbucket](https://bitbucket.org/cs3398-luna-s25/{45b01286-1397-4155-a753-0c05200a2659}/branch/SCRUM-89-research-routing-for-navigation)  
+    - Jira Task: OpenAI API Integration with Sample JSON Ingredients File  
+        - [(SCRUM-86)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-86) | [Bitbucket](https://bitbucket.org/cs3398-luna-s25/{45b01286-1397-4155-a753-0c05200a2659}/branch/SCRUM-86-open-ai-api-integration-with-sample-json-ingredients-file)  
+
+- Denise Boler: "<sentence_on_what_you_did_this_sprint>"
+    - Jira Task: <Jira_Task_Name>
+    - Commit History: <Bitbucket_commits>
+- Amanda Orozco: "Provided research materials, documentation, and tutorial resources for both frontend and backend development, with a focus on integrating MongoDB, optimizing backend features, and enhancing SupaBase and Flask functionality."
+    - **Jira Task: Backend Features and Design**
+        - **[(SCRUM-64)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-64)**  
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-64-backend-features-and-design)**
+    - **Jira Task: SupaBase/Flask Features**
+        - **[(SCRUM-63)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-63)**  
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-63-research-supabase-flask-designs)**
+    - **Jira Task: Research React**
+        - **[(SCRUM-50)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-50)**  
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-50-research-react)**
+    - **Jira Task: Download Apps/Logins**
+        - **[(SCRUM-54)](https://cs3398-luna-spring.atlassian.net/jira/software/projects/SCRUM/boards/1/timeline?selectedIssue=SCRUM-54)**  
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/commits/branch/SCRUM-54-download-apps-logins)**
+    - **Jira Task: Backend Database Startup** 
+        - **[(SCRUM-94)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-94)** 
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-94-backend-database-startup)**
+
+- Stephen Smyth: "For Sprint 1, I researched how we could organize the code, helped set up dev environments, and coded a basic backend server"
+    - Jira Task: [Research how to organize a large project](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-65?atlOrigin=eyJpIjoiMDJiY2U2OTQzMTcyNDU2YWI2NjE2MDc3Mjc5NDNhYWQiLCJwIjoiaiJ9) -- [bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-65-research-how-to-organize-a-larg)
+    - Jira Task: [Make scaffolding for frontend and backend](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-66?atlOrigin=eyJpIjoiYzQzYTIzOGE5MmI1NDkwOWFiM2IyYmZlZDQ5ZGRmZjEiLCJwIjoiaiJ9) -- [bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-66-make-scaffolding-for-frontend-a)
+    - Jira Task: [Make basic backend server](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-95?atlOrigin=eyJpIjoiMmQwYzk4MDA4YTBiNGRkYmI3YWNlZWQxNjYxNDZkNTQiLCJwIjoiaiJ9) -- [bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-95-make-basic-backend-server)
+
+- Elliot Sonoqui: "I did research about the different components we are using, created UI mockups for our application, and created the homepage using react router and useNavigate to jump from page to page."
+    - Jira Task: **[Research REACT/Supabase/Flask/OpenAI(SCRUM53)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-53)**
+    - Commit History: **[(bitbucket)](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/feature/SCRUM-53-research-react-supabase/flask/o)**
+    
+    - Jira Task: **[Download Apps/Logins(SCRUM54)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-54)**
+    - Commit History: **[(bitbucket)](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-54-download-apps-logins)**
+
+    - Jira Task: **[upload zoom video and transcript explaining code(SCRUM93)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-93)**
+    - Commit History: **[(bitbucket)](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-93-upload-zoom-video-and-transcrip)**
+
+    - Jira Task: **[add hex color scheme(SCRUM58)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-58)**
+    - Commit History: **[(bitbucket)](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-58-add-hex-color-scheme)**
+
+    - Jira Task: **[Work on UI for the app(SCRUM61)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-61)**
+    - Commit History: **[(bitbucket)](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-61-work-on-ui-for-the-app)**
+
+    - Jira Task: **[create a home page(SCRUM59)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-59)**
+    - Commit History: **[(bitbucket)](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-61-work-on-ui-for-the-app)**
+
+
+Report:
+![image of Sprint 1 burnup chart](Sprint1_BurnupChart.png)
+* *Completed graph should be a little higher at the end as Dr. Lehr allowed a team member (Tushig) to submit his backend demo as a part of Sprint 1 but it isn't reflected here in the graph period.
+
+Next Steps:
+- Cameron Archuleta
+    - this
+    - that
+- Tushig Battulga
+    - implement a database with MongoDB that stores the ingredients and their quantities in the pantry
+    - make the pantry database editable in regards to entries and quantity
+    - connect the frontend with the backend
+- Denise Boler
+    - this
+    - that
+- Amanda Orozco
+    - Develop the database with MongoDB and have it interact with the JSON file
+    - Writing unit test cases for backend
+- Stephen Smyth
+    - Make structures for routes, controllers, and services in backend
+    - Set up CICD pipeline and deployment
+- Elliot Sonoqui
+    - Create a Form for ingredient input
+    - Create a recipe search 
+    - Create a JSON file
+=======
 >**Tushig Battulga** *"Organized meeting to come to a consensus on the UI and delegate teams and tasks for the backend + frontend. Setup my environment for our project (JavaScript, React, Node, etc.) Researched, learned, and compiled notes for React state management. Created demo for backend, that takes in a sample JSON file with ingredients and uses the ingredients as a prompt to OpenAI's API to generate a recipe. Researched, learned, and compiled notes for routing navigation."*
 - [SCRUM-92](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-92) Agree upon starter page and delegate work to team
     - bitbucket link
@@ -95,12 +181,10 @@
     - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-63-research-supabase-flask-designs)
 - [SCRUM-50](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-50) Research React
     - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-50-research-react)
-- [SCRUM-54](https://cs3398-luna-spring.atlassian.net/jira/software/projects/SCRUM/boards/1/timeline?selectedIssue=SCRUM-54) Download Apps/Logins
-    - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/commits/branch/SCRUM-54-download-apps-logins)
 - [SCRUM-94](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-94) Backend Database Startup
     - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-94-backend-database-startup)
 
-> **Stephen Smyth**  *"For Sprint 1, I researched how we could organize the code, helped set up dev environments, and coded 
+> **Stephen Smyth**  *"For Sprint 1, I researched how we could organize the code, helped set up dev environments, and coded"*
 - [SCRUM-65](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-65?atlOrigin=eyJpIjoiMDJiY2U2OTQzMTcyNDU2YWI2NjE2MDc3Mjc5NDNhYWQiLCJwIjoiaiJ9) Research how to organize a large project
     - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-65-research-how-to-organize-a-larg)
 - [SCRUM-66](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-66?atlOrigin=eyJpIjoiYzQzYTIzOGE5MmI1NDkwOWFiM2IyYmZlZDQ5ZGRmZjEiLCJwIjoiaiJ9) Make scaffolding for frontend and backend
@@ -151,3 +235,4 @@
 ![image of Sprint 1 burnup chart](Sprint1_BurnupChart.png)
 *Completed graph should be a little higher at the end as Dr. Lehr allowed a team member (Tushig) to submit his backend demo as a part of Sprint 1 but it isn't reflected here in the graph period.*
 
+>>>>>>> origin/development
