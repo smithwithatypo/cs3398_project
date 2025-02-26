@@ -129,6 +129,7 @@ Sprint 1:
 
 Report:
 ![image of Sprint 1 burnup chart](Sprint1_BurnupChart.png)
+* *Completed graph should be a little higher at the end as Dr. Lehr allowed a team member (Tushig) to submit his backend demo as a part of Sprint 1 but it isn't reflected here in the graph period.
 
 Next Steps:
 - Cameron Archuleta
