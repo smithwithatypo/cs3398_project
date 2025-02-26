@@ -68,19 +68,19 @@ Sprint 1:
     - Jira Task: <Jira_Task_Name>
     - Commit History: <Bitbucket_commits>
 
-- Tushig Battulga:
-    - Organized meeting to come to a consensus on the UI and delegate teams and tasks for the backend + frontend.  
-    [JIRA - SCRUM-92](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-92) | [Bitbucket - Commits](https://bitbucket.org/cs3398-luna-s25/{45b01286-1397-4155-a753-0c05200a2659}/branch/SCRUM-92-agree-upon-starter-page-and-delegate-work-to-team-members)  
-    - Setup my environment for our project (JavaScript, React, Node, etc.)  
-    [JIRA - SCRUM-87](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-87) | [Bitbucket - Commits](https://bitbucket.org/cs3398-luna-s25/{45b01286-1397-4155-a753-0c05200a2659}/branch/SCRUM-87-research-react-project-tools-for-setup)  
-    - Researched, learned, and compiled notes for React state management.  
-    [JIRA - SCRUM-84](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-84) | [Bitbucket - Commits](https://bitbucket.org/cs3398-luna-s25/{45b01286-1397-4155-a753-0c05200a2659}/branch/SCRUM-84-research-react-state-management)  
-    - Researched, learned, and compiled notes for UI working with React.  
-    [JIRA - SCRUM-88](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-88) | [Bitbucket - Commits](https://bitbucket.org/cs3398-luna-s25/{45b01286-1397-4155-a753-0c05200a2659}/branch/SCRUM-88-research-ui-frameworks-and-components)  
-    - Researched, learned, and compiled notes for routing navigation.  
-    [JIRA - SCRUM-89](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-89) | [Bitbucket - Commits](https://bitbucket.org/cs3398-luna-s25/{45b01286-1397-4155-a753-0c05200a2659}/branch/SCRUM-89-research-routing-for-navigation)  
-    - Created demo for backend, that takes in a sample JSON file with ingredients and uses the ingredients as a prompt to OpenAI's API to generate a recipe.  
-    [JIRA - SCRUM-86](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-86) | [Bitbucket - Commits](https://bitbucket.org/cs3398-luna-s25/{45b01286-1397-4155-a753-0c05200a2659}/branch/SCRUM-86-open-ai-api-integration-with-sample-json-ingredients-file)  
+- Tushig Battulga: "Led a meeting to finalize the UI and delegate tasks, set up the development environment, researched React state management, UI frameworks, and routing, and built a backend demo integrating OpenAI’s API for recipe generation."  
+    - Jira Task: Agree upon starter page and delegate work to team members  
+        - [(SCRUM-92)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-92) | [Bitbucket](https://bitbucket.org/cs3398-luna-s25/{45b01286-1397-4155-a753-0c05200a2659}/branch/SCRUM-92-agree-upon-starter-page-and-delegate-work-to-team-members) 
+    - Jira Task: React Project Tools for Setup  
+        - [(SCRUM-87)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-87) | [Bitbucket](https://bitbucket.org/cs3398-luna-s25/{45b01286-1397-4155-a753-0c05200a2659}/branch/SCRUM-87-research-react-project-tools-for-setup)  
+    - Jira Task: Research React State Management  
+        - [(SCRUM-84)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-84) | [Bitbucket](https://bitbucket.org/cs3398-luna-s25/{45b01286-1397-4155-a753-0c05200a2659}/branch/SCRUM-84-research-react-state-management)  
+    - Jira Task: Research UI Frameworks and Components  
+        - [(SCRUM-88)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-88) | [Bitbucket](https://bitbucket.org/cs3398-luna-s25/{45b01286-1397-4155-a753-0c05200a2659}/branch/SCRUM-88-research-ui-frameworks-and-components)  
+    - Jira Task: Research Routing for Navigation Between Pages  
+        - [(SCRUM-89)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-89) | [Bitbucket](https://bitbucket.org/cs3398-luna-s25/{45b01286-1397-4155-a753-0c05200a2659}/branch/SCRUM-89-research-routing-for-navigation)  
+    - Jira Task: OpenAI API Integration with Sample JSON Ingredients File  
+        - [(SCRUM-86)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-86) | [Bitbucket](https://bitbucket.org/cs3398-luna-s25/{45b01286-1397-4155-a753-0c05200a2659}/branch/SCRUM-86-open-ai-api-integration-with-sample-json-ingredients-file)  
 
 - Denise Boler: "<sentence_on_what_you_did_this_sprint>"
     - Jira Task: <Jira_Task_Name>
@@ -129,6 +129,7 @@ Sprint 1:
 
 Report:
 ![image of Sprint 1 burnup chart](Sprint1_BurnupChart.png)
+* *Completed graph should be a little higher at the end as Dr. Lehr allowed a team member (Tushig) to submit his backend demo as a part of Sprint 1 but it isn't reflected here in the graph period.
 
 Next Steps:
 - Cameron Archuleta
