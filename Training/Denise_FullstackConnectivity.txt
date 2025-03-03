@@ -85,3 +85,7 @@ Connectivity Needs for Our Project:
         Define Mongoose Schema and Model
             - create a Mongoose schema for pantry items with appropriate fields (e.g., item name, quantity, expiration date)
             - define a model based on this schema to interact with the MongoDB collection
+
+How will this help our project?
+    This research allows me to able to understand what is required for the frontend and the backend communcation. It also serves
+    as a resource to look back to when refactoring the current front and backend in this current sprint. 
