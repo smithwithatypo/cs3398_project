@@ -1,0 +1,24 @@
+Research: React, Node.js, and Express.js Connectivity/Communication
+Sources:
+    - Arpan Neupane (YouTube) https://www.youtube.com/watch?v=1NhduUZHZEQ
+    - Dev https://dev.to/iamgoncaloalves/tailwind-css-vs-vanilla-css-when-to-use-each-for-your-web-development-projects-425c#:~:text=For%20developers%20who%20prefer%20to,between%20HTML%20and%20CSS%20files 
+    - Node.js https://nodejs.org/en/about 
+    - Geeks for Geeks https://www.geeksforgeeks.org/node-js-vs-express-js/ 
+
+Our project's tech stack:
+    React + Vite (Frontend)
+        - JavaScript library used for building interfaces 
+        - NOT a framework
+        - uses a component-based architecture and a virtual DOM to update and render UI elements
+    Tailwind (Frontend)
+        - CSS framework library
+        - flexible faster styling with utily-first approach (we can write styles directly in HTML)
+    Node.js (Backend)
+        - JavaScript runtime environement that executes JavaScript code outside a web browser (open-source & cross-platform)
+        - NOT a framework, NOT a programming language
+        - provides a foundation for running JavaScript on server
+    Express.js (Backend)
+        - JavaScript web application framework that sits on top of Node.js
+        - a set of tools and conventions to streamline the development of web applications on top of Node.js
+        - we can directly specify route names and associated functions, indicating the type of request
+
