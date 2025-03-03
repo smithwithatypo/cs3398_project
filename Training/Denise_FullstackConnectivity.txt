@@ -4,8 +4,9 @@ Sources:
     - Dev https://dev.to/iamgoncaloalves/tailwind-css-vs-vanilla-css-when-to-use-each-for-your-web-development-projects-425c#:~:text=For%20developers%20who%20prefer%20to,between%20HTML%20and%20CSS%20files 
     - Node.js https://nodejs.org/en/about 
     - Geeks for Geeks https://www.geeksforgeeks.org/node-js-vs-express-js/ 
+    - MongoDB https://www.mongodb.com/company/what-is-mongodb 
 
-Our project's tech stack:
+Our Project's Tech Stack:
     React + Vite (Frontend)
         - JavaScript library used for building interfaces 
         - NOT a framework
@@ -21,4 +22,31 @@ Our project's tech stack:
         - JavaScript web application framework that sits on top of Node.js
         - a set of tools and conventions to streamline the development of web applications on top of Node.js
         - we can directly specify route names and associated functions, indicating the type of request
+    MongoDB (Backend)
+        - NoSQL database 
+        - stores data in JSON-like documents
 
+Browser & Server:
+    Browser (React)
+        1. sends a request object
+            - includes headers, method (e.g., GET, POST), and optionally a body (e.g., JSON payload for POST requests)
+        2. waits for the response
+            - asynchronous request handling using Promises (.then()) or async/await
+        3. parses the JSON response
+            - uses .json() to convert the response to a JavaScript object
+        4. updates the UI
+            - component re-renders to display the new data
+    Server (Express)
+        1. receives the HTTP request
+            - listens on a specific port (e.g., 5000)
+            - accesses request details via req.method, req.url, and req.body
+        2. matches URL and method to a route handler
+            - determines which Express route to execute (e.g., app.get('/api/message') or app.post('/api/data'))    
+        3. processes the Request
+            - if method is POST, Express uses middleware like express.json() to parse the request body
+        4. sends a response
+            - returns a status code (e.g., 200 OK) and JSON data using res.json()
+        5. manages connections
+            - handles low-level networking, including connection management, request buffering, and response streaming
+
+        
