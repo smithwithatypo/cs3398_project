@@ -1,0 +1,91 @@
+Research: React, Node.js, and Express.js Connectivity/Communication
+Sources:
+    - Arpan Neupane (YouTube) https://www.youtube.com/watch?v=1NhduUZHZEQ
+    - Dev https://dev.to/iamgoncaloalves/tailwind-css-vs-vanilla-css-when-to-use-each-for-your-web-development-projects-425c#:~:text=For%20developers%20who%20prefer%20to,between%20HTML%20and%20CSS%20files 
+    - Node.js https://nodejs.org/en/about 
+    - Geeks for Geeks https://www.geeksforgeeks.org/node-js-vs-express-js/ 
+    - MongoDB https://www.mongodb.com/company/what-is-mongodb 
+    - ChatGPT 
+
+Our Project's Tech Stack:
+    React + Vite (Frontend)
+        - JavaScript library used for building interfaces 
+        - NOT a framework
+        - uses a component-based architecture and a virtual DOM to update and render UI elements
+    Tailwind (Frontend)
+        - CSS framework library
+        - flexible faster styling with utily-first approach (we can write styles directly in HTML)
+    Node.js (Backend)
+        - JavaScript runtime environement that executes JavaScript code outside a web browser (open-source & cross-platform)
+        - NOT a framework, NOT a programming language
+        - provides a foundation for running JavaScript on server
+    Express.js (Backend)
+        - JavaScript web application framework that sits on top of Node.js
+        - a set of tools and conventions to streamline the development of web applications on top of Node.js
+        - we can directly specify route names and associated functions, indicating the type of request
+    MongoDB (Backend)
+        - NoSQL database 
+        - stores data in JSON-like documents
+    Mongoose (Backend)
+        - Node.js library (object data modeling library)
+        - acts as a middleware to create schemas, models, and perform data validation and manipulation
+        - acts as a bridge between your Node.js application and the MongoDB database
+
+Browser & Server:
+    Browser (React)
+        1. sends a request object
+            - includes headers, method (e.g., GET, POST), and optionally a body (e.g., JSON payload for POST requests)
+        2. waits for the response
+            - asynchronous request handling using Promises (.then()) or async/await
+        3. parses the JSON response
+            - uses .json() to convert the response to a JavaScript object
+        4. updates the UI
+            - component re-renders to display the new data
+    Server (Express)
+        1. receives the HTTP request
+            - listens on a specific port (e.g., 5000)
+            - accesses request details via req.method, req.url, and req.body
+        2. matches URL and method to a route handler
+            - determines which Express route to execute (e.g., app.get('/api/message') or app.post('/api/data'))    
+        3. processes the Request
+            - if method is POST, Express uses middleware like express.json() to parse the request body
+        4. sends a response
+            - returns a status code (e.g., 200 OK) and JSON data using res.json()
+        5. manages connections
+            - handles low-level networking, including connection management, request buffering, and response streaming
+
+Connectivity Needs for Our Project:
+    Frontend
+        Form Component for user pantry
+            - create a form component that captures user input for pantry items, including fields such as item name, quantity, and expiration date
+        Submit Button
+            - implement a submit button to trigger form submission
+        Data Handling
+            - use either fetch or axios to send form data to the backend
+            - convert form data to JSON format using JSON.stringify before sending
+        React Hooks
+            - use useEffect to handle side effects, such as fetching pantry data from the backend when the component loads
+            - use useState to manage form input state and store fetched data
+            - error handling to manage failed network requests
+    Backend
+        Server Setup
+            - choose a specific port for the server to listen on
+            - use CORS (Cross-Origin Resource Sharing) to enable communication between the frontend and backend.
+        API Endpoints
+            - define HTTP endpoints:
+                - POST /pantry: to receive and save pantry data from the frontend
+                - GET /pantry: to retrieve pantry data and send it to the frontend
+            - provide proper HTTP status codes and error messages for request handling
+        Middleware (Mongoose)
+            - configure middleware for parsing JSON requests and for logging and debugging incoming requests
+    Database (MongoDB)
+        Database Setup
+            - establish a connection to a MongoDB database using Mongoose
+            - handle connection success and failure messages
+        Define Mongoose Schema and Model
+            - create a Mongoose schema for pantry items with appropriate fields (e.g., item name, quantity, expiration date)
+            - define a model based on this schema to interact with the MongoDB collection
+
+How will this help our project?
+    This research allows me to able to understand what is required for the frontend and the backend communcation. It also serves
+    as a resource to look back to when refactoring the current front and backend in this current sprint. 
