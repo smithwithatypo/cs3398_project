@@ -26,6 +26,10 @@ Our Project's Tech Stack:
     MongoDB (Backend)
         - NoSQL database 
         - stores data in JSON-like documents
+    Mongoose (Backend)
+        - Node.js library (object data modeling library)
+        - acts as a middleware to create schemas, models, and perform data validation and manipulation
+        - acts as a bridge between your Node.js application and the MongoDB database
 
 Browser & Server:
     Browser (React)
@@ -63,8 +67,21 @@ Connectivity Needs for Our Project:
             - use useEffect to handle side effects, such as fetching pantry data from the backend when the component loads
             - use useState to manage form input state and store fetched data
             - error handling to manage failed network requests
-        
-
-
-
-        
+    Backend
+        Server Setup
+            - choose a specific port for the server to listen on
+            - use CORS (Cross-Origin Resource Sharing) to enable communication between the frontend and backend.
+        API Endpoints
+            - define HTTP endpoints:
+                - POST /pantry: to receive and save pantry data from the frontend
+                - GET /pantry: to retrieve pantry data and send it to the frontend
+            - provide proper HTTP status codes and error messages for request handling
+        Middleware (Mongoose)
+            - configure middleware for parsing JSON requests and for logging and debugging incoming requests
+    Database (MongoDB)
+        Database Setup
+            - establish a connection to a MongoDB database using Mongoose
+            - handle connection success and failure messages
+        Define Mongoose Schema and Model
+            - create a Mongoose schema for pantry items with appropriate fields (e.g., item name, quantity, expiration date)
+            - define a model based on this schema to interact with the MongoDB collection
