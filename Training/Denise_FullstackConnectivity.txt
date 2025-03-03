@@ -5,6 +5,7 @@ Sources:
     - Node.js https://nodejs.org/en/about 
     - Geeks for Geeks https://www.geeksforgeeks.org/node-js-vs-express-js/ 
     - MongoDB https://www.mongodb.com/company/what-is-mongodb 
+    - ChatGPT 
 
 Our Project's Tech Stack:
     React + Vite (Frontend)
@@ -48,5 +49,22 @@ Browser & Server:
             - returns a status code (e.g., 200 OK) and JSON data using res.json()
         5. manages connections
             - handles low-level networking, including connection management, request buffering, and response streaming
+
+Connectivity Needs for Our Project:
+    Frontend
+        Form Component for user pantry
+            - create a form component that captures user input for pantry items, including fields such as item name, quantity, and expiration date
+        Submit Button
+            - implement a submit button to trigger form submission
+        Data Handling
+            - use either fetch or axios to send form data to the backend
+            - convert form data to JSON format using JSON.stringify before sending
+        React Hooks
+            - use useEffect to handle side effects, such as fetching pantry data from the backend when the component loads
+            - use useState to manage form input state and store fetched data
+            - error handling to manage failed network requests
+        
+
+
 
         
