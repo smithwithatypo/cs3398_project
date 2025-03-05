@@ -45,7 +45,11 @@ To verify that the backend server is running correctly, open your browser and na
 ```bash
 http://localhost:3000/test
 ```
-You should see a response indicating that the server is up and running.
+
+Or
+```bash
+localhost:3000/api/ai/test
+```
 
 ## License
 
