@@ -1,13 +1,17 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import aiRoutes from './routes/aiRoutes.js'
+
+// env
 import dotenv from 'dotenv';
 dotenv.config();
 
+// init express
 const app = express();
 const port = process.env.PORT
 
-
+// CORS
 const corsOptions = {
     origin: "*",
     credentials: true,

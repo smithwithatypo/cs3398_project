@@ -1,14 +1,14 @@
+// openai config
 import OpenAI from 'openai';
-
-const openai = new OpenAI();
-const API_KEY = process.env.OPENAI_API_KEY;
-
-openai.apiKey = API_KEY; 
+// const API_KEY = process.env.OPENAI_API_KEY;
+const API_KEY = 'replace_this_please';
+const openai = new OpenAI({ apiKey: API_KEY });
 
 const model_choice = "gpt-4o";
 
 
-const TextGeneratingService = {
+// service
+const RecipeGeneratingService = {
     async generateRecipe(prompt, clientData) {
         try {
             const temperature = 1;
@@ -29,4 +29,4 @@ const TextGeneratingService = {
     }
 };
 
-export { TextGeneratingService };
+export { RecipeGeneratingService };

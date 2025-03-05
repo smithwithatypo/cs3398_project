@@ -1,11 +1,11 @@
-import { TextGeneratingService } from '../services/generateRecipeService.js';
-
+import { RecipeGeneratingService } from '../services/generateRecipeService.js';
 
 const GenerateRecipeController = {
     async getGeneratedRecipe(req, res) {
         try {
             const prompt = "be a helpful assistant";
-            const response = await GenerateRecipeService.generateRecipe(prompt, clientData);
+            const clientData = req.body.ingredients || '';
+            const response = await RecipeGeneratingService.generateRecipe(prompt, clientData);
             res.status(200).json({ success: true, data: response });
         } catch (error) {
             console.error('Error in GenerateRecipeController:', error);
