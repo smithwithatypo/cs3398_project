@@ -18,9 +18,10 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// routes  (TODO: add more routes)
-// app.use('/api/ai', aiRoutes);   // example route structure
+// routes
+app.use('/api/ai', aiRoutes);
 
+// test 
 app.get('/test', (req, res) => {
   res.send('Server is working!');
 });
