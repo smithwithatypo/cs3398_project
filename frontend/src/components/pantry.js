@@ -6,9 +6,6 @@ const Pantry = () => {
   const [newItem, setNewItem] = useState("");
 
   const addItem = async () => {
-    // if (newItem.trim() !== "") {
-    //   setItems([...items, newItem]);
-    //   setNewItem("");
     if (newItem.trim() !== "") {
       try {
         const response = await fetch("/api/pantry", { 
@@ -18,6 +15,12 @@ const Pantry = () => {
           },
           body: JSON.stringify({ item: newItem }),
         });
+        if (response.ok) {
+          setItems([...items, newItem]);
+          setNewItem("");
+        } else {
+          console.log("Failed to add item");
+        }
       }
       catch {
           console.log("Error adding item:");
