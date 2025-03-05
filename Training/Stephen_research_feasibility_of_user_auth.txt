@@ -1,0 +1,85 @@
+Title or name of research/training
+Is user authentication feasible for this project?
+
+Why you are doing it.
+I'm not sure it's possible for us to accomplish user authentication in the time we have. I'm looking into options of varying levels of complexity.
+
+What you expect to learn/do.   Be specific by identifying what code/modules will be affected by the research/training.
+Learn about options for user auth. Look into how hard it might be to implement and gauge if we have the time to figure it out.
+
+What do you expect to do with it, including any code you expect to write.  Be specific.  For example, "Writing the UI" is not sufficient.   "Writing the Login class" is.
+If it's feasible, then we'll write a frontend and backend for the user auth. But if it's not, then we won't use it at all. 
+
+What task(s) in Jira represent the work you will do that was/is dependent on the research/training.
+SCRUM-132
+
+
+
+--- Notes ---
+
+- Stephen's summary (after asking AI and internet):
+- try the passport.js library on the backend, or the Auth0 library on the frontend -- but if it's too difficult, then abandon this route and focus on building features.
+
+
+
+
+
+- Prompt for AI:
+I'm a college level computer science student working on a team project for software engineering. We're building an AI recipe generator with a few features. We're looking into the feasibility of making a user authentication system. None of us have done it before, so we're not sure we can complete the frontend and backend and database aspects of it within a 2-week sprint. 
+
+Can you summarize some options for us? Start from very simple user auth, then explain escalating levels of difficulty for a system that we could still implement within 2 weeks. We're students. 
+
+- AI Response (Claude Sonnet 3.7): 
+# User Authentication Options for Student Projects
+
+Here's a breakdown of authentication options from simplest to more complex, all potentially achievable within a 2-week sprint:
+
+## Level 1: Basic Local Authentication (Simplest)
+- **Frontend**: Simple login/signup forms with field validation
+- **Backend**: Store usernames and hashed passwords in a database
+- **Database**: Simple table with user_id, username, password_hash
+- **Security**: Basic password hashing (bcrypt)
+- **Effort**: 2-3 days for a functional system
+- **Tech stack**: Any backend framework + SQL/NoSQL database
+
+## Level 2: Session-Based Authentication
+- **Frontend**: Login/signup forms + session management
+- **Backend**: Create and validate session tokens
+- **Database**: Users table + sessions table
+- **Security**: Password hashing, CSRF protection
+- **Effort**: 3-5 days
+- **Bonus**: "Remember me" functionality
+
+## Level 3: JWT Authentication
+- **Frontend**: Same forms + token storage in localStorage/cookies
+- **Backend**: Generate and validate JWT tokens
+- **Database**: Users table only (stateless auth)
+- **Security**: Token expiration, refresh tokens
+- **Effort**: 4-6 days
+- **Advantage**: More scalable, stateless authentication
+
+## Level 4: OAuth Integration (More Advanced)
+- **Frontend**: "Login with Google/GitHub" buttons
+- **Backend**: OAuth provider integration
+- **Database**: Users table with provider-specific fields
+- **Security**: Relies on third-party security
+- **Effort**: 5-7 days
+- **Complexity**: API registration, callback handling
+
+## Level 5: Full-Featured Auth System (Most Complex)
+- All previous features plus:
+- Password reset flow (email verification)
+- Account activation
+- Role-based permissions
+- Two-factor authentication
+- **Effort**: 8-14 days (full sprint)
+
+## Recommendation for 2-Week Sprint
+For a student project with limited time, I recommend starting with Level 2 (Session-Based) or Level 3 (JWT). These provide a good balance of security and development effort.
+
+**Time-saving tip**: Consider using an authentication library for your framework instead of building everything from scratch. For example:
+- Node.js: Passport.js
+- Python: Flask-Login or Django Authentication
+- React: Auth0 integration or Firebase Authentication
+
+This will let you focus more on your actual AI recipe generator features!
