@@ -1,6 +1,4 @@
-// import logo from './assets/logo.svg';
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./shared/navbar/navbar";
 import Home from "./components/home";
 import Pantry from "./components/pantry";
@@ -8,12 +6,14 @@ import Pantry from "./components/pantry";
 const App = () => {
   return (
     <Router>
-      <div className="App">
+      <div className="min-h-screen flex flex-col bg-gray-100">
         <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/pantry" element={<Pantry />} />
-        </Routes>
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/pantry" element={<Pantry />} />
+          </Routes>
+        </main>
       </div>
     </Router>
   );
