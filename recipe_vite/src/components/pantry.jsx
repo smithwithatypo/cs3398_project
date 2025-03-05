@@ -8,14 +8,8 @@ const Pantry = () => {
     e.preventDefault();
     if (newItem.trim() !== "") {
       try {
-        const response = await fetch("/api/pantry", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ item: newItem }),
-        });
-        if (!response.ok) {
+        const response = await axios.post("/api/pantry", { item: newItem });
+        if (response.status == 200) {
           setItems([...items, newItem]);
           setNewItem("");
         } else {
