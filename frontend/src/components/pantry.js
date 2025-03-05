@@ -5,10 +5,23 @@ const Pantry = () => {
   const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState("");
 
-  const addItem = () => {
+  const addItem = async () => {
+    // if (newItem.trim() !== "") {
+    //   setItems([...items, newItem]);
+    //   setNewItem("");
     if (newItem.trim() !== "") {
-      setItems([...items, newItem]);
-      setNewItem("");
+      try {
+        const response = await fetch("/api/pantry", { 
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ item: newItem }),
+        });
+      }
+      catch {
+          console.log("Error adding item:");
+      };
     }
   };
 
@@ -32,6 +45,7 @@ const Pantry = () => {
               placeholder="Enter item"
               value={newItem}
               onChange={(e) => setNewItem(e.target.value)}
+              required
             />
             <button className="start-button" type = "submit"> Save Pantry</button>
           </form>
