@@ -1,13 +1,26 @@
 import { Link } from "react-router-dom";
-import "./styles.css"; // Ensure the CSS file is imported
 
 const Navbar = () => {
   return (
-    <nav className="navbar">
-      <h1 className="logo">Recipe Generator</h1>
-      <ul className="nav-links">
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/pantry">Pantry</Link></li>
+    <nav className="flex justify-between items-center bg-[#114945] p-4">
+      <h1 className="text-white text-xl font-bold m-0">Recipe Generator</h1>
+      <ul className="flex gap-6 m-0 p-0 list-none">
+        <li>
+          <Link
+            to="/"
+            className="text-white font-bold hover:underline"
+          >
+            Home
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/pantry"
+            className="text-white font-bold hover:underline"
+          >
+            Pantry
+          </Link>
+        </li>
       </ul>
     </nav>
   );
