@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { useState, useEffect } from "react";
-import axios from "axios";
-=======
-import { useState } from "react";
 import axios from "axios";
 import "./pantry.css"; 
 >>>>>>> 0b9dfdc (SCRM-123)
@@ -14,10 +10,9 @@ const Pantry = () => {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const response = await axios.get("/api/ai/pantry");
-        console.log("API response:", response.data); 
-        if (response.status === 200 && response.data.success) {
-          setItems(Array.isArray(response.data.data) ? response.data.data : []);
+        const response = await axios.get("/api/pantry");
+        if (response.status === 200) {
+          setItems(response.data);
         }
       } catch (error) {
         console.error("Error fetching pantry items:", error);
