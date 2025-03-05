@@ -51,7 +51,6 @@ Or
 localhost:3000/api/ai/test
 ```
 
-
 ## License
 
 This project is licensed under the MIT License.
