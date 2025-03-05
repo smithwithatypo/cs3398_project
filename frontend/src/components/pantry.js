@@ -5,7 +5,8 @@ const Pantry = () => {
   const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState("");
 
-  const addItem = async () => {
+  const addItem = async (e) => {
+    e.preventDefault();
     if (newItem.trim() !== "") {
       try {
         const response = await fetch("/api/pantry", { 
@@ -19,11 +20,11 @@ const Pantry = () => {
           setItems([...items, newItem]);
           setNewItem("");
         } else {
-          console.log("Failed to add item");
+          console.error("Failed to add item");
         }
       }
-      catch {
-          console.log("Error adding item:");
+      catch(error){
+          console.error("Error adding item:", error);
       };
     }
   };
