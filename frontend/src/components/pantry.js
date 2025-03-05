@@ -16,7 +16,7 @@ const Pantry = () => {
           },
           body: JSON.stringify({ item: newItem }),
         });
-        if (response.ok) {
+        if (!response.ok) {
           setItems([...items, newItem]);
           setNewItem("");
         } else {
@@ -51,7 +51,7 @@ const Pantry = () => {
               onChange={(e) => setNewItem(e.target.value)}
               required
             />
-            <button className="start-button" type = "submit"> Save Pantry</button>
+            <button className="start-button" type = "submit" onClick={(e) => addItem(e)}> Save Pantry</button>
           </form>
           <div className="pantry-items">
             {items.length === 0 ? (
