@@ -26,15 +26,15 @@ const Pantry = () => {
         </div>
         <div className="recipe-card">
           <h3>Pantry Inventory </h3>
-          <div className="input-container">
+          <form className="input-container">
             <input
               type="text"
               placeholder="Enter item"
               value={newItem}
               onChange={(e) => setNewItem(e.target.value)}
             />
-            <button className="start-button" onClick={addItem}>Add Item</button>
-          </div>
+            <button className="start-button" type = "submit"> Save Pantry</button>
+          </form>
           <div className="pantry-items">
             {items.length === 0 ? (
               <p> No items currently in pantry.</p>
