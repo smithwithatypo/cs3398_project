@@ -4,6 +4,20 @@ const Pantry = () => {
   const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState("");
 
+  useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        const response = await axios.get("/api/pantry");
+        if (response.status === 200) {
+          setItems(response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching pantry items:", error);
+      }
+    };
+    fetchItems();
+  }, []);
+
   const addItem = async (e) => {
     e.preventDefault();
     if (newItem.trim() !== "") {
