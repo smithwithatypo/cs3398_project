@@ -5,10 +5,27 @@ const Pantry = () => {
   const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState("");
 
-  const addItem = () => {
+  const addItem = async (e) => {
+    e.preventDefault();
     if (newItem.trim() !== "") {
-      setItems([...items, newItem]);
-      setNewItem("");
+      try {
+        const response = await fetch("/api/pantry", { 
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ item: newItem }),
+        });
+        if (!response.ok) {
+          setItems([...items, newItem]);
+          setNewItem("");
+        } else {
+          console.error("Failed to add item");
+        }
+      }
+      catch(error){
+          console.error("Error adding item:", error);
+      };
     }
   };
 
@@ -26,15 +43,16 @@ const Pantry = () => {
         </div>
         <div className="recipe-card">
           <h3>Pantry Inventory </h3>
-          <div className="input-container">
+          <form className="input-container">
             <input
               type="text"
               placeholder="Enter item"
               value={newItem}
               onChange={(e) => setNewItem(e.target.value)}
+              required
             />
-            <button className="start-button" onClick={addItem}>Add Item</button>
-          </div>
+            <button className="start-button" type = "submit" onClick={(e) => addItem(e)}> Save Pantry</button>
+          </form>
           <div className="pantry-items">
             {items.length === 0 ? (
               <p> No items currently in pantry.</p>
