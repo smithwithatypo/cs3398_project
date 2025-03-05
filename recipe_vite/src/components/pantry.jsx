@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 import { useState, useEffect } from "react";
 import axios from "axios";
+=======
+import { useState } from "react";
+import axios from "axios";
+import "./pantry.css"; 
+>>>>>>> 0b9dfdc (SCRM-123)
 
 const Pantry = () => {
   const [items, setItems] = useState([]);
@@ -24,9 +30,15 @@ const Pantry = () => {
     e.preventDefault();
     if (newItem.trim() !== "") {
       try {
+<<<<<<< HEAD
         const response = await axios.post("/api/ai/pantry", { item: newItem });
         if (response.status == 200 && response.data.success) {
           setItems(Array.isArray(response.data.data) ? response.data.data : []);
+=======
+        const response = await axios.post("/api/pantry", { item: newItem });
+        if (response.status == 200) {
+          setItems([...items, newItem]);
+>>>>>>> 0b9dfdc (SCRM-123)
           setNewItem("");
         } else {
           console.error("Failed to add item");
