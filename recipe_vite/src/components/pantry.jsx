@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./pantry.css"; 
->>>>>>> 0b9dfdc (SCRM-123)
+=======
+import { useState } from "react";
+>>>>>>> 777f7ad (SCRUM-110 refactored pantry page tailwind)
 
 const Pantry = () => {
   const [items, setItems] = useState([]);
@@ -26,9 +29,21 @@ const Pantry = () => {
     e.preventDefault();
     if (newItem.trim() !== "") {
       try {
+<<<<<<< HEAD
         const response = await axios.post("/api/ai/pantry", { item: newItem });
         if (response.status == 200 && response.data.success) {
           setItems(Array.isArray(response.data.data) ? response.data.data : []);
+=======
+        const response = await fetch("/api/pantry", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ item: newItem }),
+        });
+        if (!response.ok) {
+          setItems([...items, newItem]);
+>>>>>>> 777f7ad (SCRUM-110 refactored pantry page tailwind)
           setNewItem("");
         } else {
           console.error("Failed to add item");
@@ -80,14 +95,19 @@ const Pantry = () => {
             />
             <button
               type="submit"
-              className="bg-button-bg hover:bg-button-hover text-white text-sm px-4 py-2 rounded-md" 
-              onClick={(e) => addItem(e)}
+              className="bg-button-bg hover:bg-button-hover text-white text-sm px-4 py-2 rounded-md"
             >
               Save Pantry
             </button>
           </form>
+<<<<<<< HEAD
           <div className="pantry-items">
             
+=======
+
+          {/* Pantry Items */}
+          <div className="bg-white p-3 rounded-md shadow">
+>>>>>>> 777f7ad (SCRUM-110 refactored pantry page tailwind)
             {items.length === 0 ? (
               <p className="text-gray-600">No items currently in pantry.</p>
             ) : (
