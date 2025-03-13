@@ -1,4 +1,16 @@
-{
-    "ingredients": ["chicken breast", "garlic", "olive oil", "lemon", "salt", "pepper"]
-  }
+[    
   
+  {
+    "username": "john_doe",
+    "email": "john@example.com",
+    "ingredients": ["chicken breast", "garlic", "olive oil", "lemon", "salt", "pepper"]
+  },
+
+  {
+    "username": "test_user",
+      "email": "test@example.com",
+      "ingredients": ["carrot", "potato", "onion"]
+    }
+  
+  
+]
