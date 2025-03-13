@@ -123,14 +123,10 @@ ps aux | grep mongod
 
 
  running:
- make sure youre in backend
- source venv/bin/activate  # macOS/Linux
-pip install pymongo
-python3 test_mongo.py
-deactivate
+node - v 
+npm install mongoose
+node sample_db.js
 
-to see databse:
-mongosh
-use recipeDB
-db.users.find().pretty()
+
+
 
