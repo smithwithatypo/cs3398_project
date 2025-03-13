@@ -20,17 +20,36 @@ db.once("open", async () => {
 
     const User = mongoose.model("User", userSchema);
 
-    // Insert a test document
-    await User.create({
-        username: "test_user",
-        email: "test@example.com",
-        ingredients: ["carrot", "potato", "onion"],
-    });
+    // Load JSON data
+    let sampleData;
+    try {
+        sampleData = JSON.parse(fs.readFileSync("sample.json", "utf8"));
+    } catch (error) {
+        console.error("Error reading JSON file:", error);
+        mongoose.connection.close();
+        return;
+    }
 
-    // Fetch and print all users
-    const users = await User.find();
-    console.log(users);
+    try {
+        // Insert users while avoiding duplicates
+        for (const user of sampleData) {
+            const existingUser = await User.findOne({ username: user.username });
+            if (!existingUser) {
+                await User.create(user);
+                console.log(`Inserted: ${user.username}`);
+            } else {
+                console.log(`Skipped duplicate: ${user.username}`);
+            }
+        }
 
-    mongoose.connection.close(); // Close the connection after testing
+        // Fetch and print all users
+        const users = await User.find();
+        console.log("Users in database:", users);
+    } catch (error) {
+        console.error("Error inserting data:", error);
+    } finally {
+        mongoose.connection.close();
+        console.log("MongoDB connection closed.");
+    }
 });
 
