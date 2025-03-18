@@ -64,6 +64,9 @@ db.once("open", async () => {
 
         // Parse the JSON data from the file
         const usersData = JSON.parse(data);
+        
+        // Debug: Check the parsed data
+        console.log("Parsed JSON data:", usersData);
 
         // Insert users data into MongoDB
         for (const userData of usersData) {
@@ -91,35 +94,28 @@ db.once("open", async () => {
             console.log("Inserted recipe:", recipe);
         }
 
-        // Ask user if they want to perform an update operation
+        // Ask user if they want to update a user's email
         let answer = await askQuestion("Do you want to update a user's email? (y/n): ");
         if (answer.toLowerCase() === "y") {
-            const usernameToUpdate = await askQuestion("Enter the username of the user to update: ");
-            const newEmail = await askQuestion("Enter the new email address: ");
-            const updatedUser = await User.findOneAndUpdate(
-                { username: usernameToUpdate },
-                { email: newEmail },
-                { new: true }
-            );
-            if (!updatedUser) {
-                console.log("No user found matching that username.");
-            } else {
-                console.log("Updated user:", updatedUser);
-            }
+            const usernameToUpdate = (await askQuestion("Enter the username of the user to update: ")).trim();
+            const newEmail = (await askQuestion("Enter the new email address: ")).trim();
             
-        }
-
-        // Ask user if they want to perform a delete operation
-        answer = await askQuestion("Do you want to delete a recipe? (y/n): ");
-        if (answer.toLowerCase() === "y") {
-            const recipeTitle = await askQuestion("Enter the exact recipe title to delete: ");
-            const deletedRecipe = await Recipe.findOneAndDelete({
-                title: recipeTitle,
-            });
-            if (deletedRecipe) {
-                console.log("Deleted recipe:", deletedRecipe);
+            // Debug: Check user input
+            console.log(`Updating user with username: '${usernameToUpdate}' to new email: '${newEmail}'`);
+            
+            // Check if the user exists first
+            const foundUser = await User.findOne({ username: usernameToUpdate });
+            if (!foundUser) {
+                console.log("User not found. Check the username spelling or spaces.");
             } else {
-                console.log("Recipe not found.");
+                console.log("Found user:", foundUser);
+                // Find the user and update their email
+                const updatedUser = await User.findOneAndUpdate(
+                    { username: usernameToUpdate },
+                    { email: newEmail },
+                    { new: true } // Return the updated document
+                );
+                console.log("Updated user:", updatedUser);
             }
         }
 
@@ -133,5 +129,6 @@ db.once("open", async () => {
         console.log("Ingredients from the database:", ingredients);
 
         mongoose.connection.close(); // Close the connection after testing
+        rl.close(); // Close the readline interface
     });
 });
