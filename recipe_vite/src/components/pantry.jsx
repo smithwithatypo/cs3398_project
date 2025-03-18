@@ -36,8 +36,16 @@ const Pantry = () => {
     }
   };
 
-  const removeItem = (index) => {
-    setItems(items.filter((_, i) => i !== index));
+  const removeItem = async (index) => {
+    try{
+      const response = await axios.delete(`/api/ai/pantry/${index}`);
+      if (response.status === 200 && response.data.success) 
+        setItems(items.filter((_, i) => i !== index));
+      else
+        console.error("Failed to remove item");
+    }catch(error){
+      console.error("Error removing item:", error);
+    }
   };
 
   return (
