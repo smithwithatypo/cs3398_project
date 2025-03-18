@@ -1,4 +1,4 @@
-RESEARCH: UI Frameworks & Components
+//RESEARCH: UI Frameworks & Components
 Why you are doing it:
 To speed up development and maintain UI consistency by choosing an appropriate styling framework (Tailwind, Material UI, Shadcn). Using component libraries can reduce development time.
 
