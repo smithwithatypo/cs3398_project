@@ -24,7 +24,14 @@ const PantryController = {
         }
     },
     async removePantryItem(req, res){
-        // DELETE
+        try {
+            const { index } = req.params;
+            const items = await pantryService.removeItem(parseInt(index, 10));
+            res.status(200).json({ success: true, data: items });
+        } catch (error) {
+            console.error('Error in removePantryItem:', error);
+            res.status(500).json({ success: false, error: "Failed to remove pantry item." });
+        }
     },
 }
 
