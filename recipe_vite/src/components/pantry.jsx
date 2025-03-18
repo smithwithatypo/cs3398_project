@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Pantry = () => {
   const [items, setItems] = useState([]);
@@ -77,7 +78,8 @@ const Pantry = () => {
             />
             <button
               type="submit"
-              className="bg-button-bg hover:bg-button-hover text-white text-sm px-4 py-2 rounded-md"
+              className="bg-button-bg hover:bg-button-hover text-white text-sm px-4 py-2 rounded-md" 
+              onClick={(e) => addItem(e)}
             >
               Save Pantry
             </button>
