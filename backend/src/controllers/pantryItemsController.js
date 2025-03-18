@@ -1,4 +1,4 @@
-//const PantryController = require("../services/pantryItemsService");
+import pantryService from '../services/pantryItemsService.js';
 
 const PantryController = {
     async getPantryItems(req, res){
