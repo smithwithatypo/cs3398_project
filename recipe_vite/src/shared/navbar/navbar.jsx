@@ -20,6 +20,8 @@ const Navbar = () => {
           >
             Pantry
           </Link>
+          <li><Link to="/generate" className="text-white font-bold hover:underline">Generate Recipe</Link></li>
+
         </li>
       </ul>
     </nav>
