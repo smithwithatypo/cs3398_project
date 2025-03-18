@@ -10,9 +10,10 @@ const Pantry = () => {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const response = await axios.get("/api/pantry");
-        if (response.status === 200) {
-          setItems(response.data);
+        const response = await axios.get("/api/ai/pantry");
+        console.log("API response:", response.data); 
+        if (response.status === 200 && response.data.success) {
+          setItems(Array.isArray(response.data.data) ? response.data.data : []);
         }
       } catch (error) {
         console.error("Error fetching pantry items:", error);
@@ -25,15 +26,9 @@ const Pantry = () => {
     e.preventDefault();
     if (newItem.trim() !== "") {
       try {
-<<<<<<< HEAD
         const response = await axios.post("/api/ai/pantry", { item: newItem });
         if (response.status == 200 && response.data.success) {
           setItems(Array.isArray(response.data.data) ? response.data.data : []);
-=======
-        const response = await axios.post("/api/pantry", { item: newItem });
-        if (response.status == 200) {
-          setItems([...items, newItem]);
->>>>>>> 0b9dfdc (SCRM-123)
           setNewItem("");
         } else {
           console.error("Failed to add item");
@@ -91,9 +86,8 @@ const Pantry = () => {
               Save Pantry
             </button>
           </form>
-
-          {/* Pantry Items */}
-          <div className="bg-white p-3 rounded-md shadow">
+          <div className="pantry-items">
+            
             {items.length === 0 ? (
               <p className="text-gray-600">No items currently in pantry.</p>
             ) : (
