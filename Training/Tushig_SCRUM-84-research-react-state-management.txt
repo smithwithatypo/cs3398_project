@@ -1,4 +1,4 @@
-RESEARCH: State Management
+//RESEARCH: State Management
 Why you are doing it:
 To decide how to handle application state efficiently. Small apps can use useState and useContext, but larger apps may benefit from a global state manager like Redux or Zustand.
 
