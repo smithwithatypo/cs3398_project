@@ -7,9 +7,10 @@ const Pantry = () => {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const response = await axios.get("/api/pantry");
-        if (response.status === 200) {
-          setItems(response.data);
+        const response = await axios.get("/api/ai/pantry");
+        console.log("API response:", response.data); 
+        if (response.status === 200 && response.data.success) {
+          setItems(Array.isArray(response.data.data) ? response.data.data : []);
         }
       } catch (error) {
         console.error("Error fetching pantry items:", error);
@@ -22,9 +23,9 @@ const Pantry = () => {
     e.preventDefault();
     if (newItem.trim() !== "") {
       try {
-        const response = await axios.post("/api/pantry", { item: newItem });
-        if (response.status == 200) {
-          setItems([...items, newItem]);
+        const response = await axios.post("/api/ai/pantry", { item: newItem });
+        if (response.status == 200 && response.data.success) {
+          setItems(Array.isArray(response.data.data) ? response.data.data : []);
           setNewItem("");
         } else {
           console.error("Failed to add item");

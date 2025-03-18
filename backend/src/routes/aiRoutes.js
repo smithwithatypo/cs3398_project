@@ -10,8 +10,8 @@ router.get('/test', TestController.getTest);
 router.post('/generate-text', GenerateRecipeController.getGeneratedRecipe);
 
 // Pantry routes
-router.get('/api/pantry', PantryController.getPantryItems);
-router.post('/api/pantry', PantryController.addPantryItem);
-router.delete('/api/pantry/:index', PantryController.removePantryItem);
+router.get('/pantry', PantryController.getPantryItems);
+router.post('/pantry', PantryController.addPantryItem);
+router.delete('/pantry/:index', PantryController.removePantryItem);
 
 export default router;
