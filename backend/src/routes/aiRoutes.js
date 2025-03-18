@@ -9,6 +9,9 @@ const router = express.Router();
 router.get('/test', TestController.getTest);
 router.post('/generate-text', GenerateRecipeController.getGeneratedRecipe);
 
+// New recipe generation route
+router.post('/generate-recipe', GenerateRecipeController.generateFromPantryItems);
+
 // Pantry routes
 router.get('/pantry', PantryController.getPantryItems);
 router.post('/pantry', PantryController.addPantryItem);
