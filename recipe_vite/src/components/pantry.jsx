@@ -1,22 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Pantry = () => {
   const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState("");
 
+  useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        const response = await axios.get("/api/ai/pantry");
+        console.log("API response:", response.data); 
+        if (response.status === 200 && response.data.success) {
+          setItems(Array.isArray(response.data.data) ? response.data.data : []);
+        }
+      } catch (error) {
+        console.error("Error fetching pantry items:", error);
+      }
+    };
+    fetchItems();
+  }, []);
+
   const addItem = async (e) => {
     e.preventDefault();
     if (newItem.trim() !== "") {
       try {
-        const response = await fetch("/api/pantry", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ item: newItem }),
-        });
-        if (!response.ok) {
-          setItems([...items, newItem]);
+        const response = await axios.post("/api/ai/pantry", { item: newItem });
+        if (response.status == 200 && response.data.success) {
+          setItems(Array.isArray(response.data.data) ? response.data.data : []);
           setNewItem("");
         } else {
           console.error("Failed to add item");
@@ -27,8 +37,16 @@ const Pantry = () => {
     }
   };
 
-  const removeItem = (index) => {
-    setItems(items.filter((_, i) => i !== index));
+  const removeItem = async (index) => {
+    try{
+      const response = await axios.delete(`/api/ai/pantry/${index}`);
+      if (response.status === 200 && response.data.success) 
+        setItems(items.filter((_, i) => i !== index));
+      else
+        console.error("Failed to remove item");
+    }catch(error){
+      console.error("Error removing item:", error);
+    }
   };
 
   return (
@@ -60,7 +78,8 @@ const Pantry = () => {
             />
             <button
               type="submit"
-              className="bg-button-bg hover:bg-button-hover text-white text-sm px-4 py-2 rounded-md"
+              className="bg-button-bg hover:bg-button-hover text-white text-sm px-4 py-2 rounded-md" 
+              onClick={(e) => addItem(e)}
             >
               Save Pantry
             </button>
