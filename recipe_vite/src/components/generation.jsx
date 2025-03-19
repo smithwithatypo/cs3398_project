@@ -57,29 +57,29 @@ const Generation = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-8">
+    <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center p-8">
       {/* Page Header */}
-      <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-lg text-center">
-        <h2 className="text-2xl font-bold mb-4">Generate a Recipe</h2>
-        <p className="text-gray-700">
+      <div className="bg-[#d9b75e] shadow-md rounded-lg p-6 w-full max-w-lg text-center">
+        <h2 className="text-2xl font-bold mb-4 text-[#1e2d3d]">Generate a Recipe</h2>
+        <p className="text-[#1e2d3d]">
           Click "Generate Recipe" to get a meal suggestion based on your pantry.
         </p>
       </div>
 
       {/* Pantry Items Display */}
       <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-lg mt-6 text-center">
-        <h3 className="text-lg font-semibold">Your Pantry:</h3>
+        <h3 className="text-lg font-semibold text-[#1e2d3d]">Your Pantry:</h3>
         {pantryItems.length === 0 ? (
           <p className="text-gray-500">No ingredients in pantry.</p>
         ) : (
-          <p className="text-gray-700">{pantryItems.join(', ')}</p>
+          <p className="text-[#1e2d3d] font-medium">{pantryItems.join(', ')}</p>
         )}
       </div>
 
       {/* Buttons: Generate Recipe & Edit Pantry */}
       <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-lg mt-6 flex gap-4">
         <button
-          className={`bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md w-1/2 ${
+          className={`bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md w-1/2 ${
             loading ? 'opacity-50 cursor-not-allowed' : ''
           }`}
           onClick={generateRecipe}
@@ -89,7 +89,7 @@ const Generation = () => {
         </button>
 
         <button
-          className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-md w-1/2"
+          className="bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md w-1/2"
           onClick={() => navigate('/pantry')}
         >
           Edit Pantry
@@ -99,8 +99,8 @@ const Generation = () => {
       {/* Recipe Display */}
       {recipe && (
         <div className="bg-white shadow-md rounded-lg p-6 mt-8 w-full max-w-2xl">
-          <h3 className="text-xl font-semibold mb-4">Generated Recipe</h3>
-          <div dangerouslySetInnerHTML={{ __html: recipe.replace(/\n/g, '<br>') }} />
+          <h3 className="text-xl font-semibold mb-4 text-[#1e2d3d]">Generated Recipe</h3>
+          <div className="text-[#1e2d3d] font-medium" dangerouslySetInnerHTML={{ __html: recipe.replace(/\n/g, '<br>') }} />
         </div>
       )}
 
