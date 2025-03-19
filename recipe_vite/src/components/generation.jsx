@@ -1,20 +1,47 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const Generate = () => {
+const Generation = () => {
+  const [pantryItems, setPantryItems] = useState([]); // Stores pantry ingredients
   const [recipe, setRecipe] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  // Generate recipe from pantry ingredients
+  // Fetch pantry items from the backend when the page loads
+  useEffect(() => {
+    fetchPantryItems();
+  }, []);
+
+  const fetchPantryItems = async () => {
+    try {
+      const response = await axios.get('/api/ai/pantry'); // Get pantry items
+      if (response.data.success) {
+        setPantryItems(response.data.data);
+      } else {
+        setError('Failed to fetch pantry items.');
+      }
+    } catch (error) {
+      console.error('Error fetching pantry items:', error);
+      setError('Something went wrong while fetching pantry items.');
+    }
+  };
+
+  // Generate a recipe using the fetched pantry items
   const generateRecipe = async () => {
+    if (pantryItems.length === 0) {
+      setError('Your pantry is empty! Add ingredients first.');
+      return;
+    }
+
     setLoading(true);
     setError('');
 
     try {
-      const response = await axios.post('/api/ai/generate-recipe');
+      const response = await axios.post('/api/ai/generate-recipe', {
+        ingredients: pantryItems, // Send pantry ingredients to backend
+      });
 
       if (response.data.success) {
         setRecipe(response.data.data);
@@ -35,8 +62,18 @@ const Generate = () => {
       <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-lg text-center">
         <h2 className="text-2xl font-bold mb-4">Generate a Recipe</h2>
         <p className="text-gray-700">
-          Click "Generate Recipe" to get a meal suggestion based on your pantry!
+          Click "Generate Recipe" to get a meal suggestion based on your pantry.
         </p>
+      </div>
+
+      {/* Pantry Items Display */}
+      <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-lg mt-6 text-center">
+        <h3 className="text-lg font-semibold">Your Pantry:</h3>
+        {pantryItems.length === 0 ? (
+          <p className="text-gray-500">No ingredients in pantry.</p>
+        ) : (
+          <p className="text-gray-700">{pantryItems.join(', ')}</p>
+        )}
       </div>
 
       {/* Buttons: Generate Recipe & Edit Pantry */}
@@ -46,7 +83,7 @@ const Generate = () => {
             loading ? 'opacity-50 cursor-not-allowed' : ''
           }`}
           onClick={generateRecipe}
-          disabled={loading}
+          disabled={loading || pantryItems.length === 0}
         >
           {loading ? 'Generating...' : 'Generate Recipe'}
         </button>
@@ -72,4 +109,4 @@ const Generate = () => {
   );
 };
 
-export default Generate;
+export default Generation;
