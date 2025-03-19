@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import './pantry.css';
 
 const Pantry = () => {
   const [items, setItems] = useState([]);
@@ -24,7 +23,7 @@ const Pantry = () => {
   const handleAddItem = async (e) => {
     e.preventDefault();
     if (!newItem.trim()) return;
-    
+
     try {
       const response = await axios.post('/api/ai/pantry', { item: newItem });
       if (response.data.success) {
@@ -48,29 +47,48 @@ const Pantry = () => {
   };
 
   return (
-    <div className="pantry-container">
-      <h2>My Pantry</h2>
-      
-      <form onSubmit={handleAddItem} className="add-item-form">
-        <input 
-          type="text" 
-          value={newItem} 
-          onChange={(e) => setNewItem(e.target.value)} 
-          placeholder="Add an ingredient..."
-        />
-        <button type="submit">Add</button>
-      </form>
-      
-      <div className="pantry-items">
-        <h3>Current Ingredients:</h3>
+    <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center p-8">
+      {/* Page Header */}
+      <div className="bg-[#d9b75e] shadow-md rounded-lg p-6 w-full max-w-lg text-center">
+        <h2 className="text-2xl font-bold mb-4 text-[#1e2d3d]">My Pantry</h2>
+        <p className="text-[#1e2d3d]">Add or remove ingredients to keep your pantry updated.</p>
+      </div>
+
+      {/* Input Section */}
+      <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-lg mt-6">
+        <form onSubmit={handleAddItem} className="flex gap-3">
+          <input
+            type="text"
+            placeholder="Enter an ingredient..."
+            value={newItem}
+            onChange={(e) => setNewItem(e.target.value)}
+            className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1e2d3d]"
+          />
+          <button type="submit" className="bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md">
+            Add
+          </button>
+        </form>
+      </div>
+
+      {/* Pantry Items List */}
+      <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-lg mt-6">
+        <h3 className="text-lg font-semibold mb-2 text-[#1e2d3d]">Current Ingredients</h3>
         {items.length === 0 ? (
-          <p>No ingredients added yet.</p>
+          <p className="text-gray-500">No ingredients added yet.</p>
         ) : (
-          <ul>
+          <ul className="space-y-2">
             {items.map((item, index) => (
-              <li key={index}>
-                {item}
-                <button onClick={() => handleRemoveItem(index)}>Remove</button>
+              <li
+                key={index}
+                className="flex justify-between items-center bg-[#d0ded5] border border-gray-300 px-4 py-2 rounded-md shadow-sm"
+              >
+                <span className="text-[#1e2d3d] font-medium">{item}</span>
+                <button
+                  onClick={() => handleRemoveItem(index)}
+                  className="bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-1 px-3 rounded-md text-sm"
+                >
+                  Remove
+                </button>
               </li>
             ))}
           </ul>
