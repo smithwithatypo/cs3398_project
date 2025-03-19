@@ -5,6 +5,7 @@ const GenerateRecipeController = {
         try {
             const prompt = "be a helpful assistant";
             const clientData = req.body.ingredients || '';
+            console.log("hit backend route for generate-recipe")
             const response = await RecipeGeneratingService.generateRecipe(prompt, clientData);
             res.status(200).json({ success: true, data: response });
         } catch (error) {
