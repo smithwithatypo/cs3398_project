@@ -9,81 +9,59 @@ const Cookbook = () => {
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('name'); // 'name' or 'ingredients'
 
-  // Function to search recipes by name
+  // Function to search recipes by name (using TheMealDB)
   const searchByName = async () => {
     if (!searchTerm.trim()) {
       setError('Please enter a recipe name to search.');
       return;
     }
-
+  
     setLoading(true);
     setError('');
-
+  
     try {
-      // This is a placeholder for the actual API call
-      // We'll implement this later
-      // const response = await axios.get(`/api/ai/recipes/search?name=${searchTerm}`);
+      const response = await axios.post('/api/ai/search-recipes', {
+        query: searchTerm
+      });
       
-      // For now, just mock some data
-      setTimeout(() => {
-        setSearchResults([
-          { id: 1, name: `${searchTerm} Recipe`, description: 'A delicious recipe that matches your search.' },
-          { id: 2, name: `Easy ${searchTerm}`, description: 'A simple version that you can make quickly.' },
-          { id: 3, name: `Gourmet ${searchTerm}`, description: 'A fancy version for special occasions.' }
-        ]);
-        setLoading(false);
-      }, 1000);
+      if (response.data.success) {
+        setSearchResults(response.data.data);
+      } else {
+        setError('No recipes found');
+      }
     } catch (error) {
-      console.error('Error searching recipes:', error);
-      setError('Something went wrong while searching for recipes.');
-      setLoading(false);
+      console.error('Search error:', error);
+      setError(error.response?.data?.error || 'No recipes found. Try another search term.');
     }
+    setLoading(false);
   };
 
-  // Function to search recipes by ingredients
+  // Function to search recipes by ingredients (still using Spoonacular)
   const searchByIngredients = async () => {
     if (!ingredientSearch.trim()) {
       setError('Please enter ingredients to search with.');
       return;
     }
-
+  
     setLoading(true);
     setError('');
-
+  
     try {
-      // This is a placeholder for the actual API call
-      // We'll implement this later
-      // const response = await axios.post(`/api/ai/recipes/search-by-ingredients`, {
-      //   ingredients: ingredientSearch.split(',').map(item => item.trim())
-      // });
-      
-      // For now, just mock some data
-      setTimeout(() => {
-        const ingredients = ingredientSearch.split(',').map(item => item.trim());
-        setSearchResults([
-          { 
-            id: 1, 
-            name: `${ingredients[0]} Delight`, 
-            description: `A tasty dish featuring ${ingredients.join(' and ')}.` 
-          },
-          { 
-            id: 2, 
-            name: `Quick ${ingredients[0]} Recipe`, 
-            description: `A simple recipe using ${ingredients.join(', ')}.` 
-          },
-          { 
-            id: 3, 
-            name: `${ingredients[0]} Surprise`, 
-            description: `An innovative dish combining ${ingredients.join(' with ')}.` 
-          }
-        ]);
-        setLoading(false);
-      }, 1000);
+      const ingredients = ingredientSearch.split(',').map(item => item.trim());
+      const response = await axios.post('/api/ai/search-recipes', {
+        ingredients
+      });
+  
+      if (response.data.success) {
+        setSearchResults(response.data.data);
+      } else {
+        setError('No matching recipes found');
+      }
     } catch (error) {
-      console.error('Error searching recipes by ingredients:', error);
-      setError('Something went wrong while searching for recipes.');
-      setLoading(false);
+      console.error('Search error:', error);
+      setError(error.response?.data?.error || 'Search failed');
     }
+    setLoading(false);
   };
 
   return (
@@ -173,13 +151,31 @@ const Cookbook = () => {
           <div className="space-y-4">
             {searchResults.map((recipe) => (
               <div key={recipe.id} className="bg-[#d0ded5] p-4 rounded-lg">
-                <h4 className="text-lg font-semibold text-[#1e2d3d]">{recipe.name}</h4>
-                <p className="text-[#1e2d3d] mt-2">{recipe.description}</p>
-                <button
-                  className="mt-3 bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-1 px-4 rounded-md"
-                >
-                  View Recipe
-                </button>
+                <div className="flex flex-col md:flex-row">
+                  {recipe.image && (
+                    <div className="md:w-1/3 mb-3 md:mb-0 md:mr-4">
+                      <img 
+                        src={recipe.image} 
+                        alt={recipe.name} 
+                        className="w-full rounded-md"
+                      />
+                    </div>
+                  )}
+                  <div className="md:w-2/3">
+                    <h4 className="text-lg font-semibold text-[#1e2d3d]">{recipe.name}</h4>
+                    {recipe.area && recipe.category && (
+                      <p className="text-sm text-[#5a7d8c] mt-1">
+                        {recipe.area} • {recipe.category}
+                      </p>
+                    )}
+                    <p className="text-[#1e2d3d] mt-2 text-sm">{recipe.description}</p>
+                    <button
+                      className="mt-3 bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-1 px-4 rounded-md"
+                    >
+                      View Recipe
+                    </button>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
