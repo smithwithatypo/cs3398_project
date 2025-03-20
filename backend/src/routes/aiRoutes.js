@@ -2,6 +2,7 @@ import express from 'express';
 import { TestController } from '../controllers/testController.js';
 import { GenerateRecipeController } from '../controllers/generateRecipeController.js';
 import { PantryController } from '../controllers/pantryItemsController.js';
+import { RecipeSearchController } from '../controllers/recipeSearchController.js';
 
 const router = express.Router();
 
@@ -17,5 +18,8 @@ router.post('/generate-recipe-text', GenerateRecipeController.generateFromText);
 router.get('/pantry', PantryController.getPantryItems);
 router.post('/pantry', PantryController.addPantryItem);
 router.delete('/pantry/:index', PantryController.removePantryItem);
+
+// Cookbook routes
+router.post('/search-recipes', RecipeSearchController.searchRecipes);
 
 export default router;
