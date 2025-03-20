@@ -3,7 +3,7 @@ import Navbar from "./shared/navbar/navbar";
 import Home from "./components/home";
 import Pantry from "./components/pantry";
 import Generation from "./components/generation";
-
+import Cookbook from "./components/cookbook";
 
 const App = () => {
   return (
@@ -15,6 +15,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/pantry" element={<Pantry />} />
             <Route path="/generate" element={<Generation />} />
+            <Route path="/cookbook" element={<Cookbook />} />
           </Routes>
         </main>
       </div>
