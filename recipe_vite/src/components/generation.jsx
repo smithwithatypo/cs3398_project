@@ -7,6 +7,8 @@ const Generation = () => {
   const [recipe, setRecipe] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [textPrompt, setTextPrompt] = useState(''); // New state for text input
+  const [showTextInput, setShowTextInput] = useState(false); // Toggle for text input visibility
   const navigate = useNavigate();
 
   // Fetch pantry items from the backend when the page loads
@@ -56,6 +58,34 @@ const Generation = () => {
     setLoading(false);
   };
 
+  // Generate recipe from text prompt
+  const generateRecipeFromText = async () => {
+    if (!textPrompt.trim()) {
+      setError('Please enter a description or ingredients.');
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+
+    try {
+      const response = await axios.post('/api/ai/generate-recipe-text', {
+        textPrompt: textPrompt, // Send text prompt to backend
+      });
+
+      if (response.data.success) {
+        setRecipe(response.data.data);
+      } else {
+        setError('Failed to generate recipe.');
+      }
+    } catch (error) {
+      console.error('Error generating recipe from text:', error);
+      setError('Something went wrong.');
+    }
+
+    setLoading(false);
+  };
+
   return (
     <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center p-8">
       {/* Page Header */}
@@ -94,6 +124,42 @@ const Generation = () => {
         >
           Edit Pantry
         </button>
+      </div>
+
+      {/* Text-to-Recipe Section */}
+      <div className="bg-[#d0ded5] shadow-md rounded-lg p-6 w-full max-w-lg mt-6 text-center">
+        <h3 className="text-lg font-semibold text-[#1e2d3d]">
+          Short on time? Pantry outdated?
+        </h3>
+        
+        <button
+          className="mt-4 bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md"
+          onClick={() => setShowTextInput(!showTextInput)}
+        >
+          {showTextInput ? 'Hide Text Input' : 'Text to Recipe'}
+        </button>
+        
+        {showTextInput && (
+          <div className="mt-4">
+            <textarea
+              className="w-full p-3 border border-gray-300 rounded-md"
+              rows="4"
+              placeholder="Describe what you want to cook or list ingredients you have..."
+              value={textPrompt}
+              onChange={(e) => setTextPrompt(e.target.value)}
+            ></textarea>
+            
+            <button
+              className={`mt-4 bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md w-full ${
+                loading ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
+              onClick={generateRecipeFromText}
+              disabled={loading || !textPrompt.trim()}
+            >
+              {loading ? 'Generating...' : 'Generate From Text'}
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Recipe Display */}
