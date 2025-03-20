@@ -1,0 +1,4 @@
+SCRUM-114 Establish communication between frontend and backend
+
+I was unable to stage the files used in communication as they were a part of other scrums as well.
+But I will just go over what I did and how it was done here.
