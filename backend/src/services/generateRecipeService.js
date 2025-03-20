@@ -28,6 +28,28 @@ const RecipeGeneratingService = {
             console.error('Error generating text:', error);
             throw error; // Re-throw to allow controller to handle it
         }
+    },
+    
+    // New method for text-to-recipe
+    async generateRecipeFromText(systemPrompt, textPrompt) {
+        try {
+            const temperature = 1;
+            const completion = await openai.chat.completions.create({
+                temperature: temperature,
+                messages: [
+                    {"role": "system", "content": systemPrompt},
+                    {"role": "user", "content": `
+                        Create a recipe based on this prompt: ${textPrompt}
+                        Make sure to include a title, ingredients list with measurements, and step-by-step instructions.
+                    `}
+                ],
+                model: model_choice,
+            });
+            return completion.choices[0].message.content;
+        } catch (error) {
+            console.error('Error generating recipe from text:', error);
+            throw error;
+        }
     }
 };
 
