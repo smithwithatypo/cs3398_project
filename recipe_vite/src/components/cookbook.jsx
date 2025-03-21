@@ -8,6 +8,7 @@ const Cookbook = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('name'); // 'name' or 'ingredients'
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
 
   // Function to search recipes by name (using TheMealDB)
   const searchByName = async () => {
@@ -171,6 +172,7 @@ const Cookbook = () => {
                     <p className="text-[#1e2d3d] mt-2 text-sm">{recipe.description}</p>
                     <button
                       className="mt-3 bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-1 px-4 rounded-md"
+                      onClick = {() => setSelectedRecipe(recipe)}
                     >
                       View Recipe
                     </button>
