@@ -193,8 +193,22 @@ const Cookbook = () => {
             >
               &times;
             </button>
+            <img
+              src={selectedRecipe.image}
+              alt={selectedRecipe.name}
+              className="rounded-md w-full mb-3"
+            />
+            {selectedRecipe.area && selectedRecipe.category && (
+              <p className="text-sm text-gray-700 mb-2">
+                {selectedRecipe.area} • {selectedRecipe.category}
+              </p>
+            )}
+            <p className="text-gray-800 whitespace-pre-wrap">
+              {selectedRecipe.fullInstructions || selectedRecipe.description}
+            </p>
           </div>
         </div>
+        
       )}
 
       {error && <p className="text-red-500 mt-4">{error}</p>}
