@@ -1,91 +1,55 @@
 import mongoose from "mongoose";
-import fs from "fs"; // File system module to read files
+import fs from "fs";
 
-// Connect to MongoDB
+// 1. Connect to MongoDB
 mongoose.connect("mongodb://127.0.0.1:27017/recipeDB", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
 const db = mongoose.connection;
-
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 db.once("open", async () => {
-    console.log("Connected to MongoDB!");
+  console.log("Connected to MongoDB!");
 
-    // Define the User Schema
-    const userSchema = new mongoose.Schema({
-        username: String,
-        email: String,
-        ingredients: [String],
-    });
+  // 2. Define a simple User Schema with embedded ingredients
+  const userSchema = new mongoose.Schema({
+    username: String,
+    email: String,
+    // We'll store ingredients in an array of strings
+    // You can rename it to 'pantry' if you prefer
+    ingredients: [String],
+  });
 
-    // Define Recipe Schema
-    const recipeSchema = new mongoose.Schema({
-        title: String,
-        description: String,
-        ingredients: [String],
-        steps: [String],
-        userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    });
+  // 3. Create the User Model
+  const User = mongoose.model("User", userSchema);
 
-    // Define Ingredient Schema
-    const ingredientSchema = new mongoose.Schema({
-        name: String,
-        type: String,
-        calories: Number,
-    });
+  try {
+    // 4. (Optional) Clear out existing user documents
+    await User.deleteMany({});
+    console.log("Cleared existing user data.");
 
-    // Create Models
-    const User = mongoose.model("User", userSchema);
-    const Recipe = mongoose.model("Recipe", recipeSchema);
-    const Ingredient = mongoose.model("Ingredient", ingredientSchema);
+    // 5. Read the sample.json file
+    const data = fs.readFileSync("sample.json", "utf8");
+    const usersData = JSON.parse(data);
 
-    // Read the sample.json file
-    fs.readFile("sample.json", "utf8", async (err, data) => {
-        if (err) {
-            console.error("Error reading the sample.json file:", err);
-            return;
-        }
+    // 6. Insert each user with embedded ingredients
+    for (const userData of usersData) {
+      await User.create({
+        username: userData.username,
+        email: userData.email,
+        ingredients: userData.ingredients,
+      });
+    }
 
-        // Parse the JSON data from the file
-        const usersData = JSON.parse(data);
+    console.log("Inserted users from sample.json");
 
-        // Insert users data into MongoDB
-        for (const userData of usersData) {
-            const user = await User.create(userData); // Insert user
-            console.log("Inserted user:", user);
-
-            // Insert ingredients into the Ingredients collection
-            for (const ingredient of userData.ingredients) {
-                const existingIngredient = await Ingredient.findOne({ name: ingredient });
-                if (!existingIngredient) {
-                    const newIngredient = await Ingredient.create({ name: ingredient });
-                    console.log("Inserted ingredient:", newIngredient);
-                }
-            }
-
-            // Optionally, create recipes based on the user's data
-            const recipe = await Recipe.create({
-                title: `${user.username}'s Favorite Recipe`,
-                description: "A simple recipe with the user's favorite ingredients.",
-                ingredients: userData.ingredients, // Use the ingredients from the user
-                steps: ["Step 1: Prepare ingredients", "Step 2: Cook ingredients", "Step 3: Serve"],
-                userId: user._id, // Link to the user
-            });
-
-            console.log("Inserted recipe:", recipe);
-        }
-
-        // Fetch and print all users, recipes, and ingredients
-        const users = await User.find();
-        const recipes = await Recipe.find();
-        const ingredients = await Ingredient.find();
-
-        console.log("Users from the database:", users);
-        console.log("Recipes from the database:", recipes);
-        console.log("Ingredients from the database:", ingredients);
-
-        mongoose.connection.close(); // Close the connection after testing
-    });
+    // 7. (Optional) Fetch and log all users to verify
+    const allUsers = await User.find();
+    console.log("All users in the DB:", allUsers);
+  } catch (error) {
+    console.error("Error:", error);
+  } finally {
+    mongoose.connection.close();
+  }
 });
