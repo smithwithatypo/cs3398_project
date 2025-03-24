@@ -64,7 +64,7 @@ const Cookbook = () => {
     }
     setLoading(false);
   };
-  
+
   const viewRecipe = async (id) => {
     try {
       const response = await axios.get(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
@@ -202,8 +202,12 @@ const Cookbook = () => {
       )}
       {/* Modal for View Recipe */}
       {selectedRecipe && (
-        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg shadow-lg p-6 max-w-xl w-full max-h-[80vh] overflow-auto relative">
+        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
+          onClick={() => setSelectedRecipe(null)}  // Clicking on backdrop closes the modal 
+        >
+          <div className="bg-white rounded-lg shadow-lg p-6 max-w-xl w-full max-h-[80vh] overflow-auto relative"
+           onClick={(e) => e.stopPropagation()}  // Prevents the click event from bubbling up
+          >
             <button
               className="absolute top-2 right-3 text-gray-500 hover:text-gray-700 text-3xl font-bold"
               onClick={() => setSelectedRecipe(null)}
