@@ -6,7 +6,6 @@ const Pantry = () => {
   const [newItem, setNewItem] = useState('');
   const [newQuantity, setNewQuantity] = useState(1);
   const [quantities, setQuantities] = useState({});
-  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   useEffect(() => {
     fetchPantryItems();
@@ -19,7 +18,6 @@ const Pantry = () => {
         setItems(response.data.data);
         const initialQuantities = {};
         response.data.data.forEach((item, index) => {
-          // keeps existing quantities if there, otherwise defaults to 1
           initialQuantities[index] = quantities[index] || 1;
         });
         setQuantities(initialQuantities);
@@ -37,7 +35,7 @@ const Pantry = () => {
       const response = await axios.post('/api/ai/pantry', { item: newItem });
       if (response.data.success) {
         const updatedItems = response.data.data;
-        setItems(response.data.data);
+        setItems(updatedItems);
         setQuantities(prev => ({
           ...prev,
           [updatedItems.length - 1]: newQuantity
@@ -55,6 +53,7 @@ const Pantry = () => {
       const response = await axios.delete(`/api/ai/pantry/${index}`);
       if (response.data.success) {
         setItems(response.data.data);
+        // Adjust the quantities object so that indices match the new items array
         const newQuantities = {};
         Object.entries(quantities).forEach(([idx, qty]) => {
           const numIdx = parseInt(idx);
@@ -71,12 +70,16 @@ const Pantry = () => {
     }
   };
 
+  // Updated: If the newValue is less than 1, remove the item.
   const handleQuantityChange = (index, newValue) => {
-    // Update quantity locally (not sent to backend)
-    setQuantities(prev => ({
-      ...prev,
-      [index]: Math.max(1, parseInt(newValue) || 1)
-    }));
+    if (newValue < 1) {
+      handleRemoveItem(index);
+    } else {
+      setQuantities(prev => ({
+        ...prev,
+        [index]: newValue
+      }));
+    }
   };
 
   return (
@@ -106,7 +109,7 @@ const Pantry = () => {
               >
                 <span className="font-medium">-</span>
               </button>
-              <div className="px-2 py-2 text-center bg-white border-y border-gray-300 w-10 flex items-center justify-center">
+              <div className="px-2 py-2 text-center bg-white w-10 flex items-center justify-center">
                 <span className="font-medium text-gray-700">{newQuantity}</span>
               </div>
               <button 
@@ -134,67 +137,28 @@ const Pantry = () => {
             {items.map((item, index) => (
               <li
                 key={index}
-                className="flex justify-between items-center bg-[#d0ded5] border border-gray-300 px-4 py-3 rounded-md shadow-sm relative group"
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
+                className="flex justify-between items-center bg-[#d0ded5] border border-gray-300 px-4 py-3 rounded-md shadow-sm"
               >
-                <div className="flex items-center flex-1">
-                  <span className="text-[#1e2d3d] font-medium mr-4">{item}</span>
-                  
-                  <div className="relative">
-                    <div className={`
-                      absolute left-0 top-1/2 -translate-y-1/2 
-                      flex items-center 
-                      transition-all duration-300 ease-in-out
-                      ${hoveredIndex === index 
-                        ? 'opacity-100 translate-x-0' 
-                        : 'opacity-0 -translate-x-full'}
-                    `}>
-                      <button 
-                        type="button"
-                        onClick={() => handleQuantityChange(index, quantities[index] - 1)}
-                        className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-1 focus:outline-none transition-colors text-sm"
-                      >
-                        -
-                      </button>
-                    </div>
-
-                    <div className={`
-                      inline-flex items-center 
-                      transition-all duration-300 ease-in-out
-                      ${hoveredIndex === index 
-                        ? 'pl-8' 
-                        : 'pl-0'}
-                    `}>
-                      <span className="font-medium text-gray-700 text-sm">
-                        {quantities[index] || 1}
-                      </span>
-                    </div>
-
-                    <div className={`
-                      absolute right-0 top-1/2 -translate-y-1/2 
-                      flex items-center 
-                      transition-all duration-300 ease-in-out
-                      ${hoveredIndex === index 
-                        ? 'opacity-100 translate-x-0' 
-                        : 'opacity-0 translate-x-full'}
-                    `}>
-                      <button 
-                        type="button"
-                        onClick={() => handleQuantityChange(index, quantities[index] + 1)}
-                        className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-1 focus:outline-none transition-colors text-sm"
-                      >
-                        +
-                      </button>
-                    </div>
+                <span className="text-[#1e2d3d] font-medium mr-4">{item}</span>
+                <div className="inline-flex shadow-sm rounded-md overflow-hidden">
+                  <button 
+                    type="button"
+                    onClick={() => handleQuantityChange(index, (quantities[index] || 1) - 1)}
+                    className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-1 focus:outline-none transition-colors text-sm"
+                  >
+                    <span className="font-medium">-</span>
+                  </button>
+                  <div className="px-2 py-1 text-center bg-white w-10 flex items-center justify-center">
+                    <span className="font-medium text-gray-700 text-sm">{quantities[index] || 1}</span>
                   </div>
+                  <button 
+                    type="button"
+                    onClick={() => handleQuantityChange(index, (quantities[index] || 1) + 1)}
+                    className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-1 focus:outline-none transition-colors text-sm"
+                  >
+                    <span className="font-medium">+</span>
+                  </button>
                 </div>
-                <button
-                  onClick={() => handleRemoveItem(index)}
-                  className="bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-1 px-3 rounded-md text-sm transition-colors"
-                >
-                  Remove
-                </button>
               </li>
             ))}
           </ul>
