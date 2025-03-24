@@ -1,26 +1,29 @@
-FROM node:18
+FROM caddy:2-alpine
 
 WORKDIR /app
 
-# Copy package.json files first for better caching
-COPY backend/package*.json ./backend/
-COPY recipe_vite/package*.json ./recipe_vite/
+# Install Node.js for building and running the backend
+RUN apk add --no-cache nodejs npm
 
-# Install dependencies
-RUN cd backend && npm install
-RUN cd recipe_vite && npm install
-
-# Copy the rest of the application
+# Copy application files
 COPY backend ./backend
 COPY recipe_vite ./recipe_vite
 
-# Expose the ports
-EXPOSE 3000:3000
-EXPOSE 5173:5173
+# Install dependencies and build frontend
+RUN cd backend && npm install
+RUN cd recipe_vite && npm install
+RUN cd recipe_vite && npm run build
 
-# Create a start script
-RUN echo '#!/bin/bash\ncd /app/backend && npm run start & \ncd /app/recipe_vite && npm run dev' > /app/start.sh
-RUN chmod +x /app/start.sh
+# Copy built frontend assets to Caddy's serve directory
+RUN cp -r /app/recipe_vite/dist/* /usr/share/caddy/
 
-# Start both services
-CMD ["/app/start.sh"]
+# Configure Caddy
+COPY Caddyfile /etc/caddy/Caddyfile
+
+# Expose ports
+EXPOSE 80
+EXPOSE 3000
+
+# Remove the script creation and use CMD directly
+CMD sh -c "cd /app/backend && npm run start & caddy run --config /etc/caddy/Caddyfile"
+
