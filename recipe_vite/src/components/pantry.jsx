@@ -70,6 +70,14 @@ const Pantry = () => {
     }
   };
 
+  const handleQuantityChange = (index, newValue) => {
+    // Update quantity locally (not sent to backend)
+    setQuantities(prev => ({
+      ...prev,
+      [index]: Math.max(1, parseInt(newValue) || 1)
+    }));
+  };
+
   return (
     <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center p-8">
       {/* Page Header */}
@@ -125,12 +133,34 @@ const Pantry = () => {
             {items.map((item, index) => (
               <li
                 key={index}
-                className="flex justify-between items-center bg-[#d0ded5] border border-gray-300 px-4 py-2 rounded-md shadow-sm"
+                className="flex justify-between items-center bg-[#d0ded5] border border-gray-300 px-4 py-3 rounded-md shadow-sm"
               >
-                <span className="text-[#1e2d3d] font-medium">{item}</span>
+                <div className="flex items-center">
+                  <span className="text-[#1e2d3d] font-medium">{item}</span>
+                  
+                  <div className="ml-4 inline-flex shadow-sm rounded-md overflow-hidden">
+                    <button 
+                      type="button"
+                      onClick={() => handleQuantityChange(index, quantities[index] - 1)}
+                      className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-1 focus:outline-none transition-colors text-sm"
+                    >
+                      -
+                    </button>
+                    <div className="px-2 py-1 text-center bg-white border-y border-gray-300 w-8 flex items-center justify-center">
+                      <span className="font-medium text-gray-700 text-sm">{quantities[index] || 1}</span>
+                    </div>
+                    <button 
+                      type="button"
+                      onClick={() => handleQuantityChange(index, quantities[index] + 1)}
+                      className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-1 focus:outline-none transition-colors text-sm"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
                 <button
                   onClick={() => handleRemoveItem(index)}
-                  className="bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-1 px-3 rounded-md text-sm"
+                  className="bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-1 px-3 rounded-md text-sm transition-colors"
                 >
                   Remove
                 </button>
