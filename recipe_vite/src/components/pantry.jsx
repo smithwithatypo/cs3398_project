@@ -5,11 +5,18 @@ const Pantry = () => {
   const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState('');
   const [newQuantity, setNewQuantity] = useState(1);
-  const [quantities, setQuantities] = useState({});
+  const [quantities, setQuantities] = useState(() => {
+    const savedQuantities = localStorage.getItem('quantities');
+    return savedQuantities ? JSON.parse(savedQuantities) : {};
+  });
 
   useEffect(() => {
     fetchPantryItems();
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem('quantities', JSON.stringify(quantities));
+  }, [quantities]);
 
   const fetchPantryItems = async () => {
     try {
@@ -53,7 +60,6 @@ const Pantry = () => {
       const response = await axios.delete(`/api/ai/pantry/${index}`);
       if (response.data.success) {
         setItems(response.data.data);
-        // Adjust the quantities object so that indices match the new items array
         const newQuantities = {};
         Object.entries(quantities).forEach(([idx, qty]) => {
           const numIdx = parseInt(idx);
@@ -70,7 +76,6 @@ const Pantry = () => {
     }
   };
 
-  // Updated: If the newValue is less than 1, remove the item.
   const handleQuantityChange = (index, newValue) => {
     if (newValue < 1) {
       handleRemoveItem(index);
