@@ -21,6 +21,5 @@ router.delete('/pantry/:index', PantryController.removePantryItem);
 
 // Cookbook routes
 router.post('/search-recipes', RecipeSearchController.searchRecipes);
-router.get('/recipes/:id', RecipeSearcgController.getRecipeDetails);
 
 export default router;

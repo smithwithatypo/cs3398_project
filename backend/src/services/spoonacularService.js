@@ -61,26 +61,6 @@ const SpoonacularService = {
       console.error('TheMealDB API error:', error);
       throw new Error('Failed to fetch recipes from TheMealDB');
     }
-  }, 
-
-  async getRecipeDetails(id) {
-    try {
-      const response = await axios.get(
-        `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
-      );
-      const meal = response.data.meals[0];
-      return {
-        id: meal.idMeal,
-        name: meal.strMeal,
-        fullInstructions: meal.strInstructions, // full instructions here
-        image: meal.strMealThumb,
-        area: meal.strArea,
-        category: meal.strCategory
-      };
-    } catch (error) {
-      console.error('TheMealDB API error:', error);
-      throw new Error('Failed to fetch full recipe details');
-    }
   }
 };
 
