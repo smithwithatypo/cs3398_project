@@ -4,6 +4,7 @@ import axios from 'axios';
 const Pantry = () => {
   const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState('');
+  const [quantities, setQuantities] = useState({});
 
   useEffect(() => {
     fetchPantryItems();
@@ -14,6 +15,12 @@ const Pantry = () => {
       const response = await axios.get('/api/ai/pantry');
       if (response.data.success) {
         setItems(response.data.data);
+        const initialQuantities = {};
+        response.data.data.forEach((item, index) => {
+          // keeps existing quantities if there, otherwise defaults to 1
+          initialQuantities[index] = quantities[index] || 1;
+        });
+        setQuantities(initialQuantities);
       }
     } catch (error) {
       console.error('Error fetching pantry items:', error);
