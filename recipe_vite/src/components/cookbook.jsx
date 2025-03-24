@@ -219,14 +219,19 @@ const Cookbook = () => {
               alt={selectedRecipe.name}
               className="rounded-md w-full mb-3"
             />
+            <h4 className="text-2xl font-bold mb-4 text-[#1e2d3d]">
+              {selectedRecipe.name}
+            </h4>
             {selectedRecipe.area && selectedRecipe.category && (
               <p className="text-sm text-gray-700 mb-2">
                 {selectedRecipe.area} • {selectedRecipe.category}
               </p>
             )}
-            <p className="text-gray-800 whitespace-pre-wrap">
-              {selectedRecipe.fullInstructions || selectedRecipe.description}
-            </p>
+            <div className="bg-[#d0ded5] p-4 rounded-lg border border-gray-300 overflow-hidden">
+              <p className="text-gray-800 whitespace-pre-wrap">
+                {selectedRecipe.fullInstructions || selectedRecipe.description}
+              </p>
+            </div>
           </div>
         </div>
         
