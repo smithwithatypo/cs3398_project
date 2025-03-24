@@ -4,6 +4,8 @@ import axios from 'axios';
 const Pantry = () => {
   const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState('');
+  const [newQuantity, setNewQuantity] = useState(1);
+  const [quantities, setQuantities] = useState({});
 
   useEffect(() => {
     fetchPantryItems();
@@ -14,6 +16,11 @@ const Pantry = () => {
       const response = await axios.get('/api/ai/pantry');
       if (response.data.success) {
         setItems(response.data.data);
+        const initialQuantities = {};
+        response.data.data.forEach((item, index) => {
+          initialQuantities[index] = quantities[index] || 1;
+        });
+        setQuantities(initialQuantities);
       }
     } catch (error) {
       console.error('Error fetching pantry items:', error);
@@ -27,8 +34,14 @@ const Pantry = () => {
     try {
       const response = await axios.post('/api/ai/pantry', { item: newItem });
       if (response.data.success) {
-        setItems(response.data.data);
+        const updatedItems = response.data.data;
+        setItems(updatedItems);
+        setQuantities(prev => ({
+          ...prev,
+          [updatedItems.length - 1]: newQuantity
+        }));
         setNewItem('');
+        setNewQuantity(1);
       }
     } catch (error) {
       console.error('Error adding pantry item:', error);
@@ -40,9 +53,32 @@ const Pantry = () => {
       const response = await axios.delete(`/api/ai/pantry/${index}`);
       if (response.data.success) {
         setItems(response.data.data);
+        // Adjust the quantities object so that indices match the new items array
+        const newQuantities = {};
+        Object.entries(quantities).forEach(([idx, qty]) => {
+          const numIdx = parseInt(idx);
+          if (numIdx < index) {
+            newQuantities[numIdx] = qty;
+          } else if (numIdx > index) {
+            newQuantities[numIdx - 1] = qty;
+          }
+        });
+        setQuantities(newQuantities);
       }
     } catch (error) {
       console.error('Error removing pantry item:', error);
+    }
+  };
+
+  // Updated: If the newValue is less than 1, remove the item.
+  const handleQuantityChange = (index, newValue) => {
+    if (newValue < 1) {
+      handleRemoveItem(index);
+    } else {
+      setQuantities(prev => ({
+        ...prev,
+        [index]: newValue
+      }));
     }
   };
 
@@ -64,7 +100,28 @@ const Pantry = () => {
             onChange={(e) => setNewItem(e.target.value)}
             className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1e2d3d]"
           />
-          <button type="submit" className="bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md">
+          <div className="flex items-center">
+            <div className="inline-flex shadow-sm rounded-md overflow-hidden">
+              <button 
+                type="button"
+                onClick={() => setNewQuantity(prev => Math.max(1, prev - 1))}
+                className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-2 focus:outline-none transition-colors"
+              >
+                <span className="font-medium">-</span>
+              </button>
+              <div className="px-2 py-2 text-center bg-white w-10 flex items-center justify-center">
+                <span className="font-medium text-gray-700">{newQuantity}</span>
+              </div>
+              <button 
+                type="button"
+                onClick={() => setNewQuantity(prev => prev + 1)}
+                className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-2 focus:outline-none transition-colors"
+              >
+                <span className="font-medium">+</span>
+              </button>
+            </div>
+          </div>
+          <button type="submit" className="bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md transition-colors">
             Add
           </button>
         </form>
@@ -72,7 +129,19 @@ const Pantry = () => {
 
       {/* Pantry Items List */}
       <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-lg mt-6">
-        <h3 className="text-lg font-semibold mb-2 text-[#1e2d3d]">Current Ingredients</h3>
+        {/* Header with "Current Ingredients" and info icon */}
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-lg font-semibold text-[#1e2d3d]">Current Ingredients</h3>
+          <div className="relative inline-block group">
+            <div className="rounded-full border border-bg-gray-500 w-6 h-6 flex items-center justify-center text-gray-500 cursor-pointer">
+              i
+            </div>
+            <div className="absolute right-0 top-full mt-2 w-max bg-gray-800 text-white text-sm p-2 rounded-md opacity-0 group-hover:opacity-[0.85] transition-opacity z-10 pointer-events-none">
+                To remove an item from your pantry, click the '-' button until the quantity is reduced to 0.
+            </div>
+          </div>
+        </div>
+
         {items.length === 0 ? (
           <p className="text-gray-500">No ingredients added yet.</p>
         ) : (
@@ -80,15 +149,28 @@ const Pantry = () => {
             {items.map((item, index) => (
               <li
                 key={index}
-                className="flex justify-between items-center bg-[#d0ded5] border border-gray-300 px-4 py-2 rounded-md shadow-sm"
+                className="flex justify-between items-center bg-[#d0ded5] border border-gray-300 px-4 py-3 rounded-md shadow-sm"
               >
-                <span className="text-[#1e2d3d] font-medium">{item}</span>
-                <button
-                  onClick={() => handleRemoveItem(index)}
-                  className="bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-1 px-3 rounded-md text-sm"
-                >
-                  Remove
-                </button>
+                <span className="text-[#1e2d3d] font-medium mr-4">{item}</span>
+                <div className="inline-flex shadow-sm rounded-md overflow-hidden">
+                  <button 
+                    type="button"
+                    onClick={() => handleQuantityChange(index, (quantities[index] || 1) - 1)}
+                    className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-1 focus:outline-none transition-colors text-sm"
+                  >
+                    <span className="font-medium">-</span>
+                  </button>
+                  <div className="px-2 py-1 text-center bg-white w-10 flex items-center justify-center">
+                    <span className="font-medium text-gray-700 text-sm">{quantities[index] || 1}</span>
+                  </div>
+                  <button 
+                    type="button"
+                    onClick={() => handleQuantityChange(index, (quantities[index] || 1) + 1)}
+                    className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-1 focus:outline-none transition-colors text-sm"
+                  >
+                    <span className="font-medium">+</span>
+                  </button>
+                </div>
               </li>
             ))}
           </ul>
