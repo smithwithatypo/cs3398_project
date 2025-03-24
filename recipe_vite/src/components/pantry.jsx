@@ -136,28 +136,57 @@ const Pantry = () => {
                 key={index}
                 className="flex justify-between items-center bg-[#d0ded5] border border-gray-300 px-4 py-3 rounded-md shadow-sm relative group"
                 onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
               >
-                <div className="flex items-center">
-                  <span className="text-[#1e2d3d] font-medium">{item}</span>
+                <div className="flex items-center flex-1">
+                  <span className="text-[#1e2d3d] font-medium mr-4">{item}</span>
                   
-                  <div className="ml-4 inline-flex shadow-sm rounded-md overflow-hidden">
-                    <button 
-                      type="button"
-                      onClick={() => handleQuantityChange(index, quantities[index] - 1)}
-                      className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-1 focus:outline-none transition-colors text-sm"
-                    >
-                      -
-                    </button>
-                    <div className="px-2 py-1 text-center bg-white border-y border-gray-300 w-8 flex items-center justify-center">
-                      <span className="font-medium text-gray-700 text-sm">{quantities[index] || 1}</span>
+                  <div className="relative">
+                    <div className={`
+                      absolute left-0 top-1/2 -translate-y-1/2 
+                      flex items-center 
+                      transition-all duration-300 ease-in-out
+                      ${hoveredIndex === index 
+                        ? 'opacity-100 translate-x-0' 
+                        : 'opacity-0 -translate-x-full'}
+                    `}>
+                      <button 
+                        type="button"
+                        onClick={() => handleQuantityChange(index, quantities[index] - 1)}
+                        className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-1 focus:outline-none transition-colors text-sm"
+                      >
+                        -
+                      </button>
                     </div>
-                    <button 
-                      type="button"
-                      onClick={() => handleQuantityChange(index, quantities[index] + 1)}
-                      className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-1 focus:outline-none transition-colors text-sm"
-                    >
-                      +
-                    </button>
+
+                    <div className={`
+                      inline-flex items-center 
+                      transition-all duration-300 ease-in-out
+                      ${hoveredIndex === index 
+                        ? 'pl-8' 
+                        : 'pl-0'}
+                    `}>
+                      <span className="font-medium text-gray-700 text-sm">
+                        {quantities[index] || 1}
+                      </span>
+                    </div>
+
+                    <div className={`
+                      absolute right-0 top-1/2 -translate-y-1/2 
+                      flex items-center 
+                      transition-all duration-300 ease-in-out
+                      ${hoveredIndex === index 
+                        ? 'opacity-100 translate-x-0' 
+                        : 'opacity-0 translate-x-full'}
+                    `}>
+                      <button 
+                        type="button"
+                        onClick={() => handleQuantityChange(index, quantities[index] + 1)}
+                        className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-1 focus:outline-none transition-colors text-sm"
+                      >
+                        +
+                      </button>
+                    </div>
                   </div>
                 </div>
                 <button
