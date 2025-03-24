@@ -65,6 +65,17 @@ const Cookbook = () => {
     setLoading(false);
   };
 
+  const viewRecipe = async (id) => {
+    try {
+      const response = await axios.get(`/api/ai/recipes/${id}`);
+      if (response.data.success) {
+        setSelectedRecipe(response.data.data);
+      }
+    } catch (error) {
+      console.error('Error fetching recipe details:', error);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center p-8">
       {/* Page Header */}
@@ -172,7 +183,7 @@ const Cookbook = () => {
                     <p className="text-[#1e2d3d] mt-2 text-sm">{recipe.description}</p>
                     <button
                       className="mt-3 bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-1 px-4 rounded-md"
-                      onClick = {() => setSelectedRecipe(recipe)}
+                      onClick = {() => viewRecipe(recipe)}
                     >
                       View Recipe
                     </button>
