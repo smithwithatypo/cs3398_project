@@ -54,6 +54,16 @@ const Pantry = () => {
       const response = await axios.delete(`/api/ai/pantry/${index}`);
       if (response.data.success) {
         setItems(response.data.data);
+        const newQuantities = {};
+        Object.entries(quantities).forEach(([idx, qty]) => {
+          const numIdx = parseInt(idx);
+          if (numIdx < index) {
+            newQuantities[numIdx] = qty;
+          } else if (numIdx > index) {
+            newQuantities[numIdx - 1] = qty;
+          }
+        });
+        setQuantities(newQuantities);
       }
     } catch (error) {
       console.error('Error removing pantry item:', error);
@@ -78,7 +88,28 @@ const Pantry = () => {
             onChange={(e) => setNewItem(e.target.value)}
             className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1e2d3d]"
           />
-          <button type="submit" className="bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md">
+          <div className="flex items-center">
+            <div className="inline-flex shadow-sm rounded-md overflow-hidden">
+              <button 
+                type="button"
+                onClick={() => setNewQuantity(prev => Math.max(1, prev - 1))}
+                className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-2 focus:outline-none transition-colors"
+              >
+                <span className="font-medium">-</span>
+              </button>
+              <div className="px-2 py-2 text-center bg-white border-y border-gray-300 w-10 flex items-center justify-center">
+                <span className="font-medium text-gray-700">{newQuantity}</span>
+              </div>
+              <button 
+                type="button"
+                onClick={() => setNewQuantity(prev => prev + 1)}
+                className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-2 focus:outline-none transition-colors"
+              >
+                <span className="font-medium">+</span>
+              </button>
+            </div>
+          </div>
+          <button type="submit" className="bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md transition-colors">
             Add
           </button>
         </form>
