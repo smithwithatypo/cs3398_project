@@ -4,6 +4,7 @@ import axios from 'axios';
 const Pantry = () => {
   const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState('');
+  const [newQuantity, setNewQuantity] = useState(1);
   const [quantities, setQuantities] = useState({});
 
   useEffect(() => {
@@ -34,8 +35,14 @@ const Pantry = () => {
     try {
       const response = await axios.post('/api/ai/pantry', { item: newItem });
       if (response.data.success) {
+        const updatedItems = response.data.data;
         setItems(response.data.data);
+        setQuantities(prev => ({
+          ...prev,
+          [updatedItems.length - 1]: newQuantity
+        }));
         setNewItem('');
+        setNewQuantity(1);
       }
     } catch (error) {
       console.error('Error adding pantry item:', error);
