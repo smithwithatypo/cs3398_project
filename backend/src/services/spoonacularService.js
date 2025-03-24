@@ -51,6 +51,7 @@ const SpoonacularService = {
       return response.data.meals.map(meal => ({
         id: meal.idMeal,
         name: meal.strMeal,
+        fullInstructions: meal.strInstructions,
         description: meal.strInstructions.substring(0, 150) + '...',
         image: meal.strMealThumb,
         area: meal.strArea,
