@@ -25,6 +25,17 @@ const RecipeSearchController = {
         error: error.message || 'Failed to search recipes' 
       });
     }
+  },
+
+  async getRecipeDetails(req, res) {
+    try {
+      const { id } = req.params;
+      const recipe = await SpoonacularService.getRecipeDetails(id);
+      res.status(200).json({ success: true, data: recipe });
+    } catch (error) {
+      console.error('Error fetching recipe details:', error);
+      res.status(500).json({ success: false, error: error.message });
+    }
   }
 };
 
