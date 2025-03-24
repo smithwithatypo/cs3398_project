@@ -129,7 +129,19 @@ const Pantry = () => {
 
       {/* Pantry Items List */}
       <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-lg mt-6">
-        <h3 className="text-lg font-semibold mb-2 text-[#1e2d3d]">Current Ingredients</h3>
+        {/* Header with "Current Ingredients" and info icon */}
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-lg font-semibold text-[#1e2d3d]">Current Ingredients</h3>
+          <div className="relative group">
+            <div className="rounded-full border border-bg-gray-500 w-6 h-6 flex items-center justify-center text-gray-500 cursor-pointer">
+              i
+            </div>
+            <div className="absolute right-0 top-full mt-2 w-max bg-gray-800 text-white text-sm p-2 rounded-md opacity-0 group-hover:opacity-100 transition-opacity z-10">
+              To remove an item from your pantry, click the '-' button until the quantity is reduced to 0.
+            </div>
+          </div>
+        </div>
+
         {items.length === 0 ? (
           <p className="text-gray-500">No ingredients added yet.</p>
         ) : (
