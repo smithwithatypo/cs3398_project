@@ -6,6 +6,7 @@ const Pantry = () => {
   const [newItem, setNewItem] = useState('');
   const [newQuantity, setNewQuantity] = useState(1);
   const [quantities, setQuantities] = useState({});
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   useEffect(() => {
     fetchPantryItems();
@@ -133,7 +134,8 @@ const Pantry = () => {
             {items.map((item, index) => (
               <li
                 key={index}
-                className="flex justify-between items-center bg-[#d0ded5] border border-gray-300 px-4 py-3 rounded-md shadow-sm"
+                className="flex justify-between items-center bg-[#d0ded5] border border-gray-300 px-4 py-3 rounded-md shadow-sm relative group"
+                onMouseEnter={() => setHoveredIndex(index)}
               >
                 <div className="flex items-center">
                   <span className="text-[#1e2d3d] font-medium">{item}</span>
