@@ -2,6 +2,30 @@ import { useState } from 'react';
 
 const IngredientReplacement = () => {
   const [ingredient, setIngredient] = useState('');
+  const [replacementResults, setReplacementResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const findReplacements = async () => {
+    if (!ingredient.trim()) {
+      setError('Please enter an ingredient.');
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+    setReplacementResults([]);
+
+    // Simulated delay / placeholder response
+    setTimeout(() => {
+      setLoading(false);
+      setReplacementResults([
+        'Almond milk',
+        'Oat milk',
+        'Soy milk',
+      ]);
+    }, 1000);
+  };
 
   return (
     <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center p-8">
@@ -23,12 +47,18 @@ const IngredientReplacement = () => {
           onChange={(e) => setIngredient(e.target.value)}
         />
         <button
-          className="mt-4 bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md w-full"
-          onClick={() => {}}
+          className={`mt-4 bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md w-full ${
+            loading ? 'opacity-50 cursor-not-allowed' : ''
+          }`}
+          onClick={findReplacements}
+          disabled={loading || !ingredient.trim()}
         >
-          Find Replacements
+          {loading ? 'Searching...' : 'Find Replacements'}
         </button>
       </div>
+
+      {/* Error Message */}
+      {error && <p className="text-red-500 mt-4">{error}</p>}
     </div>
   );
 };
