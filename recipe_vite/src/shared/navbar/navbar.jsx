@@ -41,6 +41,14 @@ const Navbar = () => {
             Cookbook
           </Link>
         </li>
+        <li>
+          <Link 
+            to="/replacement" 
+            className="text-white font-bold hover:underline"
+          >
+            Ingredient Replacement
+          </Link>
+        </li>
       </ul>
     </nav>
   );
