@@ -4,10 +4,10 @@ import icon from "../../assets/icon.jpg";
 const Navbar = () => {
   return (
     <nav className="flex justify-between items-center bg-[#114945] p-4">
-      <div className="flex items-center gap-2">
+      <Link to="/" className="flex items-center gap-2">
         <img src={icon} alt="Logo" className="h-10 w-auto rounded-full" />
         <h1 className="text-white text-xl font-bold m-0">Recipe Generator</h1>
-      </div>
+      </Link>
       <ul className="flex gap-6 m-0 p-0 list-none">
         <li>
           <Link
