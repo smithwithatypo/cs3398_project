@@ -1,0 +1,103 @@
+Frontend (React) & Backend (Node.js) Communication
+
+
+From Denise's notes:
+(
+
+Browser (React):
+
+Sends a request: The browser (React) sends an HTTP request with headers, method (GET, POST), and sometimes a body (e.g., JSON payload for POST requests).
+Waits for the response: It waits for the server to respond asynchronously using Promises or async/await.
+Parses the JSON response: Upon receiving a response, React uses .json() to convert the data into a JavaScript object.
+Updates the UI: Once the data is parsed, React updates the UI by re-rendering components to reflect the new data.
+Server (Express):
+
+Receives the HTTP request: Express listens on a specific port (e.g., port 5000) for incoming HTTP requests.
+Matches URL and method to route: Express matches the request’s URL and method (GET, POST) to specific route handlers (e.g., app.get('/api/message')).
+Processes the request: For POST requests, Express parses the body using middleware like express.json() if data is sent in JSON format.
+Sends a response: Express sends a response back to the browser with a status code (200 OK) and the required data in JSON format using res.json().
+Manages connections: Express handles networking tasks like managing connections, buffering requests, and streaming responses.
+Frontend to Backend Communication:
+
+Form Handling: In React, a form captures user data (e.g., pantry items). This data is sent to the backend via fetch or Axios.
+Data Submission: The data is sent as a JSON object using JSON.stringify() in POST requests.
+Fetching Data: The frontend uses hooks like useEffect to fetch data from the backend (e.g., pantry items) and useState to store this data for rendering.
+Backend Setup:
+
+Server Configuration: The backend (Node.js + Express) sets up a specific port to listen for requests.
+CORS: The backend uses Cross-Origin Resource Sharing (CORS) to enable communication between the frontend (React) and backend (Express) running on different ports.
+API Endpoints: The backend defines endpoints to handle data, such as POST /pantry to save pantry data and GET /pantry to send data back to the frontend.
+
+
+)
+
+
+Basic Concept:
+Frontend (React) and backend (Node.js) communicate via HTTP requests.
+Types of Requests:
+	GET: Retrieve data.
+	POST: Send data.
+React uses tools like Axios or Fetch to make requests.
+Backend (Node.js + Express) listens for requests and sends responses back.
+
+
+
+Setting Up Your Backend:
+
+Use Express.js to handle routing and server setup.
+Tasks for the backend:
+	Define routes for API endpoints.
+	Process incoming requests (GET, POST, etc.).
+	Send appropriate responses (success messages, data).
+Route setup: Set up the backend to handle requests at specific paths (e.g., /api/ai/test).
+
+
+
+Setting Up Your Frontend:
+
+React handles the UI and sends API requests to the backend when needed.
+Use Axios or Fetch to configure the API calls.
+	Example: Set up a function that makes a request to the backend to get or send data.
+
+CORS (Cross-Origin Resource Sharing):
+
+Frontend (React) and backend (Node.js) often run on different ports, causing a CORS issue.
+CORS is a security feature that restricts cross-origin requests.
+Enable CORS on the backend to allow requests from the frontend URL (e.g., React running on port 5173).
+Handling Requests on the Backend:
+
+Express listens for incoming requests at defined routes.
+For each route, define logic to handle the request (e.g., process data, fetch from a database).
+Return an appropriate response (data, success message).
+
+
+
+Environment Variables:
+
+Use .env files to store sensitive information like API URLs, ports, and credentials.
+Frontend can only read environment variables with the REACT_APP_ prefix.
+How They Communicate:
+
+Frontend sends a request when the user takes an action (e.g., button click).
+Backend processes the request (e.g., interacts with a database) and sends back a response.
+Frontend updates the UI based on the response (e.g., display a success message or error).
+Testing the Connection:
+
+Test Backend: Use tools like curl or Postman to directly test the backend API.
+Test Frontend: Trigger a request from the React app and check the response in the console.
+
+
+
+Common Issues:
+
+CORS issues: Double-check that CORS is configured correctly on the backend.
+Incorrect port/URL: Ensure frontend and backend are using the correct ports (e.g., 5173 for React, 3001 for Node.js).
+Backend not running: Make sure the backend is running by using the correct start command (npm run start).
+
+
+
+
+
+
+
+This research will help our project as we need to integrate the frontend with the backend right now.

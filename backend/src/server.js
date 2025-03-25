@@ -9,7 +9,7 @@ dotenv.config();
 
 // init express
 const app = express();
-const port = process.env.PORT
+const port = process.env.PORT;
 
 // CORS
 const corsOptions = {

@@ -1,4 +1,4 @@
-RESEARCH: Learn React for UI
+//RESEARCH: Learn React for UI
 
 Why you are doing it: To gain proficiency in React for building dynamic and responsive user interfaces for the project.
 

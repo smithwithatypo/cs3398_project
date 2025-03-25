@@ -1,0 +1,11 @@
+SCRUM-114 Establish communication between frontend and backend
+
+I was unable to stage the files used in communication as they were a part of other scrums as well.
+But I will just go over what I did and how it was done here.
+
+The frontend and backend communicate via HTTP requests using Axios. Here’s a breakdown of the key parts:  
+
+- Frontend API Setup (`api.js`)* Defines an Axios instance with a `BASE_URL` from environment variables for consistent API calls.  
+- Frontend API Calls (`generation.jsx`): Uses Axios to fetch pantry items (`GET /api/ai/pantry`) and generate recipes (`POST /api/ai/generate-recipe`), though it does not use the configured Axios instance from `api.js`.  
+- Backend Routes (`aiRoutes.js`): Defines API endpoints for pantry items and recipe generation.  
+- Server Setup (`server.js`): Registers routes with `/api/ai` and enables CORS to allow cross-origin requests.

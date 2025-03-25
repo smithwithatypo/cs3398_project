@@ -1,94 +1,185 @@
-import { useState } from "react";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const Pantry = () => {
   const [items, setItems] = useState([]);
-  const [newItem, setNewItem] = useState("");
+  const [newItem, setNewItem] = useState('');
+  const [newQuantity, setNewQuantity] = useState(1);
+  const [quantities, setQuantities] = useState(() => {
+    const savedQuantities = localStorage.getItem('quantities');
+    return savedQuantities ? JSON.parse(savedQuantities) : {};
+  });
 
-  const addItem = async (e) => {
-    e.preventDefault();
-    if (newItem.trim() !== "") {
-      try {
-        const response = await fetch("/api/pantry", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ item: newItem }),
+  useEffect(() => {
+    fetchPantryItems();
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('quantities', JSON.stringify(quantities));
+  }, [quantities]);
+
+  const fetchPantryItems = async () => {
+    try {
+      const response = await axios.get('/api/ai/pantry');
+      if (response.data.success) {
+        setItems(response.data.data);
+        const initialQuantities = {};
+        response.data.data.forEach((item, index) => {
+          initialQuantities[index] = quantities[index] || 1;
         });
-        if (!response.ok) {
-          setItems([...items, newItem]);
-          setNewItem("");
-        } else {
-          console.error("Failed to add item");
-        }
-      } catch (error) {
-        console.error("Error adding item:", error);
+        setQuantities(initialQuantities);
       }
+    } catch (error) {
+      console.error('Error fetching pantry items:', error);
     }
   };
 
-  const removeItem = (index) => {
-    setItems(items.filter((_, i) => i !== index));
+  const handleAddItem = async (e) => {
+    e.preventDefault();
+    if (!newItem.trim()) return;
+
+    try {
+      const response = await axios.post('/api/ai/pantry', { item: newItem });
+      if (response.data.success) {
+        const updatedItems = response.data.data;
+        setItems(updatedItems);
+        setQuantities(prev => ({
+          ...prev,
+          [updatedItems.length - 1]: newQuantity
+        }));
+        setNewItem('');
+        setNewQuantity(1);
+      }
+    } catch (error) {
+      console.error('Error adding pantry item:', error);
+    }
+  };
+
+  const handleRemoveItem = async (index) => {
+    try {
+      const response = await axios.delete(`/api/ai/pantry/${index}`);
+      if (response.data.success) {
+        setItems(response.data.data);
+        const newQuantities = {};
+        Object.entries(quantities).forEach(([idx, qty]) => {
+          const numIdx = parseInt(idx);
+          if (numIdx < index) {
+            newQuantities[numIdx] = qty;
+          } else if (numIdx > index) {
+            newQuantities[numIdx - 1] = qty;
+          }
+        });
+        setQuantities(newQuantities);
+      }
+    } catch (error) {
+      console.error('Error removing pantry item:', error);
+    }
+  };
+
+  const handleQuantityChange = (index, newValue) => {
+    if (newValue < 1) {
+      handleRemoveItem(index);
+    } else {
+      setQuantities(prev => ({
+        ...prev,
+        [index]: newValue
+      }));
+    }
   };
 
   return (
-    <div className="min-h-screen bg-white font-sans flex flex-col items-center justify-center p-10">
-      <div className="flex flex-col items-center gap-8">
-        
-        {/* How it Works */}
-        <div className="bg-how-it-works-bg p-6 max-w-sm text-left rounded-lg shadow-md">
-          <h2 className="text-xl font-bold mb-2">Your Pantry</h2>
-          <h4 className="text-lg font-semibold mb-2">How it works:</h4>
-          <p className="text-base text-gray-800">
-            Update your pantry by adding or removing items to generate personalized recipes just for you!
-          </p>
-        </div>
+    <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center p-8">
+      {/* Page Header */}
+      <div className="bg-[#d9b75e] shadow-md rounded-lg p-6 w-full max-w-lg text-center">
+        <h2 className="text-2xl font-bold mb-4 text-[#1e2d3d]">My Pantry</h2>
+        <p className="text-[#1e2d3d]">Add or remove ingredients to keep your pantry updated.</p>
+      </div>
 
-        {/* Pantry Inventory */}
-        <div className="bg-recipe-card-bg p-5 w-80 rounded-lg shadow-md text-left">
-          <h3 className="text-lg font-bold mb-4">Pantry Inventory</h3>
+      {/* Input Section */}
+      <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-lg mt-6">
+        <form onSubmit={handleAddItem} className="flex gap-3">
+          <input
+            type="text"
+            placeholder="Enter an ingredient..."
+            value={newItem}
+            onChange={(e) => setNewItem(e.target.value)}
+            className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1e2d3d]"
+          />
+          <div className="flex items-center">
+            <div className="inline-flex shadow-sm rounded-md overflow-hidden">
+              <button 
+                type="button"
+                onClick={() => setNewQuantity(prev => Math.max(1, prev - 1))}
+                className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-2 focus:outline-none transition-colors"
+              >
+                <span className="font-medium">-</span>
+              </button>
+              <div className="px-2 py-2 text-center bg-white w-10 flex items-center justify-center">
+                <span className="font-medium text-gray-700">{newQuantity}</span>
+              </div>
+              <button 
+                type="button"
+                onClick={() => setNewQuantity(prev => prev + 1)}
+                className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-2 focus:outline-none transition-colors"
+              >
+                <span className="font-medium">+</span>
+              </button>
+            </div>
+          </div>
+          <button type="submit" className="bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md transition-colors">
+            Add
+          </button>
+        </form>
+      </div>
 
-          {/* Form */}
-          <form className="flex gap-2 mb-4" onSubmit={addItem}>
-            <input
-              type="text"
-              placeholder="Enter item"
-              value={newItem}
-              onChange={(e) => setNewItem(e.target.value)}
-              required
-              className="flex-1 px-3 py-2 border border-gray-300 rounded-md"
-            />
-            <button
-              type="submit"
-              className="bg-button-bg hover:bg-button-hover text-white text-sm px-4 py-2 rounded-md"
-            >
-              Save Pantry
-            </button>
-          </form>
-
-          {/* Pantry Items */}
-          <div className="bg-white p-3 rounded-md shadow">
-            {items.length === 0 ? (
-              <p className="text-gray-600">No items currently in pantry.</p>
-            ) : (
-              items.map((item, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-start gap-3 py-2 border-b border-gray-300"
-                >
-                  <button
-                    onClick={() => removeItem(index)}
-                    className="bg-red-500 hover:bg-red-700 text-white text-xs px-2 py-1 rounded-md"
-                  >
-                    X
-                  </button>
-                  <span className="text-sm">{item}</span>
-                </div>
-              ))
-            )}
+      {/* Pantry Items List */}
+      <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-lg mt-6">
+        {/* Header with "Current Ingredients" and info icon */}
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-lg font-semibold text-[#1e2d3d]">Current Ingredients</h3>
+          <div className="relative inline-block group">
+            <div className="rounded-full border border-bg-gray-500 w-6 h-6 flex items-center justify-center text-gray-500 cursor-pointer">
+              i
+            </div>
+            <div className="absolute right-0 top-full mt-2 w-max bg-gray-800 text-white text-sm p-2 rounded-md opacity-0 group-hover:opacity-[0.85] transition-opacity z-10 pointer-events-none">
+                To remove an item from your pantry, click the '-' button until the quantity is reduced to 0.
+            </div>
           </div>
         </div>
 
+        {items.length === 0 ? (
+          <p className="text-gray-500">No ingredients added yet.</p>
+        ) : (
+          <ul className="space-y-2">
+            {items.map((item, index) => (
+              <li
+                key={index}
+                className="flex justify-between items-center bg-[#d0ded5] border border-gray-300 px-4 py-3 rounded-md shadow-sm"
+              >
+                <span className="text-[#1e2d3d] font-medium mr-4">{item}</span>
+                <div className="inline-flex shadow-sm rounded-md overflow-hidden">
+                  <button 
+                    type="button"
+                    onClick={() => handleQuantityChange(index, (quantities[index] || 1) - 1)}
+                    className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-1 focus:outline-none transition-colors text-sm"
+                  >
+                    <span className="font-medium">-</span>
+                  </button>
+                  <div className="px-2 py-1 text-center bg-white w-10 flex items-center justify-center">
+                    <span className="font-medium text-gray-700 text-sm">{quantities[index] || 1}</span>
+                  </div>
+                  <button 
+                    type="button"
+                    onClick={() => handleQuantityChange(index, (quantities[index] || 1) + 1)}
+                    className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-1 focus:outline-none transition-colors text-sm"
+                  >
+                    <span className="font-medium">+</span>
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
