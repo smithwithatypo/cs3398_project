@@ -57,6 +57,18 @@ const IngredientReplacement = () => {
         </button>
       </div>
 
+      {/* Results Display */}
+      {replacementResults.length > 0 && (
+        <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-lg mt-6">
+          <h3 className="text-xl font-semibold mb-4 text-[#1e2d3d]">Suggested Replacements</h3>
+          <ul className="list-disc list-inside space-y-2 text-[#1e2d3d]">
+            {replacementResults.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {/* Error Message */}
       {error && <p className="text-red-500 mt-4">{error}</p>}
     </div>
