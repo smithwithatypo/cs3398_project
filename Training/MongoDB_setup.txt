@@ -109,4 +109,24 @@ Create routes/recipeRoutes.js:
 
 6. Start the Server & Test
 
+brew services start mongodb-community@7.0   
+ sudo systemctl start mongod
+
+  brew tap mongodb/brew                                           
+brew install mongodb-community@6.0  
+
+brew services start mongodb-community@6.0  
+
+ps aux | grep mongod   
+ mongosh  
+
+
+
+ running:
+node - v 
+npm install mongoose
+node sample_db.js
+
+
+
 

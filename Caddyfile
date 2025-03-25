@@ -1,0 +1,10 @@
+:80 {
+    root * /usr/share/caddy
+    file_server
+    
+    # Proxy API requests to the backend
+    reverse_proxy /api/* localhost:3000
+    
+    # For SPA, serve index.html for non-existent files
+    try_files {path} /index.html
+}

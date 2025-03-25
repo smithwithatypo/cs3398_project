@@ -1,4 +1,4 @@
-RESEARCH: Routing
+//RESEARCH: Routing
 Why you are doing it:
 To enable navigation between different pages of the application. Deciding between public and private routes will be important for future authentication features.
 

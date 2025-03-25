@@ -1,22 +1,33 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import './pantry.css';
 
 const Pantry = () => {
   const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState('');
-  const [recipe, setRecipe] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [newQuantity, setNewQuantity] = useState(1);
+  const [quantities, setQuantities] = useState(() => {
+    const savedQuantities = localStorage.getItem('quantities');
+    return savedQuantities ? JSON.parse(savedQuantities) : {};
+  });
 
   useEffect(() => {
     fetchPantryItems();
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem('quantities', JSON.stringify(quantities));
+  }, [quantities]);
 
   const fetchPantryItems = async () => {
     try {
       const response = await axios.get('/api/ai/pantry');
       if (response.data.success) {
         setItems(response.data.data);
+        const initialQuantities = {};
+        response.data.data.forEach((item, index) => {
+          initialQuantities[index] = quantities[index] || 1;
+        });
+        setQuantities(initialQuantities);
       }
     } catch (error) {
       console.error('Error fetching pantry items:', error);
@@ -26,12 +37,18 @@ const Pantry = () => {
   const handleAddItem = async (e) => {
     e.preventDefault();
     if (!newItem.trim()) return;
-    
+
     try {
       const response = await axios.post('/api/ai/pantry', { item: newItem });
       if (response.data.success) {
-        setItems(response.data.data);
+        const updatedItems = response.data.data;
+        setItems(updatedItems);
+        setQuantities(prev => ({
+          ...prev,
+          [updatedItems.length - 1]: newQuantity
+        }));
         setNewItem('');
+        setNewQuantity(1);
       }
     } catch (error) {
       console.error('Error adding pantry item:', error);
@@ -43,75 +60,127 @@ const Pantry = () => {
       const response = await axios.delete(`/api/ai/pantry/${index}`);
       if (response.data.success) {
         setItems(response.data.data);
+        const newQuantities = {};
+        Object.entries(quantities).forEach(([idx, qty]) => {
+          const numIdx = parseInt(idx);
+          if (numIdx < index) {
+            newQuantities[numIdx] = qty;
+          } else if (numIdx > index) {
+            newQuantities[numIdx - 1] = qty;
+          }
+        });
+        setQuantities(newQuantities);
       }
     } catch (error) {
       console.error('Error removing pantry item:', error);
     }
   };
 
-  const generateRecipe = async () => {
-    if (items.length === 0) {
-      alert('Please add some ingredients first!');
-      return;
-    }
-    
-    setLoading(true);
-    try {
-      const response = await axios.post('/api/ai/generate-recipe', { ingredients: items });
-      if (response.data.success) {
-        setRecipe(response.data.data);
-      }
-    } catch (error) {
-      console.error('Error generating recipe:', error);
-    } finally {
-      setLoading(false);
+  const handleQuantityChange = (index, newValue) => {
+    if (newValue < 1) {
+      handleRemoveItem(index);
+    } else {
+      setQuantities(prev => ({
+        ...prev,
+        [index]: newValue
+      }));
     }
   };
 
   return (
-    <div className="pantry-container">
-      <h2>My Pantry</h2>
-      
-      <form onSubmit={handleAddItem} className="add-item-form">
-        <input 
-          type="text" 
-          value={newItem} 
-          onChange={(e) => setNewItem(e.target.value)} 
-          placeholder="Add an ingredient..."
-        />
-        <button type="submit">Add</button>
-      </form>
-      
-      <div className="pantry-items">
-        <h3>Current Ingredients:</h3>
+    <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center p-8">
+      {/* Page Header */}
+      <div className="bg-[#d9b75e] shadow-md rounded-lg p-6 w-full max-w-lg text-center">
+        <h2 className="text-2xl font-bold mb-4 text-[#1e2d3d]">My Pantry</h2>
+        <p className="text-[#1e2d3d]">Add or remove ingredients to keep your pantry updated.</p>
+      </div>
+
+      {/* Input Section */}
+      <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-lg mt-6">
+        <form onSubmit={handleAddItem} className="flex gap-3">
+          <input
+            type="text"
+            placeholder="Enter an ingredient..."
+            value={newItem}
+            onChange={(e) => setNewItem(e.target.value)}
+            className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1e2d3d]"
+          />
+          <div className="flex items-center">
+            <div className="inline-flex shadow-sm rounded-md overflow-hidden">
+              <button 
+                type="button"
+                onClick={() => setNewQuantity(prev => Math.max(1, prev - 1))}
+                className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-2 focus:outline-none transition-colors"
+              >
+                <span className="font-medium">-</span>
+              </button>
+              <div className="px-2 py-2 text-center bg-white w-10 flex items-center justify-center">
+                <span className="font-medium text-gray-700">{newQuantity}</span>
+              </div>
+              <button 
+                type="button"
+                onClick={() => setNewQuantity(prev => prev + 1)}
+                className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-2 focus:outline-none transition-colors"
+              >
+                <span className="font-medium">+</span>
+              </button>
+            </div>
+          </div>
+          <button type="submit" className="bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md transition-colors">
+            Add
+          </button>
+        </form>
+      </div>
+
+      {/* Pantry Items List */}
+      <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-lg mt-6">
+        {/* Header with "Current Ingredients" and info icon */}
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-lg font-semibold text-[#1e2d3d]">Current Ingredients</h3>
+          <div className="relative inline-block group">
+            <div className="rounded-full border border-bg-gray-500 w-6 h-6 flex items-center justify-center text-gray-500 cursor-pointer">
+              i
+            </div>
+            <div className="absolute right-0 top-full mt-2 w-max bg-gray-800 text-white text-sm p-2 rounded-md opacity-0 group-hover:opacity-[0.85] transition-opacity z-10 pointer-events-none">
+                To remove an item from your pantry, click the '-' button until the quantity is reduced to 0.
+            </div>
+          </div>
+        </div>
+
         {items.length === 0 ? (
-          <p>No ingredients added yet.</p>
+          <p className="text-gray-500">No ingredients added yet.</p>
         ) : (
-          <ul>
+          <ul className="space-y-2">
             {items.map((item, index) => (
-              <li key={index}>
-                {item}
-                <button onClick={() => handleRemoveItem(index)}>Remove</button>
+              <li
+                key={index}
+                className="flex justify-between items-center bg-[#d0ded5] border border-gray-300 px-4 py-3 rounded-md shadow-sm"
+              >
+                <span className="text-[#1e2d3d] font-medium mr-4">{item}</span>
+                <div className="inline-flex shadow-sm rounded-md overflow-hidden">
+                  <button 
+                    type="button"
+                    onClick={() => handleQuantityChange(index, (quantities[index] || 1) - 1)}
+                    className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-1 focus:outline-none transition-colors text-sm"
+                  >
+                    <span className="font-medium">-</span>
+                  </button>
+                  <div className="px-2 py-1 text-center bg-white w-10 flex items-center justify-center">
+                    <span className="font-medium text-gray-700 text-sm">{quantities[index] || 1}</span>
+                  </div>
+                  <button 
+                    type="button"
+                    onClick={() => handleQuantityChange(index, (quantities[index] || 1) + 1)}
+                    className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-1 focus:outline-none transition-colors text-sm"
+                  >
+                    <span className="font-medium">+</span>
+                  </button>
+                </div>
               </li>
             ))}
           </ul>
         )}
       </div>
-      
-      <button 
-        className="generate-recipe-btn" 
-        onClick={generateRecipe}
-        disabled={items.length === 0 || loading}
-      >
-        {loading ? 'Generating...' : 'Generate Recipe'}
-      </button>
-      
-      {recipe && (
-        <div className="recipe-result">
-          <h3>Generated Recipe</h3>
-          <div dangerouslySetInnerHTML={{ __html: recipe.replace(/\n/g, '<br>') }} />
-        </div>
-      )}
     </div>
   );
 };
