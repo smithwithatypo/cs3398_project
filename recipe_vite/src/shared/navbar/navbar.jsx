@@ -49,6 +49,14 @@ const Navbar = () => {
             Ingredient Replacement
           </Link>
         </li>
+        <li>
+          <Link 
+            to="/favorites" 
+            className="text-white font-bold hover:underline"
+          >
+            Favorites
+          </Link>
+        </li>
       </ul>
     </nav>
   );
