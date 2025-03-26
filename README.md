@@ -177,10 +177,26 @@ Report:
         - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-79-research-react-hooks)
    
 
-- **Amanda Orozco**: "Provided..."
-    - **Jira Task: Backend Features and Design**
-        - **[(SCRUM-64)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-64)**  
-        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-64-backend-features-and-design)**
+- **Amanda Orozco**: "Provided research for Postman's API testing and automation capabilities and identified a strategy to integrate it in the next sprint to streamline our database connectivity. I designed user-centric database collections that organize pantry items and recipes by user, and implemented comprehensive CRUD operations to enable efficient data management."
+    - **Jira Task: Postman Research**
+        - **[(SCRUM-105)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-105)**  
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-105-postman-research)**
+
+    - **Jira Task: Initial DB setup**
+        - **[(SCRUM-102)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-102)**  
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-102-db-initial-set-up)**
+
+    - **Jira Task: Create a mock database**
+        - **[(SCRUM-103)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-103)**  
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-103-create-a-mock-database)**
+    
+    - **Jira Task: Create CRUD operations**
+        - **[(SCRUM-104)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-104)**  
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-104-create-crud-operations)**
+    
+    - **Jira Task: Organize Collections**
+        - **[(SCRUM-138)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-138)**  
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-138-organize-collections)**
 
 
 - **Stephen Smyth** "For Sprint 2..."
@@ -188,8 +204,6 @@ Report:
     - **Jira Task: Research How to Organize a Large Project**  
         - **[(SCRUM-65)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-65)**  
         - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-65-research-how-to-organize-a-larg)**  
-
-
 
 
 - **Elliot Sonoqui** "I did research about..."
@@ -210,7 +224,9 @@ Report:
 * **Denise Boler**
     - 
 * **Amanda Orozco**
-    - 
+    - Integrate Postman Tests into the CI/CD Pipeline
+    - Transition from Mock to Production Database
+    - Refinement and Optimization of CRUD Operations
 * **Stephen Smyth**
     - 
 * **Elliot Sonoqui**
