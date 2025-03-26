@@ -159,3 +159,59 @@ Report:
     - Create a Form for ingredient input
     - Create a recipe search 
     - Create a JSON file
+
+
+## Contributitions
+### Sprint 2
+
+- **Cameron Archuleta** *...*
+    - [SCRUM-90](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-90) Research: React & HTML
+        - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-90-research-react-html)
+ 
+- **Tushig Battulga**: "..."  
+    - Jira Task: Agree upon starter page and delegate work to team members  
+        - [(SCRUM-92)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-92) | [Bitbucket](https://bitbucket.org/cs3398-luna-s25/{45b01286-1397-4155-a753-0c05200a2659}/branch/SCRUM-92-agree-upon-starter-page-and-delegate-work-to-team-members) 
+
+- **Denise Boler** *"I researched and implemented...* 
+    - [SCRUM-79](https://cs3398-luna-spring.atlassian.net/jira/software/projects/SCRUM/issues/SCRUM-79?jql=project%20%3D%20%22SCRUM%22%20ORDER%20BY%20cf%5B10020%5D%20ASC%2C%20created%20DESC) Research REACT Hooks 
+        - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-79-research-react-hooks)
+   
+
+- **Amanda Orozco**: "Provided..."
+    - **Jira Task: Backend Features and Design**
+        - **[(SCRUM-64)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-64)**  
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-64-backend-features-and-design)**
+
+
+- **Stephen Smyth** "For Sprint 2..."
+
+    - **Jira Task: Research How to Organize a Large Project**  
+        - **[(SCRUM-65)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-65)**  
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-65-research-how-to-organize-a-larg)**  
+
+
+
+
+- **Elliot Sonoqui** "I did research about..."
+    -  [SCRUM53](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-53) Research REACT/Supabase/Flask/OpenAI
+        - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/feature/SCRUM-53-research-react-supabase/flask/o)
+  
+
+
+Report:
+![image of Sprint 2 burnup chart](Sprint2_BurnupChart.png)
+* 
+
+ ### Next Steps: 
+* **Cameron Archuleta**
+    - 
+ * **Tushig Battulga**
+    - 
+* **Denise Boler**
+    - 
+* **Amanda Orozco**
+    - 
+* **Stephen Smyth**
+    - 
+* **Elliot Sonoqui**
+    - 
