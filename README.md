@@ -199,11 +199,23 @@ Report:
         - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-138-organize-collections)**
 
 
-- **Stephen Smyth** "For Sprint 2..."
+- **Stephen Smyth** "For Sprint 2 I made basic infrastructure for the backend for others to build off of, looked into feasibility of user authentication and deployment options given our timeline, and updated documentation on how to run the project."
 
-    - **Jira Task: Research How to Organize a Large Project**  
-        - **[(SCRUM-65)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-65)**  
-        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-65-research-how-to-organize-a-larg)**  
+    - **Jira Task: Create route and connect controller/service**  
+        - **[(SCRUM-130)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-130?atlOrigin=eyJpIjoiNmJlMWM0MjU5NTUyNGJlMTlkYmMyOWNkYWE1NGJlZTQiLCJwIjoiaiJ9)**  
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/src/SCRUM-130-create-route-and-connect-contr/)**  
+
+    - **Jira Task: Create docs for how to run and contribute to the project**  
+        - **[(SCRUM-131)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-131?atlOrigin=eyJpIjoiNjI0YmU3YTNlYjhjNGJjYmJiOTVjZjIxNWJlZmY5MDQiLCJwIjoiaiJ9)**  
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/src/SCRUM-131-create-docs-for-how-to-run-and/)**  
+
+    - **Jira Task: Look into deployment options**  
+        - **[(SCRUM-133)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-133?atlOrigin=eyJpIjoiNzE3Nzg3M2NhMjg0NGJlZmJjYzc2ZjJmNzFhMzU0YTgiLCJwIjoiaiJ9)**  
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/src/SCRUM-133-look-into-deployment-options/)**  
+
+    - **Jira Task: Research user authentication feasibility for project**  
+        - **[(SCRUM-132)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-132?atlOrigin=eyJpIjoiM2U0NmUxYTk3ZTZjNDY5OWI3OWQwZjRlOTJjYjYxOWEiLCJwIjoiaiJ9)**  
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/src/SCRUM-132-research-user-authentication-f/)**  
 
 
 - **Elliot Sonoqui** "I did research about..."
@@ -228,6 +240,8 @@ Report:
     - Transition from Mock to Production Database
     - Refinement and Optimization of CRUD Operations
 * **Stephen Smyth**
-    - 
+    - clean up the codebase (delete old frontend, update readme)
+    - deploy the app on railway in a docker container
+    - help set up the database and connect it to the backend
 * **Elliot Sonoqui**
     - 
