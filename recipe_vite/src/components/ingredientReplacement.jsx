@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axios from 'axios';
 
 const IngredientReplacement = () => {
   const [ingredient, setIngredient] = useState('');
@@ -16,15 +17,22 @@ const IngredientReplacement = () => {
     setError('');
     setReplacementResults([]);
 
-    // Simulated delay / placeholder response
-    setTimeout(() => {
-      setLoading(false);
-      setReplacementResults([
-        'Almond milk',
-        'Oat milk',
-        'Soy milk',
-      ]);
-    }, 1000);
+    try {
+      const response = await axios.post('/api/ai/replace-ingredient', {
+        ingredient: ingredient.trim(),
+      });
+
+      if (response.data.success) {
+        setReplacementResults(response.data.data);
+      } else {
+        setError('No replacements found.');
+      }
+    } catch (error) {
+      console.error('Error fetching replacements:', error);
+      setError(error.response?.data?.error || 'Something went wrong.');
+    }
+
+    setLoading(false);
   };
 
   return (
