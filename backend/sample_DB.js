@@ -118,6 +118,21 @@ db.once("open", async () => {
                 console.log("Updated user:", updatedUser);
             }
         }
+        
+
+        // Ask user if they want to perform a delete operation
+        answer = await askQuestion("Do you want to delete a recipe? (y/n): ");
+        if (answer.toLowerCase() === "y") {
+            const recipeTitle = await askQuestion("Enter the exact recipe title to delete: ");
+            const deletedRecipe = await Recipe.findOneAndDelete({
+                title: recipeTitle,
+            });
+            if (deletedRecipe) {
+                console.log("Deleted recipe:", deletedRecipe);
+            } else {
+                console.log("Recipe not found.");
+            }
+        }
 
         // Fetch and print all users, recipes, and ingredients
         const users = await User.find();
