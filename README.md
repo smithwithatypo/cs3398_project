@@ -159,3 +159,103 @@ Report:
     - Create a Form for ingredient input
     - Create a recipe search 
     - Create a JSON file
+
+
+## Contributitions
+### Sprint 2
+
+- **Cameron Archuleta** *...*
+    - [SCRUM-90](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-90) Research: React & HTML
+        - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-90-research-react-html)
+ 
+- **Tushig Battulga**: "..."  
+    - Jira Task: Agree upon starter page and delegate work to team members  
+        - [(SCRUM-92)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-92) | [Bitbucket](https://bitbucket.org/cs3398-luna-s25/{45b01286-1397-4155-a753-0c05200a2659}/branch/SCRUM-92-agree-upon-starter-page-and-delegate-work-to-team-members) 
+
+- **Denise Boler** *"I researched and implemented...* 
+    - [SCRUM-79](https://cs3398-luna-spring.atlassian.net/jira/software/projects/SCRUM/issues/SCRUM-79?jql=project%20%3D%20%22SCRUM%22%20ORDER%20BY%20cf%5B10020%5D%20ASC%2C%20created%20DESC) Research REACT Hooks 
+        - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-79-research-react-hooks)
+   
+
+- **Amanda Orozco**: "Provided research for Postman's API testing and automation capabilities and identified a strategy to integrate it in the next sprint to streamline our database connectivity. I designed user-centric database collections that organize pantry items and recipes by user, and implemented comprehensive CRUD operations to enable efficient data management."
+    - **Jira Task: Postman Research**
+        - **[(SCRUM-105)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-105)**  
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-105-postman-research)**
+
+    - **Jira Task: Initial DB setup**
+        - **[(SCRUM-102)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-102)**  
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-102-db-initial-set-up)**
+
+    - **Jira Task: Create a mock database**
+        - **[(SCRUM-103)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-103)**  
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-103-create-a-mock-database)**
+    
+    - **Jira Task: Create CRUD operations**
+        - **[(SCRUM-104)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-104)**  
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-104-create-crud-operations)**
+    
+    - **Jira Task: Organize Collections**
+        - **[(SCRUM-138)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-138)**  
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-138-organize-collections)**
+
+
+- **Stephen Smyth** "For Sprint 2 I made basic infrastructure for the backend for others to build off of, looked into feasibility of user authentication and deployment options given our timeline, and updated documentation on how to run the project."
+
+    - **Jira Task: Create route and connect controller/service**  
+        - **[(SCRUM-130)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-130?atlOrigin=eyJpIjoiNmJlMWM0MjU5NTUyNGJlMTlkYmMyOWNkYWE1NGJlZTQiLCJwIjoiaiJ9)**  
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/src/SCRUM-130-create-route-and-connect-contr/)**  
+
+    - **Jira Task: Create docs for how to run and contribute to the project**  
+        - **[(SCRUM-131)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-131?atlOrigin=eyJpIjoiNjI0YmU3YTNlYjhjNGJjYmJiOTVjZjIxNWJlZmY5MDQiLCJwIjoiaiJ9)**  
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/src/SCRUM-131-create-docs-for-how-to-run-and/)**  
+
+    - **Jira Task: Look into deployment options**  
+        - **[(SCRUM-133)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-133?atlOrigin=eyJpIjoiNzE3Nzg3M2NhMjg0NGJlZmJjYzc2ZjJmNzFhMzU0YTgiLCJwIjoiaiJ9)**  
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/src/SCRUM-133-look-into-deployment-options/)**  
+
+    - **Jira Task: Research user authentication feasibility for project**  
+        - **[(SCRUM-132)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-132?atlOrigin=eyJpIjoiM2U0NmUxYTk3ZTZjNDY5OWI3OWQwZjRlOTJjYjYxOWEiLCJwIjoiaiJ9)**  
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/src/SCRUM-132-research-user-authentication-f/)**  
+
+
+- **Elliot Sonoqui** "I refactored the frontend to use vite and tailwind css. I replaced useState with react router which is more scalable. I implemented generation page functionality, and simplified pantry page functionality."
+    -  **[SCRUM109](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-109)**
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/src/SCRUM-109-refactor-frontend-to-use-vite/)**
+
+    -  **[SCRUM110](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-110)**
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/commits/?search=SCRUM-110)**
+
+    -  **[SCRUM112](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-112)**
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/commits/?search=SCRUM-112)**
+
+    -  **[SCRUM124](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-124)**
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/commits/?search=SCRUM-124)**
+    
+    -  **[SCRUM134](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-134)**
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/commits/?search=SCRUM-134)**
+  
+
+
+Report:
+![image of Sprint 2 burnup chart](Sprint2_BurnupChart.png)
+* 
+
+ ### Next Steps: 
+* **Cameron Archuleta**
+    - 
+ * **Tushig Battulga**
+    - 
+* **Denise Boler**
+    - 
+* **Amanda Orozco**
+    - Integrate Postman Tests into the CI/CD Pipeline
+    - Transition from Mock to Production Database
+    - Refinement and Optimization of CRUD Operations
+* **Stephen Smyth**
+    - clean up the codebase (delete old frontend, update readme)
+    - deploy the app on railway in a docker container
+    - help set up the database and connect it to the backend
+* **Elliot Sonoqui**
+    - Clean up the navigation bar and add a drop down for different pages
+    - Update the recipes on the homepage to pull from an API
+    - Work on a profile page for a user

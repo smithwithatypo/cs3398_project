@@ -5,6 +5,7 @@ import Pantry from "./components/pantry";
 import Generation from "./components/generation";
 import Cookbook from "./components/cookbook";
 import IngredientReplacement from "./components/ingredientReplacement";
+import Favorites from "./components/favorites";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
             <Route path="/generate" element={<Generation />} />
             <Route path="/cookbook" element={<Cookbook />} />
             <Route path="/replacement" element={<IngredientReplacement />} />
+            <Route path="/favorites" element={<Favorites />} />
           </Routes>
         </main>
       </div>
