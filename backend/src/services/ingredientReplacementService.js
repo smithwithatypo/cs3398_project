@@ -17,6 +17,13 @@ const IngredientReplacementService = {
     });
 
     const text = completion.choices[0].message.content;
-    return text;
+
+    // Turn bullet list into array
+    const replacements = text
+      .split('\n')
+      .map(line => line.replace(/^[-•*]\s*/, '').trim())
+      .filter(line => line.length > 0);
+
+    return replacements;
   }
 };
