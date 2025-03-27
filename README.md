@@ -218,9 +218,21 @@ Report:
         - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/src/SCRUM-132-research-user-authentication-f/)**  
 
 
-- **Elliot Sonoqui** "I did research about..."
-    -  [SCRUM53](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-53) Research REACT/Supabase/Flask/OpenAI
-        - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/feature/SCRUM-53-research-react-supabase/flask/o)
+- **Elliot Sonoqui** "I refactored the frontend to use vite and tailwind css. I replaced useState with react router which is more scalable. I implemented generation page functionality, and simplified pantry page functionality."
+    -  **[SCRUM109](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-109)**
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/src/SCRUM-109-refactor-frontend-to-use-vite/)**
+
+    -  **[SCRUM110](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-110)**
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/commits/?search=SCRUM-110)**
+
+    -  **[SCRUM112](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-112)**
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/commits/?search=SCRUM-112)**
+
+    -  **[SCRUM124](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-124)**
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/commits/?search=SCRUM-124)**
+    
+    -  **[SCRUM134](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-134)**
+        - **[Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/commits/?search=SCRUM-134)**
   
 
 
@@ -244,4 +256,6 @@ Report:
     - deploy the app on railway in a docker container
     - help set up the database and connect it to the backend
 * **Elliot Sonoqui**
-    - 
+    - Clean up the navigation bar and add a drop down for different pages
+    - Update the recipes on the homepage to pull from an API
+    - Work on a profile page for a user
