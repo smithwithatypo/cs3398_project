@@ -3,6 +3,7 @@ import { TestController } from '../controllers/testController.js';
 import { GenerateRecipeController } from '../controllers/generateRecipeController.js';
 import { PantryController } from '../controllers/pantryItemsController.js';
 import { RecipeSearchController } from '../controllers/recipeSearchController.js';
+import { IngredientReplacementController } from '../controllers/ingredientReplacementController.js';
 
 const router = express.Router();
 
@@ -21,5 +22,8 @@ router.delete('/pantry/:index', PantryController.removePantryItem);
 
 // Cookbook routes
 router.post('/search-recipes', RecipeSearchController.searchRecipes);
+
+// Ingredient Replacement
+router.post('/replace-ingredient', IngredientReplacementController.getReplacements);
 
 export default router;
