@@ -186,10 +186,28 @@ Report:
     - **Jira Task: Create 'favorites' page (frame)**
         - [SCRUM-127](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-127)
         - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/featureSCRUM-127-create-favorites-page-frame)
- 
-- **Tushig Battulga**: "..."  
-    - Jira Task: Agree upon starter page and delegate work to team members  
-        - [(SCRUM-92)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-92) | [Bitbucket](https://bitbucket.org/cs3398-luna-s25/{45b01286-1397-4155-a753-0c05200a2659}/branch/SCRUM-92-agree-upon-starter-page-and-delegate-work-to-team-members) 
+
+- **Tushig Battulga**
+"I researched commmunication between React and Node, implemented the ingredients to recipe (text only) feature, integrated OpenAI API with sample file for demo, added features to allow generation page to pull from text, established communication between the front end and back end, created the UI for the Cookbook page, integrated search by name feature via MealDB API, and displayed those results in the Cookbook page."
+
+    - **Jira Task: Ingredients to Recipe Implementation (Text Only)**  
+    - [(SCRUM-85)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-85) | [Bitbucket](https://bitbucket.org/cs3398-luna-s25/{45b01286-1397-4155-a753-0c05200a2659}/branch/SCRUM-85-ingredients-to-recipe-implementation-text-only)  
+    - **Jira Task: Research Communication Between Frontend React and Backend Node**  
+    - [(SCRUM-119)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-119) | [Bitbucket](https://bitbucket.org/{d93f5839-8dd2-41e8-9a85-42843050e9e1}/{45b01286-1397-4155-a753-0c05200a2659}/pull-requests/17)  
+    - **Jira Task: OpenAI API Integration with Sample JSON Ingredients File**  
+    - [(SCRUM-86)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-86) | [Bitbucket](https://bitbucket.org/{d93f5839-8dd2-41e8-9a85-42843050e9e1}/{45b01286-1397-4155-a753-0c05200a2659}/pull-requests/26)  
+    - **Jira Task: Generation Page Has Features to Pull from Existing Pantry and Text**  
+    - [(SCRUM-120)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-120) | [Bitbucket](https://bitbucket.org/{d93f5839-8dd2-41e8-9a85-42843050e9e1}/{45b01286-1397-4155-a753-0c05200a2659}/pull-requests/34)  
+    - **Jira Task: Establish Communication Between Frontend and Backend**  
+    - [(SCRUM-114)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-114) | [Bitbucket](https://bitbucket.org/{d93f5839-8dd2-41e8-9a85-42843050e9e1}/{45b01286-1397-4155-a753-0c05200a2659}/pull-requests/35)  
+    - **Jira Task: Create UI Page for Cookbook**  
+    - [(SCRUM-135)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-135) | [Bitbucket](https://bitbucket.org/{d93f5839-8dd2-41e8-9a85-42843050e9e1}/{45b01286-1397-4155-a753-0c05200a2659}/pull-requests/36)  
+    - **Jira Task: Integrate Search by Name API for Cookbook**  
+    - [(SCRUM-136)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-136) | [Bitbucket](https://bitbucket.org/{d93f5839-8dd2-41e8-9a85-42843050e9e1}/{45b01286-1397-4155-a753-0c05200a2659}/pull-requests/37)  
+    - **Jira Task: Display Cookbook API Results**  
+    - [(SCRUM-137)](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-137) | [Bitbucket](https://bitbucket.org/{d93f5839-8dd2-41e8-9a85-42843050e9e1}/{45b01286-1397-4155-a753-0c05200a2659}/pull-requests/38)  
+
+
 
 - **Denise Boler** *"I researched and implemented...* 
     - [SCRUM-79](https://cs3398-luna-spring.atlassian.net/jira/software/projects/SCRUM/issues/SCRUM-79?jql=project%20%3D%20%22SCRUM%22%20ORDER%20BY%20cf%5B10020%5D%20ASC%2C%20created%20DESC) Research REACT Hooks 
