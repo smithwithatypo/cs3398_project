@@ -164,9 +164,28 @@ Report:
 ## Contributitions
 ### Sprint 2
 
-- **Cameron Archuleta** *...*
-    - [SCRUM-90](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-90) Research: React & HTML
-        - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-90-research-react-html)
+- **Cameron Archuleta** "I updated the navbar allowing users to navigate to newly added pages/features. Implemented a logo to the navbar which allows users to click it and return to the home page. Created a favorites and ingredient replacement page respectively. Used OpenAI to allow users to input particular ingredients and then prompted openAI to suggest replacements."
+    
+    - **Jira Task: Create Navigation Bar**
+      **This task was carried over from sprint 1 and meant to add pages to navbar but that was done per individual task below**
+        - [SCRUM-72](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-72)
+        - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-72-create-navigation-bar)
+
+    - **Jira Task: Implement Icon/Logo**
+        - [SCRUM-73](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-73)
+        - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-73-implement-icon-logo)
+        
+    - **Jira Task: Refactor 'ingredient replacement' to use components for backend**
+        - [SCRUM-125](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-125)
+        - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/SCRUM-125-refactor-ingredient-replacement)
+    
+    - **Jira Task: Create 'ingredient replacement' page (frame)**
+        - [SCRUM-128](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-128)
+        - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/recipe_generator/branch/SCRUM-128-create-ingredient-replacement-page)
+
+    - **Jira Task: Create 'favorites' page (frame)**
+        - [SCRUM-127](https://cs3398-luna-spring.atlassian.net/browse/SCRUM-127)
+        - [Bitbucket](https://bitbucket.org/cs3398-luna-s25/%7B45b01286-1397-4155-a753-0c05200a2659%7D/branch/featureSCRUM-127-create-favorites-page-frame)
  
 - **Tushig Battulga**: "..."  
     - Jira Task: Agree upon starter page and delegate work to team members  
@@ -242,7 +261,9 @@ Report:
 
  ### Next Steps: 
 * **Cameron Archuleta**
-    - 
+    - Add a favorites option to the generated recipes, which send and save them to favorites page.
+    - Implement constraints on the ingredient replacement generator to only allow valid food items.
+    - Update the layout of specifc pages to allow for a more friendly user experience.
  * **Tushig Battulga**
     - 
 * **Denise Boler**
