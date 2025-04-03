@@ -4,6 +4,7 @@ import { GenerateRecipeController } from '../controllers/generateRecipeControlle
 import { PantryController } from '../controllers/pantryItemsController.js';
 import { RecipeSearchController } from '../controllers/recipeSearchController.js';
 import { IngredientReplacementController } from '../controllers/ingredientReplacementController.js';
+import { DishIdentificationController } from '../controllers/dishIdentificationController.js';
 
 const router = express.Router();
 
@@ -13,7 +14,13 @@ router.post('/generate-text', GenerateRecipeController.getGeneratedRecipe);
 
 // Recipe generation routes
 router.post('/generate-recipe', GenerateRecipeController.generateFromPantryItems);
-router.post('/generate-recipe-text', GenerateRecipeController.generateFromText); // New text-to-recipe route
+router.post('/generate-recipe-text', GenerateRecipeController.generateFromText);
+
+// Dish identification from image route
+router.post('/identify-dish', 
+    DishIdentificationController.uploadMiddleware, 
+    DishIdentificationController.identifyDish
+);
 
 // Pantry routes
 router.get('/pantry', PantryController.getPantryItems);
