@@ -1,24 +1,26 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 const Generation = () => {
-  const [pantryItems, setPantryItems] = useState([]); // Stores pantry ingredients
+  const [pantryItems, setPantryItems] = useState([]);
   const [recipe, setRecipe] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [textPrompt, setTextPrompt] = useState(''); // New state for text input
   const [showTextInput, setShowTextInput] = useState(false); // Toggle for text input visibility
   const navigate = useNavigate();
+  const location = useLocation();
 
-  // Fetch pantry items from the backend when the page loads
   useEffect(() => {
     fetchPantryItems();
-  }, []);
+    checkImageRecipe();
+  }, [location.search]);
 
+  // Fetch pantry items from the backend
   const fetchPantryItems = async () => {
     try {
-      const response = await axios.get('/api/ai/pantry'); // Get pantry items
+      const response = await axios.get('/api/ai/pantry');
       if (response.data.success) {
         setPantryItems(response.data.data);
       } else {
@@ -30,7 +32,17 @@ const Generation = () => {
     }
   };
 
-  // Generate a recipe using the fetched pantry items
+  // Check if there's image-based recipe data in localStorage
+  const checkImageRecipe = () => {
+    if (location.search.includes('source=image')) {
+      const imageData = localStorage.getItem('imageRecipeData');
+      if (imageData) {
+        setRecipe(imageData);
+      }
+    }
+  };
+
+  // Generate recipe using pantry items
   const generateRecipe = async () => {
     if (pantryItems.length === 0) {
       setError('Your pantry is empty! Add ingredients first.');
@@ -42,7 +54,7 @@ const Generation = () => {
 
     try {
       const response = await axios.post('/api/ai/generate-recipe', {
-        ingredients: pantryItems, // Send pantry ingredients to backend
+        ingredients: pantryItems,
       });
 
       if (response.data.success) {
@@ -70,7 +82,7 @@ const Generation = () => {
 
     try {
       const response = await axios.post('/api/ai/generate-recipe-text', {
-        textPrompt: textPrompt, // Send text prompt to backend
+        textPrompt: textPrompt,
       });
 
       if (response.data.success) {
