@@ -27,7 +27,7 @@ Thank you for your interest in contributing to our Recipe Generator project! Thi
       ```bash
       cp .env.sample .env
       ```
-    - Open the `.env` file and fill in your API keys and MongoDB connection string
+    - Open the `.env` file and fill in your API keys
     - Start the backend server
       ```bash
       npm run start
@@ -39,7 +39,7 @@ Thank you for your interest in contributing to our Recipe Generator project! Thi
     - Navigate to the frontend directory
     - Install dependencies
       ```bash
-      cd frontend
+      cd recipe_vite
       npm install
       ```
     - Start the React development server
@@ -56,6 +56,7 @@ Thank you for your interest in contributing to our Recipe Generator project! Thi
 
 2. Make your changes and commit them with descriptive commit messages
     ```bash
+    git add .
     git commit -m "Add feature: description of changes"
     ```
 
@@ -64,7 +65,7 @@ Thank you for your interest in contributing to our Recipe Generator project! Thi
     git push -u origin your-feature-name
     ```
 
-4. Create a pull request against the main repository
+4. Create a pull request going into the development branch 
 
 ## Code Style and Guidelines
 

@@ -39,6 +39,9 @@
     - JavaScript
     - APIs: Instagram, Spoonacular, OpenAI
 
+## How to Run:
+- see CONTRIBUTING.md
+
 ## Features
 **Feature 1: User input to recipe generatoin**
 - Description: user inputs their pantry items and we provide recipes using their items
