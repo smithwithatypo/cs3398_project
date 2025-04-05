@@ -44,7 +44,7 @@ Thank you for your interest in contributing to our Recipe Generator project! Thi
       ```
     - Start the React development server
       ```bash
-      npm run start
+      npm run dev
       ```
 
 ## Development Workflow
