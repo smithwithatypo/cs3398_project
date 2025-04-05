@@ -177,15 +177,15 @@ const Generation = () => {
       {/* Recipe Display */}
       {recipe && (
         <div className="bg-white shadow-md rounded-lg p-6 mt-8 w-full max-w-2xl">
-          <h3 className="text-xl font-semibold mb-4 text-[#1e2d3d]">Generated Recipe</h3>
           <div
-            className="text-[#1e2d3d] font-medium"
+            className="text-[#1e2d3d] font-medium p-4 bg-white rounded-lg shadow-md"
             dangerouslySetInnerHTML={{
               __html: recipe
-                .replace(/^### (.+)$/gm, '<h3>$1</h3>') 
-                .replace(/^## (.+)$/gm, '<h2>$1</h2>')  
-                .replace(/^# (.+)$/gm, '<h1>$1</h1>')   
-                .replace(/\n/g, '<br>')             
+                .replace(/^### (.+)$/gm, '<h3 class="text-lg font-bold mt-4">$1</h3>')  // Subheading for sections
+                .replace(/^## (.+)$/gm, '<h2 class="text-xl font-semibold mt-6">$1</h2>') // Subsection headers
+                .replace(/^# (.+)$/gm, '<h1 class="text-2xl font-extrabold mb-4">$1</h1>') // Recipe title
+                .replace(/- (.+)$/gm, '<li class="list-disc ml-6">$1</li>')              // Bullet points for ingredients/steps
+                .replace(/\n/g, '<br>')                                                  // Convert new lines to <br>
             }}
           />
         </div>
