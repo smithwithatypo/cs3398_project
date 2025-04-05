@@ -178,15 +178,16 @@ const Generation = () => {
       {recipe && (
         <div className="bg-white shadow-md rounded-lg p-6 mt-8 w-full max-w-2xl">
           <div
-            className="text-[#1e2d3d] font-medium p-6 bg-white rounded-xl shadow-lg max-w-3xl mx-auto my-6"
+            className="text-[#1e2d3d] font-medium p-4 bg-[#d0ded5] rounded-lg shadow-md max-w-3xl mx-auto my-4"
             dangerouslySetInnerHTML={{
               __html: recipe
-                .replace(/\*\*(.+?)\*\*/g, '$1')                                            // Remove bold markdown syntax
-                .replace(/^### (.+)$/gm, '<h3 class="text-lg font-semibold bg-gray-100 p-2 rounded-md mt-2 mb-1">$1</h3>')  // Subheading for sections
-                .replace(/^## (.+)$/gm, '<h2 class="text-xl font-bold bg-gray-200 p-3 rounded-lg mt-4 mb-2">$1</h2>')        // Subsection headers
-                .replace(/^# (.+)$/gm, '<h1 class="text-3xl font-extrabold text-center mb-4">$1</h1>')                      // Recipe title
-                .replace(/[-*] (.+)$/gm, '<li class="list-disc ml-8 mb-1">$1</li>')                                          // Bullet points for ingredients/steps
-                .replace(/\n/g, '<br>')                                                                                     // Convert new lines to <br>
+                .replace(/\*\*(.+?)\*\*/g, '$1')
+                .replace(/^# (.+)$/gm, '<h1 class="text-2xl font-extrabold text-center mb-1 text-[#1e2d3d]">$1</h1>')
+                .replace(/^## (.+)$/gm, '<h2 class="text-xl font-bold bg-[#1e2d3d] text-white py-1 px-3 rounded-md mt-2">$1</h2>')
+                .replace(/^### (.+)$/gm, '<h3 class="text-lg font-semibold bg-[#8aa29e] text-white py-1 px-2 rounded-md">$1</h3>')
+                .replace(/(\d+\.)(.+)$/gm, '<span class="font-bold">$1</span>$2')
+                .replace(/[-*] (.+)$/gm, '<li class="list-disc ml-6 text-[#1e2d3d]">$1</li>')
+                .replace(/\n{2,}/g, '<br>')
             }}
           />
         </div>
