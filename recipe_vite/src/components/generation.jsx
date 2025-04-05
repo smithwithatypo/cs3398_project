@@ -178,14 +178,15 @@ const Generation = () => {
       {recipe && (
         <div className="bg-white shadow-md rounded-lg p-6 mt-8 w-full max-w-2xl">
           <div
-            className="text-[#1e2d3d] font-medium p-4 bg-white rounded-lg shadow-md"
+            className="text-[#1e2d3d] font-medium p-6 bg-white rounded-xl shadow-lg max-w-3xl mx-auto my-6"
             dangerouslySetInnerHTML={{
               __html: recipe
-                .replace(/^### (.+)$/gm, '<h3 class="text-lg font-bold mt-4">$1</h3>')  // Subheading for sections
-                .replace(/^## (.+)$/gm, '<h2 class="text-xl font-semibold mt-6">$1</h2>') // Subsection headers
-                .replace(/^# (.+)$/gm, '<h1 class="text-2xl font-extrabold mb-4">$1</h1>') // Recipe title
-                .replace(/- (.+)$/gm, '<li class="list-disc ml-6">$1</li>')              // Bullet points for ingredients/steps
-                .replace(/\n/g, '<br>')                                                  // Convert new lines to <br>
+                .replace(/\*\*(.+?)\*\*/g, '$1')                                            // Remove bold markdown syntax
+                .replace(/^### (.+)$/gm, '<h3 class="text-lg font-semibold bg-gray-100 p-2 rounded-md mt-2 mb-1">$1</h3>')  // Subheading for sections
+                .replace(/^## (.+)$/gm, '<h2 class="text-xl font-bold bg-gray-200 p-3 rounded-lg mt-4 mb-2">$1</h2>')        // Subsection headers
+                .replace(/^# (.+)$/gm, '<h1 class="text-3xl font-extrabold text-center mb-4">$1</h1>')                      // Recipe title
+                .replace(/[-*] (.+)$/gm, '<li class="list-disc ml-8 mb-1">$1</li>')                                          // Bullet points for ingredients/steps
+                .replace(/\n/g, '<br>')                                                                                     // Convert new lines to <br>
             }}
           />
         </div>
