@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import aiRoutes from './routes/aiRoutes.js'
+import authRoutes from './routes/authRoutes.js'
 
 // env
 import dotenv from 'dotenv';
@@ -24,6 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // routes
 app.use('/api/ai', aiRoutes);
+app.use('/api/', authRoutes);
 
 // test 
 app.get('/test', (req, res) => {
