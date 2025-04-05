@@ -178,7 +178,16 @@ const Generation = () => {
       {recipe && (
         <div className="bg-white shadow-md rounded-lg p-6 mt-8 w-full max-w-2xl">
           <h3 className="text-xl font-semibold mb-4 text-[#1e2d3d]">Generated Recipe</h3>
-          <div className="text-[#1e2d3d] font-medium" dangerouslySetInnerHTML={{ __html: recipe.replace(/\n/g, '<br>') }} />
+          <div
+            className="text-[#1e2d3d] font-medium"
+            dangerouslySetInnerHTML={{
+              __html: recipe
+                .replace(/^### (.+)$/gm, '<h3>$1</h3>') 
+                .replace(/^## (.+)$/gm, '<h2>$1</h2>')  
+                .replace(/^# (.+)$/gm, '<h1>$1</h1>')   
+                .replace(/\n/g, '<br>')             
+            }}
+          />
         </div>
       )}
 
