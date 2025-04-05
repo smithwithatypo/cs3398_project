@@ -12,5 +12,6 @@ export default defineConfig({
         secure: false,
       },
     },
+    allowedHosts: ['cs3398project-production.up.railway.app'],
   },
 })
