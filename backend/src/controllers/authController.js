@@ -15,8 +15,8 @@ const AuthController = {
         try {
             const clientData = req.body;
             const authCheck = AuthService.checkCredentials(clientData);
-
-            if (authCheck == true) {
+            
+            if (authCheck === true) {
                 res.status(200).json({ success: true });
             } else {
                 res.status(200).json({ success: false });
