@@ -57,6 +57,14 @@ const Navbar = () => {
             Favorites
           </Link>
         </li>
+        <li>
+          <Link 
+            to="/login" 
+            className="text-white font-bold hover:underline"
+          >
+            Logout
+          </Link>
+        </li>
       </ul>
     </nav>
   );

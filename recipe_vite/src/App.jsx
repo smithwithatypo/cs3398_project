@@ -10,6 +10,7 @@ import Favorites from "./components/favorites.jsx";
 import Cookbook from "./components/cookbook.jsx";
 import IngredientReplacement from "./components/ingredientReplacement.jsx";
 import Navbar from "./shared/navbar/navbar.jsx";
+import Login from "./components/login.jsx";
 
 // Basic test component to verify routing
 const TestComponent = () => (
@@ -36,6 +37,7 @@ function App() {
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/cookbook" element={<Cookbook />} />
           <Route path="/replacement" element={<IngredientReplacement />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </div>
     </BrowserRouter>
