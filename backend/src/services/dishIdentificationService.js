@@ -8,53 +8,61 @@ dotenv.config();
 const API_KEY = process.env.OPENAI_API_KEY;
 const openai = new OpenAI({ apiKey: API_KEY });
 
-// Use GPT-4o for image analysis
 const MODEL_CHOICE = "gpt-4o";
+const temperature = 0.7; 
+
+// Unified system prompt for consistent markdown formatting
+const unifiedSystemPrompt = `
+    You are a culinary expert who provides recipes with a structured markdown format.
+    Format the recipe as follows:
+    - The recipe title should be marked with a single '#' symbol.
+    - The sections "Ingredients", "Instructions", and "Tips" should be marked with '##'.
+    - Do not use any other heading levels.
+    - Use bullet points for ingredients.
+    - Use numbered steps for instructions.
+    - Ensure the recipe is formatted consistently as specified.
+`;
 
 const DishIdentificationService = {
     async identifyDishFromImage(imageFile) {
         try {
-            // Create a temporary file path
             const tempDir = os.tmpdir();
             const tempFilePath = path.join(tempDir, imageFile.originalname);
-            
-            // Save the uploaded file to the temp directory
+
             await fs.promises.writeFile(tempFilePath, imageFile.buffer);
-            
-            // Read the file as a buffer for the OpenAI API
             const imageBuffer = await fs.promises.readFile(tempFilePath);
-            
-            // Convert buffer to base64 encoding as required by OpenAI
             const base64Image = imageBuffer.toString('base64');
-            
-            // Analyze the image with GPT-4 Vision
+
             const response = await openai.chat.completions.create({
                 model: MODEL_CHOICE,
+                temperature: temperature,
                 messages: [
                     {
                         role: "system",
-                        content: "You are a culinary expert who can identify dishes from photos and provide recipes. When shown a food image, identify the dish, list its ingredients, and provide a detailed recipe with preparation instructions. Format your response in markdown."
+                        content: unifiedSystemPrompt
                     },
                     {
                         role: "user",
-                        content: [
-                            { type: "text", text: "What dish is this? Please identify it and provide a recipe." },
-                            {
-                                type: "image_url",
-                                image_url: {
-                                    url: `data:image/jpeg;base64,${base64Image}`
-                                }
+                        content: `Identify the dish from this image and provide a recipe formatted as specified.`
+                    },
+                    {
+                        role: "user",
+                        content: {
+                            type: "image_url",
+                            image_url: {
+                                url: `data:image/jpeg;base64,${base64Image}`
                             }
-                        ]
+                        }
                     }
                 ],
                 max_tokens: 1500
             });
-            
-            // Clean up the temporary file
+
             await fs.promises.unlink(tempFilePath);
-            
-            return response.choices[0].message.content;
+
+            let recipe = response.choices[0].message.content;
+
+            return recipe;
         } catch (error) {
             console.error('Error identifying dish from image:', error);
             throw error;
