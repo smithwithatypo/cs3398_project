@@ -181,13 +181,16 @@ const Generation = () => {
             className="text-[#1e2d3d] font-medium p-4 bg-[#d0ded5] rounded-lg shadow-md max-w-3xl mx-auto my-4"
             dangerouslySetInnerHTML={{
               __html: recipe
+                .replace(/(\d+\.)(\s+)/g, '<br>$1 ') 
                 .replace(/^####\s*(.+)$/gm, '<strong>$1</strong><br>') 
-                .replace(/^###\s*(.+)$/gm, '## $1 ') 
+                .replace(/^###\s*(.+)$/gm, '## $1 ')
+                .replace(/\n{2,}/g, '\n')
                 .replace(/\*\*(.+?)\*\*/g, '$1')
                 .replace(/^# (.+)$/gm, '<h1 class="text-2xl font-extrabold text-center mb-1 text-[#1e2d3d]">$1</h1>')
                 .replace(/^## (.+)$/gm, '<h2 class="text-xl font-bold bg-[#1e2d3d] text-white py-1 px-3 rounded-md mt-2">$1</h2>')
                 .replace(/^### (.+)$/gm, '<h3 class="text-lg font-semibold bg-[#8aa29e] text-white py-1 px-2 rounded-md">$1</h3>')
-                .replace(/[-] (.+)$/gm, '<li class="list-disc ml-6 text-[#1e2d3d]">$1</li>')
+                .replace(/[-] (.+)$/gm, '<li class="list-disc ml-6 text-[#1e2d3d]">$1</li>') // Format bullet points
+                .replace(/\n<li class="list-disc ml-6 text-[#1e2d3d]">/g, '<li class="list-disc ml-6 text-[#1e2d3d]">') // Remove newline before list item
 
             }}
           />
