@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 const Pantry = () => {
@@ -9,6 +9,15 @@ const Pantry = () => {
     const savedQuantities = localStorage.getItem('quantities');
     return savedQuantities ? JSON.parse(savedQuantities) : {};
   });
+  
+  // Receipt scanning states
+  const [isScanning, setIsScanning] = useState(false);
+  const [scanError, setScanError] = useState('');
+  const [selectedReceipt, setSelectedReceipt] = useState(null);
+  const [extractedItems, setExtractedItems] = useState([]);
+  const [showExtractedItems, setShowExtractedItems] = useState(false);
+  
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     fetchPantryItems();
@@ -86,6 +95,88 @@ const Pantry = () => {
       }));
     }
   };
+  
+  // Receipt scanning functions
+  const handleReceiptFileChange = (event) => {
+    setSelectedReceipt(event.target.files[0]);
+    setScanError('');
+    setExtractedItems([]);
+    setShowExtractedItems(false);
+  };
+  
+  const handleScanReceipt = async () => {
+    if (!selectedReceipt) {
+      setScanError("Please select a receipt image first");
+      return;
+    }
+
+    setIsScanning(true);
+    setScanError('');
+    setExtractedItems([]);
+    setShowExtractedItems(false);
+
+    const formData = new FormData();
+    formData.append("image", selectedReceipt);
+
+    try {
+      console.log("Uploading receipt image...");
+      const response = await axios.post("/api/ai/scan-receipt", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      
+      if (response.data.success) {
+        console.log("Receipt scanned successfully:", response.data.data);
+        if (response.data.data && response.data.data.length > 0) {
+          setExtractedItems(response.data.data);
+          setShowExtractedItems(true);
+        } else {
+          setScanError("No food items were found in this receipt. Try a clearer image or add items manually.");
+        }
+      } else {
+        setScanError(response.data.error || "Failed to scan receipt");
+      }
+    } catch (error) {
+      console.error("Error scanning receipt:", error);
+      
+      // Extract error message from API response if available
+      const errorMessage = error.response?.data?.error || "Something went wrong. Please try again.";
+      setScanError(errorMessage);
+      
+      // If scan fails, reset the file input to allow retry with a different image
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+      setSelectedReceipt(null);
+    }
+
+    setIsScanning(false);
+  };
+  
+  const handleAddExtractedItems = async () => {
+    if (extractedItems.length === 0) return;
+    
+    try {
+      // Add each extracted item to the pantry
+      for (const item of extractedItems) {
+        await axios.post('/api/ai/pantry', { item });
+      }
+      
+      // Refresh pantry items
+      await fetchPantryItems();
+      
+      // Reset receipt scan states
+      setSelectedReceipt(null);
+      setExtractedItems([]);
+      setShowExtractedItems(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    } catch (error) {
+      console.error('Error adding extracted items:', error);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center p-8">
@@ -130,6 +221,104 @@ const Pantry = () => {
             Add
           </button>
         </form>
+      </div>
+      
+      {/* Receipt Scanning Section */}
+      <div className="bg-[#d0ded5] shadow-md rounded-lg p-6 w-full max-w-lg mt-6 text-center">
+        <h3 className="text-lg font-semibold mb-4 text-[#1e2d3d]">Scan Your Receipt</h3>
+        <p className="text-[#1e2d3d] mb-4">
+          Upload a photo of your grocery receipt to automatically add food items to your pantry.
+        </p>
+        <div className="flex flex-col items-center">
+          <label className="flex flex-col items-center px-4 py-2 bg-white text-[#1e2d3d] rounded-lg shadow-md tracking-wide border border-[#1e2d3d] cursor-pointer hover:bg-gray-100">
+            <svg className="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+              <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+            </svg>
+            <span className="mt-2 text-base leading-normal">Select receipt photo</span>
+            <input 
+              type="file" 
+              className="hidden" 
+              accept="image/*" 
+              onChange={handleReceiptFileChange}
+              ref={fileInputRef}
+            />
+          </label>
+          
+          {selectedReceipt && (
+            <div className="mt-3 text-center">
+              <p className="text-sm text-[#1e2d3d]">{selectedReceipt.name}</p>
+              <div className="mt-2">
+                <button
+                  className={`bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md ${isScanning ? "opacity-50 cursor-not-allowed" : ""}`}
+                  onClick={handleScanReceipt}
+                  disabled={isScanning}
+                >
+                  {isScanning ? "Scanning..." : "Scan Receipt"}
+                </button>
+              </div>
+            </div>
+          )}
+          
+          {isScanning && (
+            <div className="mt-4 flex flex-col items-center">
+              <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#1e2d3d]"></div>
+              <p className="mt-2 text-[#1e2d3d]">Analyzing receipt...</p>
+            </div>
+          )}
+          
+          {scanError && (
+            <div className="mt-4">
+              <p className="text-red-500">{scanError}</p>
+              <button 
+                className="mt-2 text-[#1e2d3d] underline hover:text-[#16232e]"
+                onClick={() => {
+                  setScanError('');
+                  if (fileInputRef.current) {
+                    fileInputRef.current.value = "";
+                  }
+                  setSelectedReceipt(null);
+                }}
+              >
+                Try a different image
+              </button>
+            </div>
+          )}
+          
+          {/* Extracted Items Display */}
+          {showExtractedItems && extractedItems.length > 0 && (
+            <div className="mt-4 w-full">
+              <div className="bg-white p-4 rounded-md shadow-sm">
+                <h4 className="font-semibold mb-2 text-[#1e2d3d]">Food Items Found:</h4>
+                <ul className="list-disc pl-6 mb-4 max-h-32 overflow-y-auto">
+                  {extractedItems.map((item, index) => (
+                    <li key={index} className="text-[#1e2d3d] text-left">{item}</li>
+                  ))}
+                </ul>
+                <div className="flex gap-2">
+                  <button
+                    className="bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md"
+                    onClick={handleAddExtractedItems}
+                  >
+                    Add All to Pantry
+                  </button>
+                  <button
+                    className="bg-white hover:bg-gray-100 text-[#1e2d3d] font-bold py-2 px-4 rounded-md border border-[#1e2d3d]"
+                    onClick={() => {
+                      setShowExtractedItems(false);
+                      setExtractedItems([]);
+                      if (fileInputRef.current) {
+                        fileInputRef.current.value = "";
+                      }
+                      setSelectedReceipt(null);
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Pantry Items List */}
