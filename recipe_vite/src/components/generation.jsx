@@ -177,8 +177,20 @@ const Generation = () => {
       {/* Recipe Display */}
       {recipe && (
         <div className="bg-white shadow-md rounded-lg p-6 mt-8 w-full max-w-2xl">
-          <h3 className="text-xl font-semibold mb-4 text-[#1e2d3d]">Generated Recipe</h3>
-          <div className="text-[#1e2d3d] font-medium" dangerouslySetInnerHTML={{ __html: recipe.replace(/\n/g, '<br>') }} />
+          <div
+            className="text-[#1e2d3d] font-medium p-4 bg-[#d0ded5] rounded-lg shadow-md max-w-3xl mx-auto my-4"
+            dangerouslySetInnerHTML={{
+              __html: recipe
+                .replace(/^####\s*(.+)$/gm, '<strong>$1</strong><br>') 
+                .replace(/^###\s*(.+)$/gm, '## $1 ') 
+                .replace(/\*\*(.+?)\*\*/g, '$1')
+                .replace(/^# (.+)$/gm, '<h1 class="text-2xl font-extrabold text-center mb-1 text-[#1e2d3d]">$1</h1>')
+                .replace(/^## (.+)$/gm, '<h2 class="text-xl font-bold bg-[#1e2d3d] text-white py-1 px-3 rounded-md mt-2">$1</h2>')
+                .replace(/^### (.+)$/gm, '<h3 class="text-lg font-semibold bg-[#8aa29e] text-white py-1 px-2 rounded-md">$1</h3>')
+                .replace(/[-] (.+)$/gm, '<li class="list-disc ml-6 text-[#1e2d3d]">$1</li>')
+
+            }}
+          />
         </div>
       )}
 
