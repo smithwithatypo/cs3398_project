@@ -500,41 +500,6 @@ const Pantry = () => {
               </button>
             </div>
           )}
-          
-          {/* Extracted Items Display */}
-          {showExtractedItems && extractedItems.length > 0 && (
-            <div className="mt-4 w-full">
-              <div className="bg-white p-4 rounded-md shadow-sm">
-                <h4 className="font-semibold mb-2 text-[#1e2d3d]">Food Items Found:</h4>
-                <ul className="list-disc pl-6 mb-4 max-h-32 overflow-y-auto">
-                  {extractedItems.map((item, index) => (
-                    <li key={index} className="text-[#1e2d3d] text-left">{item}</li>
-                  ))}
-                </ul>
-                <div className="flex gap-2">
-                  <button
-                    className="bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md"
-                    onClick={handleAddExtractedItems}
-                  >
-                    Add All to Pantry
-                  </button>
-                  <button
-                    className="bg-white hover:bg-gray-100 text-[#1e2d3d] font-bold py-2 px-4 rounded-md border border-[#1e2d3d]"
-                    onClick={() => {
-                      setShowExtractedItems(false);
-                      setExtractedItems([]);
-                      if (fileInputRef.current) {
-                        fileInputRef.current.value = "";
-                      }
-                      setSelectedReceipt(null);
-                    }}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </div>
 
