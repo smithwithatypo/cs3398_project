@@ -5,6 +5,7 @@ import { PantryController } from '../controllers/pantryItemsController.js';
 import { RecipeSearchController } from '../controllers/recipeSearchController.js';
 import { IngredientReplacementController } from '../controllers/ingredientReplacementController.js';
 import { DishIdentificationController } from '../controllers/dishIdentificationController.js';
+import { ReceiptScanningController } from '../controllers/receiptScanningController.js';
 
 const router = express.Router();
 
@@ -20,6 +21,12 @@ router.post('/generate-recipe-text', GenerateRecipeController.generateFromText);
 router.post('/identify-dish', 
     DishIdentificationController.uploadMiddleware, 
     DishIdentificationController.identifyDish
+);
+
+// Receipt scanning route
+router.post('/scan-receipt',
+    ReceiptScanningController.uploadMiddleware,
+    ReceiptScanningController.scanReceipt
 );
 
 // Pantry routes
