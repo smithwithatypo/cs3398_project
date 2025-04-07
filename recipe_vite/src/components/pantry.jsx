@@ -305,10 +305,10 @@ const Pantry = () => {
       
       {/* Scanning Section */}
       <div className="bg-[#d0ded5] shadow-md rounded-lg p-6 w-full max-w-lg mt-6 text-center">
-        <h3 className="text-lg font-semibold mb-4 text-[#1e2d3d]">Scan Features</h3>
-        <p className="text-[#1e2d3d] mb-4">
-          Upload a photo to automatically add food items to your pantry.
-        </p>
+              <h2 className="text-2xl font-bold mb-4 text-[#1e2d3d]">Scan Features</h2>
+              <p className="text-[#1e2d3d] mb-4">
+                Upload a photo to automatically add food items to your pantry.
+              </p>
         
         {/* Scan Option Buttons */}
         <div className="flex justify-center gap-4 mb-6">
