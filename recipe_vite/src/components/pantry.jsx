@@ -10,14 +10,20 @@ const Pantry = () => {
     return savedQuantities ? JSON.parse(savedQuantities) : {};
   });
   
-  // Receipt scanning states
+  // Scanning states (shared between receipt and pantry scanning)
   const [isScanning, setIsScanning] = useState(false);
   const [scanError, setScanError] = useState('');
-  const [selectedReceipt, setSelectedReceipt] = useState(null);
   const [extractedItems, setExtractedItems] = useState([]);
   const [showExtractedItems, setShowExtractedItems] = useState(false);
   
-  const fileInputRef = useRef(null);
+  // File input references and states
+  const receiptFileInputRef = useRef(null);
+  const pantryFileInputRef = useRef(null);
+  const [selectedReceipt, setSelectedReceipt] = useState(null);
+  const [selectedPantryImage, setSelectedPantryImage] = useState(null);
+  
+  // Track which scanner is active
+  const [activeScanner, setActiveScanner] = useState(''); // 'receipt' or 'pantry'
 
   useEffect(() => {
     fetchPantryItems();
@@ -96,14 +102,26 @@ const Pantry = () => {
     }
   };
   
-  // Receipt scanning functions
+  // File selection handlers
   const handleReceiptFileChange = (event) => {
     setSelectedReceipt(event.target.files[0]);
+    setSelectedPantryImage(null);
     setScanError('');
     setExtractedItems([]);
     setShowExtractedItems(false);
+    setActiveScanner('receipt');
   };
   
+  const handlePantryImageChange = (event) => {
+    setSelectedPantryImage(event.target.files[0]);
+    setSelectedReceipt(null);
+    setScanError('');
+    setExtractedItems([]);
+    setShowExtractedItems(false);
+    setActiveScanner('pantry');
+  };
+  
+  // Scanning handlers
   const handleScanReceipt = async () => {
     if (!selectedReceipt) {
       setScanError("Please select a receipt image first");
@@ -145,10 +163,60 @@ const Pantry = () => {
       setScanError(errorMessage);
       
       // If scan fails, reset the file input to allow retry with a different image
-      if (fileInputRef.current) {
-        fileInputRef.current.value = "";
+      if (receiptFileInputRef.current) {
+        receiptFileInputRef.current.value = "";
       }
       setSelectedReceipt(null);
+    }
+
+    setIsScanning(false);
+  };
+  
+  const handleScanPantry = async () => {
+    if (!selectedPantryImage) {
+      setScanError("Please select a pantry image first");
+      return;
+    }
+
+    setIsScanning(true);
+    setScanError('');
+    setExtractedItems([]);
+    setShowExtractedItems(false);
+
+    const formData = new FormData();
+    formData.append("image", selectedPantryImage);
+
+    try {
+      console.log("Uploading pantry image...");
+      const response = await axios.post("/api/ai/scan-pantry", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      
+      if (response.data.success) {
+        console.log("Pantry scanned successfully:", response.data.data);
+        if (response.data.data && response.data.data.length > 0) {
+          setExtractedItems(response.data.data);
+          setShowExtractedItems(true);
+        } else {
+          setScanError("No food items were found in your pantry image. Try a photo with better lighting or add items manually.");
+        }
+      } else {
+        setScanError(response.data.error || "Failed to scan pantry");
+      }
+    } catch (error) {
+      console.error("Error scanning pantry:", error);
+      
+      // Extract error message from API response if available
+      const errorMessage = error.response?.data?.error || "Something went wrong. Please try again.";
+      setScanError(errorMessage);
+      
+      // If scan fails, reset the file input to allow retry with a different image
+      if (pantryFileInputRef.current) {
+        pantryFileInputRef.current.value = "";
+      }
+      setSelectedPantryImage(null);
     }
 
     setIsScanning(false);
@@ -166,15 +234,27 @@ const Pantry = () => {
       // Refresh pantry items
       await fetchPantryItems();
       
-      // Reset receipt scan states
-      setSelectedReceipt(null);
-      setExtractedItems([]);
-      setShowExtractedItems(false);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = "";
-      }
+      // Reset scan states
+      resetScanStates();
     } catch (error) {
       console.error('Error adding extracted items:', error);
+    }
+  };
+  
+  const resetScanStates = () => {
+    setSelectedReceipt(null);
+    setSelectedPantryImage(null);
+    setExtractedItems([]);
+    setShowExtractedItems(false);
+    setScanError('');
+    setActiveScanner('');
+    
+    // Reset file inputs
+    if (receiptFileInputRef.current) {
+      receiptFileInputRef.current.value = "";
+    }
+    if (pantryFileInputRef.current) {
+      pantryFileInputRef.current.value = "";
     }
   };
 
@@ -223,38 +303,175 @@ const Pantry = () => {
         </form>
       </div>
       
-      {/* Receipt Scanning Section */}
+      {/* Scanning Section */}
       <div className="bg-[#d0ded5] shadow-md rounded-lg p-6 w-full max-w-lg mt-6 text-center">
-        <h3 className="text-lg font-semibold mb-4 text-[#1e2d3d]">Scan Your Receipt</h3>
+        <h3 className="text-lg font-semibold mb-4 text-[#1e2d3d]">Scan Features</h3>
         <p className="text-[#1e2d3d] mb-4">
-          Upload a photo of your grocery receipt to automatically add food items to your pantry.
+          Upload a photo to automatically add food items to your pantry.
         </p>
-        <div className="flex flex-col items-center">
-          <label className="flex flex-col items-center px-4 py-2 bg-white text-[#1e2d3d] rounded-lg shadow-md tracking-wide border border-[#1e2d3d] cursor-pointer hover:bg-gray-100">
-            <svg className="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-              <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
-            </svg>
-            <span className="mt-2 text-base leading-normal">Select receipt photo</span>
-            <input 
-              type="file" 
-              className="hidden" 
-              accept="image/*" 
-              onChange={handleReceiptFileChange}
-              ref={fileInputRef}
-            />
-          </label>
+        
+        {/* Scan Option Buttons */}
+        <div className="flex justify-center gap-4 mb-6">
+          <button 
+            className={`px-4 py-2 rounded-md font-medium transition-colors ${activeScanner === 'receipt' ? 'bg-[#1e2d3d] text-white' : 'bg-white text-[#1e2d3d] border border-[#1e2d3d]'}`}
+            onClick={() => {
+              setActiveScanner('receipt');
+              setSelectedPantryImage(null);
+              setScanError('');
+              setExtractedItems([]);
+              setShowExtractedItems(false);
+              if (pantryFileInputRef.current) {
+                pantryFileInputRef.current.value = "";
+              }
+            }}
+          >
+            Scan Receipt
+          </button>
           
-          {selectedReceipt && (
-            <div className="mt-3 text-center">
-              <p className="text-sm text-[#1e2d3d]">{selectedReceipt.name}</p>
-              <div className="mt-2">
-                <button
-                  className={`bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md ${isScanning ? "opacity-50 cursor-not-allowed" : ""}`}
-                  onClick={handleScanReceipt}
-                  disabled={isScanning}
-                >
-                  {isScanning ? "Scanning..." : "Scan Receipt"}
-                </button>
+          <button 
+            className={`px-4 py-2 rounded-md font-medium transition-colors ${activeScanner === 'pantry' ? 'bg-[#1e2d3d] text-white' : 'bg-white text-[#1e2d3d] border border-[#1e2d3d]'}`}
+            onClick={() => {
+              setActiveScanner('pantry');
+              setSelectedReceipt(null);
+              setScanError('');
+              setExtractedItems([]);
+              setShowExtractedItems(false);
+              if (receiptFileInputRef.current) {
+                receiptFileInputRef.current.value = "";
+              }
+            }}
+          >
+            Scan Pantry
+          </button>
+        </div>
+        
+        <div className="flex flex-col items-center">
+          {/* Receipt Scanning UI */}
+          {activeScanner === 'receipt' && (
+            <>
+              <p className="text-[#1e2d3d] mb-4">
+                Upload a photo of your grocery receipt to automatically add food items to your pantry.
+              </p>
+              <label className="flex flex-col items-center px-4 py-2 bg-white text-[#1e2d3d] rounded-lg shadow-md tracking-wide border border-[#1e2d3d] cursor-pointer hover:bg-gray-100">
+                <svg className="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                  <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                </svg>
+                <span className="mt-2 text-base leading-normal">Select receipt photo</span>
+                <input 
+                  type="file" 
+                  className="hidden" 
+                  accept="image/*" 
+                  onChange={handleReceiptFileChange}
+                  ref={receiptFileInputRef}
+                />
+              </label>
+              
+              {selectedReceipt && (
+                <div className="mt-3 text-center">
+                  <p className="text-sm text-[#1e2d3d]">{selectedReceipt.name}</p>
+                  <div className="mt-2">
+                    <button
+                      className={`bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md ${isScanning ? "opacity-50 cursor-not-allowed" : ""}`}
+                      onClick={handleScanReceipt}
+                      disabled={isScanning}
+                    >
+                      {isScanning ? "Scanning..." : "Scan Receipt"}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+          
+          {/* Pantry Scanning UI */}
+          {activeScanner === 'pantry' && (
+            <>
+              <p className="text-[#1e2d3d] mb-4">
+                Take a photo of your pantry or refrigerator to automatically identify food items.
+              </p>
+              <label className="flex flex-col items-center px-4 py-2 bg-white text-[#1e2d3d] rounded-lg shadow-md tracking-wide border border-[#1e2d3d] cursor-pointer hover:bg-gray-100">
+                <svg className="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                  <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                </svg>
+                <span className="mt-2 text-base leading-normal">Select pantry photo</span>
+                <input 
+                  type="file" 
+                  className="hidden" 
+                  accept="image/*" 
+                  onChange={handlePantryImageChange}
+                  ref={pantryFileInputRef}
+                />
+              </label>
+              
+              {selectedPantryImage && (
+                <div className="mt-3 text-center">
+                  <p className="text-sm text-[#1e2d3d]">{selectedPantryImage.name}</p>
+                  <div className="mt-2">
+                    <button
+                      className={`bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md ${isScanning ? "opacity-50 cursor-not-allowed" : ""}`}
+                      onClick={handleScanPantry}
+                      disabled={isScanning}
+                    >
+                      {isScanning ? "Scanning..." : "Scan Pantry"}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+          
+          {isScanning && (
+            <div className="mt-4 flex flex-col items-center">
+              <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#1e2d3d]"></div>
+              <p className="mt-2 text-[#1e2d3d]">Analyzing image...</p>
+            </div>
+          )}
+          
+          {scanError && (
+            <div className="mt-4">
+              <p className="text-red-500">{scanError}</p>
+              <button 
+                className="mt-2 text-[#1e2d3d] underline hover:text-[#16232e]"
+                onClick={() => {
+                  setScanError('');
+                  if (activeScanner === 'receipt' && receiptFileInputRef.current) {
+                    receiptFileInputRef.current.value = "";
+                    setSelectedReceipt(null);
+                  } else if (activeScanner === 'pantry' && pantryFileInputRef.current) {
+                    pantryFileInputRef.current.value = "";
+                    setSelectedPantryImage(null);
+                  }
+                }}
+              >
+                Try a different image
+              </button>
+            </div>
+          )}
+          
+          {/* Extracted Items Display */}
+          {showExtractedItems && extractedItems.length > 0 && (
+            <div className="mt-4 w-full">
+              <div className="bg-white p-4 rounded-md shadow-sm">
+                <h4 className="font-semibold mb-2 text-[#1e2d3d]">Food Items Found:</h4>
+                <ul className="list-disc pl-6 mb-4 max-h-32 overflow-y-auto">
+                  {extractedItems.map((item, index) => (
+                    <li key={index} className="text-[#1e2d3d] text-left">{item}</li>
+                  ))}
+                </ul>
+                <div className="flex gap-2">
+                  <button
+                    className="bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md"
+                    onClick={handleAddExtractedItems}
+                  >
+                    Add All to Pantry
+                  </button>
+                  <button
+                    className="bg-white hover:bg-gray-100 text-[#1e2d3d] font-bold py-2 px-4 rounded-md border border-[#1e2d3d]"
+                    onClick={resetScanStates}
+                  >
+                    Cancel
+                  </button>
+                </div>
               </div>
             </div>
           )}
