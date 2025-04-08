@@ -20,6 +20,14 @@ const IngredientReplacementController = {
       `;
 
       const replacements = await IngredientReplacementService.generateReplacements(systemPrompt, ingredient);
+
+      if (!replacements || replacements.length === 0) {
+        return res.status(400).json({ 
+          success: false, 
+          error: "This is not a food item." 
+        });
+      }
+      
       res.status(200).json({ success: true, data: replacements });
     } catch (error) {
       console.error('Error in IngredientReplacementController:', error);
