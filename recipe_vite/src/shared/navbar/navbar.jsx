@@ -17,13 +17,13 @@ const Navbar = () => {
       <div className="flex gap-6 items-center">
         {/* Pantry with Dropdown */}
         <div className="relative">
-          <button
-            onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="text-white font-bold hover:underline focus:outline-none"
-          >
-            Pantry
-          </button>
-
+          <Link
+             to="/pantry"
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+             className="text-white font-bold hover:underline focus:outline-none cursor-pointer"
+             >
+               Pantry
+          </Link>
           {dropdownOpen && (
             <ul className="absolute top-full left-0 mt-2 w-48 bg-white shadow-md rounded-md z-10">
               <li>
