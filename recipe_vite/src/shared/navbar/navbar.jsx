@@ -7,13 +7,13 @@ const Navbar = () => {
 
   return (
     <nav className="flex justify-between items-center bg-[#114945] p-4 relative">
-      {/* Logo and Title */}
+      {/* Logo & Title (left) */}
       <Link to="/" className="flex items-center gap-2">
         <img src={icon} alt="Logo" className="h-10 w-auto rounded-full" />
         <h1 className="text-white text-xl font-bold m-0">Recipe Generator</h1>
       </Link>
 
-      {/* Left-side nav links */}
+      {/* Right-side nav links */}
       <div className="flex gap-6 items-center">
         {/* Pantry with Dropdown */}
         <div className="relative">
@@ -57,17 +57,15 @@ const Navbar = () => {
           )}
         </div>
 
-        {/* Generate Recipe */}
+        {/* Generate Recipe (right tab) */}
         <Link
           to="/generate"
           className="text-white font-bold hover:underline"
         >
           Generate Recipe
         </Link>
-      </div>
 
-      {/* Logout aligned right */}
-      <div>
+        {/* Logout (right tab) */}
         <Link
           to="/login"
           className="text-white font-bold hover:underline"
