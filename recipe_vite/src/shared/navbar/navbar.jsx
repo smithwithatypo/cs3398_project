@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import icon from "../../assets/icon.jpg";
+import icon from "../../assets/Icon.jpg";
 
 const Navbar = () => {
   return (
@@ -55,6 +55,14 @@ const Navbar = () => {
             className="text-white font-bold hover:underline"
           >
             Favorites
+          </Link>
+        </li>
+        <li>
+          <Link 
+            to="/login" 
+            className="text-white font-bold hover:underline"
+          >
+            Logout
           </Link>
         </li>
       </ul>
