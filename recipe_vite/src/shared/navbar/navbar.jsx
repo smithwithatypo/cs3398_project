@@ -13,10 +13,10 @@ const Navbar = () => {
         <h1 className="text-white text-xl font-bold m-0">Recipe Generator</h1>
       </Link>
 
-      {/* Nav Links */}
-      <ul className="flex gap-6 m-0 p-0 list-none items-center">
+      {/* Left-side nav links */}
+      <div className="flex gap-6 items-center">
         {/* Pantry with Dropdown */}
-        <li className="relative">
+        <div className="relative">
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
             className="text-white font-bold hover:underline focus:outline-none"
@@ -24,7 +24,6 @@ const Navbar = () => {
             Pantry
           </button>
 
-          {/* Dropdown Menu */}
           {dropdownOpen && (
             <ul className="absolute top-full left-0 mt-2 w-48 bg-white shadow-md rounded-md z-10">
               <li>
@@ -54,29 +53,28 @@ const Navbar = () => {
                   Favorites
                 </Link>
               </li>
-              <li>
-                <Link
-                  to="/login"
-                  className="block px-4 py-2 text-[#1e2d3d] hover:bg-gray-100"
-                  onClick={() => setDropdownOpen(false)}
-                >
-                  Logout
-                </Link>
-              </li>
             </ul>
           )}
-        </li>
+        </div>
 
-        {/* Generate Recipe (top-level) */}
-        <li>
-          <Link
-            to="/generate"
-            className="text-white font-bold hover:underline"
-          >
-            Generate Recipe
-          </Link>
-        </li>
-      </ul>
+        {/* Generate Recipe */}
+        <Link
+          to="/generate"
+          className="text-white font-bold hover:underline"
+        >
+          Generate Recipe
+        </Link>
+      </div>
+
+      {/* Logout aligned right */}
+      <div>
+        <Link
+          to="/login"
+          className="text-white font-bold hover:underline"
+        >
+          Logout
+        </Link>
+      </div>
     </nav>
   );
 };
