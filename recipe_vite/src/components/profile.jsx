@@ -2,10 +2,10 @@ import React, { useState } from "react";
 
 const Profile = () => {
   const [avatar, setAvatar] = useState(null);
-  const [name, setName] = useState("Your Name");
-  const [expertiseLevel, setExpertiseLevel] = useState("Intermediate Cook");
-  const [dietaryRestrictions, setDietaryRestrictions] = useState(["Vegetarian"]);
-  const [favoritedMeals, setFavoritedMeals] = useState(["Spicy Lentil Soup"]);
+  const [name, setName] = useState("");
+  const [expertiseLevel, setExpertiseLevel] = useState("Beginner");
+  const [dietaryRestrictions, setDietaryRestrictions] = useState([]);
+  const [favoritedMeals, setFavoritedMeals] = useState([]);
   const [newRestriction, setNewRestriction] = useState("");
   const [newMeal, setNewMeal] = useState("");
 
@@ -66,6 +66,7 @@ const Profile = () => {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              placeholder="Enter your name"
               className="text-2xl font-bold text-center text-[#1e2d3d] bg-transparent border-b border-gray-300 focus:outline-none"
             />
           </div>
@@ -137,9 +138,7 @@ const Profile = () => {
                 <span>{meal}</span>
                 <button
                   onClick={() =>
-                    setFavoritedMeals(
-                      favoritedMeals.filter((_, i) => i !== index)
-                    )
+                    setFavoritedMeals(favoritedMeals.filter((_, i) => i !== index))
                   }
                   className="text-sm text-red-600 hover:underline"
                 >
