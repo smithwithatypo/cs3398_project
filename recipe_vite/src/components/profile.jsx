@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 
 const Profile = () => {
-  const [avatar, setAvatar] = useState(null); // avatar image preview
+  const [avatar, setAvatar] = useState(null);
   const [name, setName] = useState("Your Name");
-  const [email, setEmail] = useState("you@example.com");
   const [expertiseLevel, setExpertiseLevel] = useState("Intermediate Cook");
   const [dietaryRestrictions, setDietaryRestrictions] = useState(["Vegetarian"]);
   const [favoritedMeals, setFavoritedMeals] = useState(["Spicy Lentil Soup"]);
@@ -35,7 +34,6 @@ const Profile = () => {
   const handleSave = () => {
     console.log("Saved profile data:", {
       name,
-      email,
       expertiseLevel,
       dietaryRestrictions,
       favoritedMeals,
@@ -47,9 +45,8 @@ const Profile = () => {
   return (
     <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center p-8">
       <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-2xl space-y-6">
-        {/* Profile Header with Avatar */}
+        {/* Avatar & Name */}
         <div className="text-center flex flex-col items-center gap-4">
-          {/* Avatar and upload input */}
           <div className="flex flex-col items-center">
             <img
               src={avatar || "https://via.placeholder.com/100"}
@@ -64,7 +61,6 @@ const Profile = () => {
             />
           </div>
 
-          {/* Name and Email */}
           <div className="w-full max-w-sm flex flex-col gap-2">
             <input
               type="text"
@@ -72,16 +68,10 @@ const Profile = () => {
               onChange={(e) => setName(e.target.value)}
               className="text-2xl font-bold text-center text-[#1e2d3d] bg-transparent border-b border-gray-300 focus:outline-none"
             />
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="text-center text-[#1e2d3d] bg-transparent border-b border-gray-300 focus:outline-none"
-            />
           </div>
         </div>
 
-        {/* Expertise Level */}
+        {/* Expertise */}
         <div>
           <h3 className="text-xl font-semibold text-[#1e2d3d] mb-1">Expertise Level</h3>
           <select
@@ -98,9 +88,24 @@ const Profile = () => {
         {/* Dietary Restrictions */}
         <div>
           <h3 className="text-xl font-semibold text-[#1e2d3d] mb-1">Dietary Restrictions</h3>
-          <ul className="list-disc list-inside text-[#1e2d3d] mb-2">
+          <ul className="text-[#1e2d3d] mb-2 space-y-1">
             {dietaryRestrictions.map((item, index) => (
-              <li key={index}>{item}</li>
+              <li
+                key={index}
+                className="flex justify-between items-center bg-[#f0f0f0] px-3 py-1 rounded"
+              >
+                <span>{item}</span>
+                <button
+                  onClick={() =>
+                    setDietaryRestrictions(
+                      dietaryRestrictions.filter((_, i) => i !== index)
+                    )
+                  }
+                  className="text-sm text-red-600 hover:underline"
+                >
+                  Remove
+                </button>
+              </li>
             ))}
           </ul>
           <div className="flex gap-2">
@@ -123,9 +128,24 @@ const Profile = () => {
         {/* Favorited Meals */}
         <div>
           <h3 className="text-xl font-semibold text-[#1e2d3d] mb-1">Favorited Meals</h3>
-          <ul className="list-disc list-inside text-[#1e2d3d] mb-2">
+          <ul className="text-[#1e2d3d] mb-2 space-y-1">
             {favoritedMeals.map((meal, index) => (
-              <li key={index}>{meal}</li>
+              <li
+                key={index}
+                className="flex justify-between items-center bg-[#f0f0f0] px-3 py-1 rounded"
+              >
+                <span>{meal}</span>
+                <button
+                  onClick={() =>
+                    setFavoritedMeals(
+                      favoritedMeals.filter((_, i) => i !== index)
+                    )
+                  }
+                  className="text-sm text-red-600 hover:underline"
+                >
+                  Remove
+                </button>
+              </li>
             ))}
           </ul>
           <div className="flex gap-2">
