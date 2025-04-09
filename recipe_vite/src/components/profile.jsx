@@ -47,9 +47,10 @@ const Profile = () => {
   return (
     <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center p-8">
       <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-2xl space-y-6">
-        {/* Profile Header */}
-        <div className="text-center">
-          <div className="relative w-24 h-24 mx-auto mb-4">
+        {/* Profile Header with Avatar */}
+        <div className="text-center flex flex-col items-center gap-4">
+          {/* Avatar and upload input */}
+          <div className="flex flex-col items-center">
             <img
               src={avatar || "https://via.placeholder.com/100"}
               alt="Avatar"
@@ -59,27 +60,26 @@ const Profile = () => {
               type="file"
               accept="image/*"
               onChange={handleAvatarChange}
-              className="mt-2 text-sm"
+              className="mt-3 text-sm"
             />
           </div>
 
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="text-2xl font-bold text-center text-[#1e2d3d] bg-transparent border-b border-gray-300 focus:outline-none"
-          />
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="block mx-auto text-[#1e2d3d] bg-transparent border-b border-gray-300 focus:outline-none mt-1"
-          />
+          {/* Name and Email */}
+          <div className="w-full max-w-sm flex flex-col gap-2">
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="text-2xl font-bold text-center text-[#1e2d3d] bg-transparent border-b border-gray-300 focus:outline-none"
+            />
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="text-center text-[#1e2d3d] bg-transparent border-b border-gray-300 focus:outline-none"
+            />
+          </div>
         </div>
-
-        {/* Rest of your profile fields... (same as before) */}
-        {/* Expertise, Dietary, Favorites, Save Button */}
-        {/* ... (no change needed here) */}
 
         {/* Expertise Level */}
         <div>
