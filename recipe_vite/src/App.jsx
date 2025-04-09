@@ -11,6 +11,8 @@ import Cookbook from "./components/cookbook.jsx";
 import IngredientReplacement from "./components/ingredientReplacement.jsx";
 import Navbar from "./shared/navbar/navbar.jsx";
 import Login from "./components/login.jsx";
+import Profile from "./components/profile";
+
 
 // Basic test component to verify routing
 const TestComponent = () => (
@@ -38,6 +40,7 @@ function App() {
           <Route path="/cookbook" element={<Cookbook />} />
           <Route path="/replacement" element={<IngredientReplacement />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </div>
     </BrowserRouter>

@@ -72,6 +72,10 @@ const Navbar = () => {
         >
           Logout
         </Link>
+        <Link to="/profile" className="text-white font-bold hover:underline">
+          Profile
+        </Link>
+
       </div>
     </nav>
   );
