@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const Profile = () => {
-  // Editable state
+  const [avatar, setAvatar] = useState(null); // avatar image preview
   const [name, setName] = useState("Your Name");
   const [email, setEmail] = useState("you@example.com");
   const [expertiseLevel, setExpertiseLevel] = useState("Intermediate Cook");
@@ -9,6 +9,14 @@ const Profile = () => {
   const [favoritedMeals, setFavoritedMeals] = useState(["Spicy Lentil Soup"]);
   const [newRestriction, setNewRestriction] = useState("");
   const [newMeal, setNewMeal] = useState("");
+
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageURL = URL.createObjectURL(file);
+      setAvatar(imageURL);
+    }
+  };
 
   const handleAddRestriction = () => {
     if (newRestriction.trim()) {
@@ -31,6 +39,7 @@ const Profile = () => {
       expertiseLevel,
       dietaryRestrictions,
       favoritedMeals,
+      avatar,
     });
     alert("Profile saved!");
   };
@@ -38,13 +47,22 @@ const Profile = () => {
   return (
     <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center p-8">
       <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-2xl space-y-6">
-        {/* Header */}
+        {/* Profile Header */}
         <div className="text-center">
-          <img
-            src="https://via.placeholder.com/100"
-            alt="Profile"
-            className="w-24 h-24 rounded-full mx-auto mb-4"
-          />
+          <div className="relative w-24 h-24 mx-auto mb-4">
+            <img
+              src={avatar || "https://via.placeholder.com/100"}
+              alt="Avatar"
+              className="w-24 h-24 object-cover rounded-full border border-gray-300"
+            />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleAvatarChange}
+              className="mt-2 text-sm"
+            />
+          </div>
+
           <input
             type="text"
             value={name}
@@ -58,6 +76,10 @@ const Profile = () => {
             className="block mx-auto text-[#1e2d3d] bg-transparent border-b border-gray-300 focus:outline-none mt-1"
           />
         </div>
+
+        {/* Rest of your profile fields... (same as before) */}
+        {/* Expertise, Dietary, Favorites, Save Button */}
+        {/* ... (no change needed here) */}
 
         {/* Expertise Level */}
         <div>
