@@ -1,34 +1,32 @@
-// controllers/seedController.js
+// backend/src/controllers/seedController.js
+import bcrypt from "bcrypt";
 import Ingredient from "../../database/models/Ingredient.js";
 import Recipe from "../../database/models/Recipe.js";
 import User from "../../database/models/User.js";
 
 export const seedDatabase = async (req, res) => {
   try {
-    // Expect the frontend to send an array of objects or an object with different arrays.
-    // For instance, if your JSON looks like:
-    // { users: [...], recipes: [...], ingredients: [...] }
-    const data = req.body;  // make sure your Express app uses express.json() middleware
+    const data = req.body; // Expects data from frontend in JSON format
     
-    // Process Users
+    // Process Users: For each user, hash the password before saving
     if (data.users && Array.isArray(data.users)) {
       for (const userData of data.users) {
-        // Check for an existing user and create if necessary
+        // Check for an existing user by email; if not present, create one.
         const existingUser = await User.findOne({ email: userData.email });
         if (!existingUser) {
+          // If userData has a password, hash it before storing.
+          if (userData.password) {
+            userData.password = await bcrypt.hash(userData.password, 10);
+          }
           await User.create(userData);
         }
       }
     }
     
-    // Process Ingredients
+    // Process Ingredients: Allow data as strings or objects with a "name" property.
     if (data.ingredients && Array.isArray(data.ingredients)) {
       for (const ingredientData of data.ingredients) {
-        // For example, ingredientData might be just a name as string
-        const name = typeof ingredientData === 'string'
-          ? ingredientData
-          : ingredientData.name;
-        
+        const name = typeof ingredientData === 'string' ? ingredientData : ingredientData.name;
         const exists = await Ingredient.findOne({ name });
         if (!exists) {
           await Ingredient.create({ name });
@@ -36,10 +34,9 @@ export const seedDatabase = async (req, res) => {
       }
     }
     
-    // Process Recipes
+    // Process Recipes: Create recipes directly; you can add additional checks if needed.
     if (data.recipes && Array.isArray(data.recipes)) {
       for (const recipeData of data.recipes) {
-        // Optionally check if it exists or simply create it.
         await Recipe.create(recipeData);
       }
     }

@@ -1,20 +1,29 @@
-import User from "../../database/models/User.js";
-import bcrypt from 'bcrypt';
+// backend/src/services/authService.js
+import User from "../../database/models/User.js"; // Adjust path as needed
+import bcrypt from "bcrypt";
 
 export const AuthService = {
-    getTestMessage() {
-        return "This is a test message from the AuthService";
-    },
+  async checkCredentials(clientData) {
+    console.log("Client Data Received:", clientData);
+    
+    const user = await User.findOne({ email: clientData.email });
+    console.log("User fetched from DB:", user);
+    
+    if (!user) {
+      console.log("No user found with email:", clientData.email);
+      return false;
+    }
+    
+    console.log("Client Password:", clientData.password);
+    console.log("Stored Hashed Password:", user.password);
+    
+    const passwordMatch = await bcrypt.compare(clientData.password, user.password);
+    console.log("Password match result:", passwordMatch);
+    
+    return passwordMatch;
+  },
 
-    async checkCredentials({ email, password }) {
-        // Find the user by email
-        const user = await User.findOne({ email });
-        if (!user) {
-          return false; // No user exists with that email
-        }
-    // Compare the provided password with the hashed password in the database.
-    const isMatch = await bcrypt.compare(password, user.password);
-    return isMatch;
-    },
+  getTestMessage() {
+    return "This is a test message from the AuthService";
+  }
 };
-export default AuthService;
