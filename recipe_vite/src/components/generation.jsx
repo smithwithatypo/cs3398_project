@@ -11,6 +11,10 @@ const Generation = () => {
   const [showTextInput, setShowTextInput] = useState(false); // Toggle for text input visibility
   const navigate = useNavigate();
   const location = useLocation();
+  const [origin, setOrigin] = useState('');
+  const [dishType, setDishType] = useState('');
+  const [timeFrame, setTimeFrame] = useState('');
+
 
   useEffect(() => {
     fetchPantryItems();
@@ -139,6 +143,28 @@ const Generation = () => {
       </div>
 
       {/* Text-to-Recipe Section */}
+      <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-lg mt-6">
+        <h3 className="text-lg font-semibold text-[#1e2d3d] mb-2">Recipe Preferences</h3>
+        <input
+          className="w-full mb-2 p-2 border border-gray-300 rounded-md"
+          placeholder="Origin (e.g., Italian, Thai)"
+          value={origin}
+          onChange={(e) => setOrigin(e.target.value)}
+        />
+        <input
+          className="w-full mb-2 p-2 border border-gray-300 rounded-md"
+          placeholder="Dish Type (e.g., Appetizer, Dessert)"
+          value={dishType}
+          onChange={(e) => setDishType(e.target.value)}
+        />
+        <input
+          className="w-full p-2 border border-gray-300 rounded-md"
+          placeholder="Time Frame (e.g., 30 minutes, under 1 hour)"
+          value={timeFrame}
+          onChange={(e) => setTimeFrame(e.target.value)}
+        />
+      </div>
+
       <div className="bg-[#d0ded5] shadow-md rounded-lg p-6 w-full max-w-lg mt-6 text-center">
         <h3 className="text-lg font-semibold text-[#1e2d3d]">
           Short on time? Pantry outdated?
