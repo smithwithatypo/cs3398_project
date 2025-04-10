@@ -58,7 +58,7 @@ const Generation = () => {
 
     try {
       const response = await axios.post('/api/ai/generate-recipe', {
-        ingredients: pantryItems,
+        ingredients: pantryItems, origin, dishType, timeFrame,
       });
 
       if (response.data.success) {
@@ -86,7 +86,7 @@ const Generation = () => {
 
     try {
       const response = await axios.post('/api/ai/generate-recipe-text', {
-        textPrompt: textPrompt,
+        textPrompt: textPrompt, origin, dishType, timeFrame,
       });
 
       if (response.data.success) {
