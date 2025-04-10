@@ -16,7 +16,7 @@ const GenerateRecipeController = {
     
     async generateFromPantryItems(req, res) {
         try {
-            const ingredients = req.body.ingredients || [];
+            const { ingredients = [], origin = 'Any', dishType = 'Any', timeFrame = 'Any' } = req.body;
             
             if (!ingredients.length) {
                 return res.status(400).json({ 
@@ -24,10 +24,19 @@ const GenerateRecipeController = {
                     error: "No ingredients provided" 
                 });
             }
+            const metaInfo = `
+                Preferred Origin: ${origin}.
+                Dish Type: ${dishType}.
+                Time Frame: ${timeFrame}.
+            `;
             
-            const prompt = "You are a creative chef who can make delicious recipes with limited ingredients. Format your response in markdown.";
+            const prompt = `
+                You are a creative chef who can make delicious recipes with limited ingredients.
+                ${metaInfo}
+                Format your response in markdown with title, ingredients list, instructions, and optional tips.
+            `;
             const ingredientsText = ingredients.join(', ');
-            
+
             const response = await RecipeGeneratingService.generateRecipe(prompt, ingredientsText);
             res.status(200).json({ success: true, data: response });
         } catch (error) {
