@@ -5,38 +5,32 @@ import aiRoutes from './routes/aiRoutes.js'
 import authRoutes from './routes/authRoutes.js'
 import seedRoutes from './routes/seedRoutes.js';
 import connectDB from "../db.js";
-// env
 import dotenv from 'dotenv';
 dotenv.config();
 
-// init express
+
 const app = express();
-const port = process.env.PORT;
 
-// CORS
-const corsOptions = {
-    origin: "*",
+// Use express JSON middleware to parse request bodies
+app.use(express.json());
+
+// Configure CORS to accept requests from the Vite dev server at localhost:5173
+app.use(
+  cors({
+    origin: "http://localhost:5173", // allow Vite front-end
     credentials: true,
-  };
-  
-// middleware
-app.use(cors(corsOptions));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+  })
+);
 
+// Connect to the database
 connectDB();
-// Use the seed routes
-app.use('/api', seedRoutes); // This will create a POST endpoint at /api/seed
-// routes
-app.use('/api/ai', aiRoutes);
-app.use('/api/', authRoutes);
 
-// test 
-app.get('/test', (req, res) => {
-  res.send('Server is working!');
+// Mount routes – here, your auth routes
+app.use("/api/auth", authRoutes);
+app.use("/api/seed", seedRoutes);
+app.use("/api/ai", aiRoutes);
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}`);
 });
-
-// entrypoint
-app.listen(port, () => {
-    console.log(`App listening on port ${port}`);
-  });

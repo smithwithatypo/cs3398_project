@@ -1,5 +1,5 @@
-// models/User.js
-import mongoose from 'mongoose';
+// backend/database/models/User.js
+import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
   username: { 
@@ -17,17 +17,13 @@ const userSchema = new mongoose.Schema({
     type: String, 
     required: true 
   },
-  profilePicture: {
-    type: String, // URL or path to profile picture
-  },
-  bio: {
-    type: String,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now
-  },
+  profilePicture: String,
+  bio: String,
+  createdAt: { 
+    type: Date, 
+    default: Date.now 
+  }
 });
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 export default User;
