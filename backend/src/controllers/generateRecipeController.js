@@ -51,7 +51,7 @@ const GenerateRecipeController = {
     // New method for text-to-recipe
     async generateFromText(req, res) {
         try {
-            const textPrompt = req.body.textPrompt || '';
+            const { textPrompt = '', origin = 'Any', dishType = 'Any', timeFrame = 'Any' } = req.body;
             
             if (!textPrompt.trim()) {
                 return res.status(400).json({ 
@@ -59,8 +59,17 @@ const GenerateRecipeController = {
                     error: "No text prompt provided" 
                 });
             }
-            
-            const systemPrompt = "You are a creative chef who can create delicious recipes based on descriptions or available ingredients. Format your response in markdown with a title, ingredients list with measurements, and detailed instructions.";
+            const metaInfo = `
+                Preferred Origin: ${origin}.
+                Dish Type: ${dishType}.
+                Time Frame: ${timeFrame}.
+            `;
+
+            const systemPrompt = `
+                You are a creative chef who can create delicious recipes based on descriptions or available ingredients.
+                ${metaInfo}
+                Format your response in markdown with a title, ingredients list with measurements, and detailed instructions.
+            `;
             
             const response = await RecipeGeneratingService.generateRecipeFromText(systemPrompt, textPrompt);
             res.status(200).json({ success: true, data: response });
