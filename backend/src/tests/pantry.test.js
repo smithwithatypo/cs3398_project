@@ -1,5 +1,5 @@
 import { describe, test, expect, vi, beforeEach } from 'vitest';
-import { pantryService } from '../services/pantryItemsService.js';
+import pantryService from "../services/pantryItemsService.js";
 
 describe("Pantry Service", () => {
   beforeEach(async () => {
@@ -7,5 +7,10 @@ describe("Pantry Service", () => {
     for (let i = items.length - 1; i >= 0; i--) {
       await pantryService.removeItem(i);
     }
+  });
+
+  test("adds an item to the pantry list", async () => {
+    const result = await pantryService.addItem("Cereal");
+    expect(result).toEqual(["Cereal"]);
   });
 });
