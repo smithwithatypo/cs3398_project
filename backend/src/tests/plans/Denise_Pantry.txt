@@ -1,0 +1,18 @@
+Plan: Test pantryItemsService.js and pantryItemsController.js logic
+Sources:
+    - https://vitest.dev/guide/features.html 
+
+File Structure:
+    - To have a standardized setup and process across all team members we will use vitest
+    - Both the backend and the frontend will have their own "tests" folder within src 
+        - within the tests folder there will be a plan folder where our unit test planning txt files will go 
+
+
+
+
+
+
+
+
+
+
