@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
@@ -13,5 +14,9 @@ export default defineConfig({
       },
     },
     allowedHosts: ['cs3398project-production.up.railway.app'],
+  },
+  test: {
+    globals: true,         // Allows using test(), describe(), expect() globally
+    environment: 'jsdom',  // Simulates a browser environment for React
   },
 })
