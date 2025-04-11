@@ -27,11 +27,19 @@ pantryItemsService.js Tests:
         - How: 
             1. call addItem("item1") 
             2. call addItem("item2")
-            2. call removeItem("item1")
-            2. store the call 2 into a variable
-            3. check to see if variable equals a list with only "item2"
+            3. call removeItem("item1")
+            4. store the call 2 into a variable
+            5. check to see if variable equals a list with only "item2"
 
 pantryItemsController.js Tests:
+    addPantryItem(req, res)
+        - Why: I want to tests that this method test the API behavior (input, calls correct service, response)
+        - How:
+            1. use vitest to mock a req 
+            2. use vitest to mock addItem() from service file 
+            3. call addPantryItem(req, res)
+            4. verify that status is  200 and json data contains mock req 
+
 
 
     
