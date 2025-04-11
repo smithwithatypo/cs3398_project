@@ -3,18 +3,18 @@ import { saveProfile } from "./profileSave";
 describe("saveProfile", () => {
   test("logs the correct profile object", () => {
     const profile = {
-      name: "Taylor",
-      expertiseLevel: "Intermediate Cook",
-      dietaryRestrictions: ["Gluten-Free"],
-      favoritedMeals: ["Chili"],
+      name: "Test User",
+      expertise: "Intermediate",
+      dietaryRestrictions: ["Vegetarian"],
+      favoriteMeals: ["Tofu Stir Fry"]
     };
 
-    const consoleSpy = jest.spyOn(console, "log").mockImplementation(() => {});
-
+    const consoleSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+    
     const result = saveProfile(profile);
-
-    expect(consoleSpy).toHaveBeenCalledWith("Saved profile data:", profile);
-    expect(result).toBe(true);
+    
+    expect(consoleSpy).toHaveBeenCalledWith("Saving profile:", profile);
+    expect(result).toEqual(profile);
 
     consoleSpy.mockRestore();
   });
