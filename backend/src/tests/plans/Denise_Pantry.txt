@@ -5,8 +5,29 @@ Sources:
 File Structure:
     - To have a standardized setup and process across all team members we will use vitest
     - Both the backend and the frontend will have their own "tests" folder within src 
-        - within the tests folder there will be a plan folder where our unit test planning txt files will go 
+        - the tests folder will have a "plans" folder where our unit test planning txt files will go
+        - the actual unit test files will be just within the tests folder 
+    - Visualization of the new file structure:    
+    backend --> *src --> *controllers, *routes, *services, *tests --> *tests --> *plans, ~pantry.test.js, ~dishIdentifcation.test.js, ~receipt.test.js ...
+        * folders
+        ~ files 
 
+Vitest:
+    // add info here
+
+pantryItemsService.js Tests:
+    addItem()
+        - Why: I want to tests that this method appends an item that is passed
+        - How: 
+            1. call addItem("item") 
+            2. store the call into a variable
+            3. check to see if variable equals a list with "item" 
+
+pantryItemsController.js Tests:
+
+
+    
+    
 
 
 
