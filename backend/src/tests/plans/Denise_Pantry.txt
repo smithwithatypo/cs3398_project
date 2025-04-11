@@ -22,6 +22,14 @@ pantryItemsService.js Tests:
             1. call addItem("item") 
             2. store the call into a variable
             3. check to see if variable equals a list with "item" 
+    removeItem()
+        - Why: I want to tests that this method removes an item that is passed 
+        - How: 
+            1. call addItem("item1") 
+            2. call addItem("item2")
+            2. call removeItem("item1")
+            2. store the call 2 into a variable
+            3. check to see if variable equals a list with only "item2"
 
 pantryItemsController.js Tests:
 
