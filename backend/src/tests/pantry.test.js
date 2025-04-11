@@ -1,5 +1,6 @@
 import { describe, test, expect, vi, beforeEach } from 'vitest';
 import pantryService from "../services/pantryItemsService.js";
+import { PantryController } from '../controllers/pantryItemsController.js';
 
 describe("Pantry Service", () => {
   beforeEach(async () => {
@@ -22,3 +23,14 @@ describe("Pantry Service", () => {
   });
 
 });
+
+describe("Pantry Controller", () => {
+    test("responds with pantry list after adding item", async () => {
+      const req = { body: { item: "Bread" } };
+      const res = {
+        status: vi.fn().mockReturnThis(),
+        json: vi.fn(),
+      };
+    });
+  });
+  
