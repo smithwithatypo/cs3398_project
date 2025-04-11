@@ -13,4 +13,12 @@ describe("Pantry Service", () => {
     const result = await pantryService.addItem("Cereal");
     expect(result).toEqual(["Cereal"]);
   });
+
+  test("removes an item by index", async () => {
+    await pantryService.addItem("Apple");
+    await pantryService.addItem("Blueberries");
+    const result = await pantryService.removeItem(0);
+    expect(result).toEqual(["Blueberries"]);
+  });
+
 });
