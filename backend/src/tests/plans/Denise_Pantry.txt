@@ -1,0 +1,61 @@
+Plan: Test pantryItemsService.js and pantryItemsController.js logic
+Sources:
+    - https://vitest.dev/guide/features.html 
+
+File Structure:
+    - To have a standardized setup and process across all team members we will use vitest
+    - Both the backend and the frontend will have their own "tests" folder within src and vite.config.js files
+        - the tests folder will have a "plans" folder where our unit test planning txt files will go
+        - the actual unit test files will be just within the tests folder 
+        - add vite.config.js on same level outside of src 
+        - update package.json file
+    - Visualization of the new file structure:    
+    backend --> *src, ~vite.config.js --> *controllers, *routes, *services, *tests --> *tests --> *plans, ~pantry.test.js, ~dishIdentifcation.test.js, ~receipt.test.js ...
+        * folders
+        ~ files
+
+Vitest:
+    - unit testing framework 
+    - vite
+    - has mock request (vi.fn())
+    - npm vitest run for terminal output
+    - npx vitest --ui
+
+pantryItemsService.js Tests:
+    addItem()
+        - Why: I want to tests that this method appends an item that is passed
+        - How: 
+            1. call addItem("item") 
+            2. store the call into a variable
+            3. check to see if variable equals a list with "item" 
+    removeItem()
+        - Why: I want to tests that this method removes an item that is passed 
+        - How: 
+            1. call addItem("item1") 
+            2. call addItem("item2")
+            3. call removeItem("item1")
+            4. store the call 2 into a variable
+            5. check to see if variable equals a list with only "item2"
+
+pantryItemsController.js Tests:
+    addPantryItem(req, res)
+        - Why: I want to tests that this method test the API behavior (input, calls correct service, response)
+        - How:
+            1. use vitest to mock a req 
+            2. use vitest to mock addItem() from service file 
+            3. call addPantryItem(req, res)
+            4. verify that status is  200 and json data contains mock req 
+
+
+
+    
+    
+
+
+
+
+
+
+
+
+
