@@ -31,6 +31,10 @@ describe("Pantry Controller", () => {
         status: vi.fn().mockReturnThis(),
         json: vi.fn(),
       };
+      vi.spyOn(pantryService, 'addItem').mockResolvedValue(["Bread"]);
+      await PantryController.addPantryItem(req, res);
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith({ success: true, data: ["Bread"] });
     });
   });
   
