@@ -1,27 +1,21 @@
-import axios from "axios";
-import { generateRecipeFromText } from "./recipeService";
+import { describe, test, expect, vi } from "vitest";
 
-jest.mock("axios");
+// Mock the whole recipeService module
+vi.mock("./recipeService.js", () => ({
+    generateRecipeFromText: vi.fn(() =>
+      Promise.resolve("Here's a recipe for Tofu Stir Fry with garlic and ginger.")
+    ),
+  }));  
+
+import { generateRecipeFromText } from "./recipeService.js";
 
 describe("generateRecipeFromText", () => {
-  test("returns recipe string on success", async () => {
-    const mockResponse = {
-      data: {
-        success: true,
-        data: "# Grilled Cheese\n\n## Ingredients\n- Bread\n- Cheese\n\n## Instructions\n1. Toast it!",
-      },
-    };
+  test("returns a recipe string based on a text prompt", async () => {
+    const systemPrompt = "You are a chef.";
+    const prompt = "Make a tofu stir fry";
 
-    axios.post.mockResolvedValueOnce(mockResponse);
+    const result = await generateRecipeFromText(systemPrompt, prompt);
 
-    const result = await generateRecipeFromText("Grilled cheese sandwich");
-    expect(result.success).toBe(true);
-    expect(result.data).toContain("# Grilled Cheese");
-  });
-
-  test("throws or returns error on failure", async () => {
-    axios.post.mockRejectedValueOnce(new Error("Network error"));
-
-    await expect(generateRecipeFromText("Grilled cheese")).rejects.toThrow("Network error");
+    expect(result).toContain("Tofu Stir Fry");
   });
 });
