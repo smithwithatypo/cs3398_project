@@ -26,4 +26,23 @@ describe("Database Connection", () => {
     });
   });
 
+  test("handles connection failure", async () => {
+    // Simulate a connection error.
+    const error = new Error("connection error");
+    vi.spyOn(mongoose, "connect").mockRejectedValue(error);
+
+    // Spy on console.error and process.exit to verify error handling.
+    const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    const processExitSpy = vi.spyOn(process, "exit").mockImplementation(() => {});
+
+    await connectDB();
+
+    expect(consoleErrorSpy).toHaveBeenCalledWith("MongoDB connection failed:", error);
+    expect(processExitSpy).toHaveBeenCalledWith(1);
+
+    // Restore original behavior.
+    consoleErrorSpy.mockRestore();
+    processExitSpy.mockRestore();
+  });
+
 });
