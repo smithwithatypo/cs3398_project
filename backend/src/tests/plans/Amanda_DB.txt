@@ -1,0 +1,25 @@
+Unit Test Plan for db.js
+
+Test 1 – connects to MongoDB successfully
+    What: Test that the connectDB function calls mongoose.connect with the correct URI/options and returns a DB instance.
+    Why: To ensure that when the connection is successful, the right connection parameters are passed.
+    How:
+    Set process.env.MONGO_URI with a test URI.
+    Mock mongoose.connect to resolve with a fake connection.
+    Call connectDB and verify that mongoose.connect is called with the expected arguments.
+    
+Test 2 – handles connection failure
+    What: Test that if mongoose.connect fails, connectDB handles the error by logging it and calling process.exit(1).
+    Why: To ensure robust error handling in your database connection logic.
+    How:
+    Mock mongoose.connect to reject with an error.
+    Spy on console.error and process.exit.
+    Call connectDB and assert that the error is logged and process.exit is called with 1.
+
+Test 3 – constructs the correct connection URI from environment variables
+    What: Test that a helper function (getMongoURI) constructs the proper URI based on environment variables.
+    Why: To verify that your configuration logic works as expected before attempting a connection.
+    How:
+    Set environment variables DB_HOST, DB_PORT, and DB_NAME.
+    Call getMongoURI.
+    Assert that the returned URI string matches the expected format.
