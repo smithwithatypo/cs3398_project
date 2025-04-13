@@ -16,7 +16,7 @@ const GenerateRecipeController = {
     
     async generateFromPantryItems(req, res) {
         try {
-            const { ingredients = [], origin = 'Any', dishType = 'Any', timeFrame = 'Any' } = req.body;
+            const { ingredients = [], origin = 'Any', dishType = 'Any', spiceLevel = 'Any' } = req.body;
             
             if (!ingredients.length) {
                 return res.status(400).json({ 
@@ -27,7 +27,7 @@ const GenerateRecipeController = {
             const metaInfo = `
                 Preferred Origin: ${origin}.
                 Dish Type: ${dishType}.
-                Time Frame: ${timeFrame}.
+                Spice Level: ${spiceLevel}.
             `;
             
             const prompt = `
@@ -51,7 +51,7 @@ const GenerateRecipeController = {
     // New method for text-to-recipe
     async generateFromText(req, res) {
         try {
-            const { textPrompt = '', origin = 'Any', dishType = 'Any', timeFrame = 'Any' } = req.body;
+            const { textPrompt = '', origin = 'Any', dishType = 'Any', spiceLevel = 'Any' } = req.body;
             
             if (!textPrompt.trim()) {
                 return res.status(400).json({ 
@@ -61,7 +61,7 @@ const GenerateRecipeController = {
             }
             const metaInfo = `
                 Preferred Origin: ${origin}.
-                Dish Type: ${dishType}.
+                Spice Level: ${spiceLevel}.
                 Time Frame: ${timeFrame}.
             `;
 

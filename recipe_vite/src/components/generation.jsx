@@ -13,7 +13,7 @@ const Generation = () => {
   const location = useLocation();
   const [origin, setOrigin] = useState('');
   const [dishType, setDishType] = useState('');
-  const [timeFrame, setTimeFrame] = useState('');
+  const [spiceLevel, setSpiceLevel] = useState('');
 
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const Generation = () => {
 
     try {
       const response = await axios.post('/api/ai/generate-recipe', {
-        ingredients: pantryItems, origin, dishType, timeFrame,
+        ingredients: pantryItems, origin, dishType, spiceLevel,
       });
 
       if (response.data.success) {
@@ -86,7 +86,7 @@ const Generation = () => {
 
     try {
       const response = await axios.post('/api/ai/generate-recipe-text', {
-        textPrompt: textPrompt, origin, dishType, timeFrame,
+        textPrompt: textPrompt, origin, dishType, spiceLevel,
       });
 
       if (response.data.success) {
@@ -159,9 +159,9 @@ const Generation = () => {
         />
         <input
           className="w-full p-2 border border-gray-300 rounded-md"
-          placeholder="Time Frame (e.g., 30 minutes, under 1 hour)"
-          value={timeFrame}
-          onChange={(e) => setTimeFrame(e.target.value)}
+          placeholder="Spice Level (e.g., None, mild, hot"
+          value={spiceLevel}
+          onChange={(e) => setSpiceLevel(e.target.value)}
         />
       </div>
 
