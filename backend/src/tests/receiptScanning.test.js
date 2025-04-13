@@ -22,11 +22,28 @@ vi.mock('openai', () => {
   };
 });
 
-// Now import the rest
-import { ReceiptScanningService } from '../src/services/receiptScanningService.js';
-import { ReceiptScanningController } from '../src/controllers/receiptScanningController.js';
+// Mock fs module for file operations
+vi.mock('fs', () => ({
+  promises: {
+    writeFile: vi.fn().mockResolvedValue(undefined),
+    readFile: vi.fn().mockResolvedValue(Buffer.from('mocked-image-data')),
+    unlink: vi.fn().mockResolvedValue(undefined)
+  }
+}));
 
-// Only testing the controller
+// Mock path and os modules
+vi.mock('path', () => ({
+  join: vi.fn().mockReturnValue('/tmp/mocked-file-path.jpg')
+}));
+
+vi.mock('os', () => ({
+  tmpdir: vi.fn().mockReturnValue('/tmp')
+}));
+
+// Now import the rest - use absolute paths from the project root
+import { ReceiptScanningService } from '../../src/services/receiptScanningService.js';
+import { ReceiptScanningController } from '../../src/controllers/receiptScanningController.js';
+
 describe("Receipt Scanning Controller", () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -57,9 +74,10 @@ describe("Receipt Scanning Controller", () => {
     // Verify the response
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith({
-      success: true,
+      success: true, 
       data: ["apples", "milk", "bread"]
     });
+    expect(ReceiptScanningService.extractFoodItemsFromReceipt).toHaveBeenCalledWith(req.file);
   });
 
   test("returns error when no image file is provided", async () => {
@@ -81,9 +99,10 @@ describe("Receipt Scanning Controller", () => {
       success: false,
       error: "No image file provided"
     });
+    expect(ReceiptScanningService.extractFoodItemsFromReceipt).not.toHaveBeenCalled();
   });
 
-  test("handles service errors appropriately", async () => {
+  test("handles service error about no food items", async () => {
     // Mock request with file
     const req = { 
       file: {
