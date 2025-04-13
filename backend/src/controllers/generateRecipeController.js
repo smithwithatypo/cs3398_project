@@ -29,15 +29,17 @@ const GenerateRecipeController = {
                 Dish Type: ${dishType}.
                 Spice Level: ${spiceLevel}.
             `;
-            
-            const prompt = `
-                You are a creative chef who can make delicious recipes with limited ingredients.
-                ${metaInfo}
-                Format your response in markdown with title, ingredients list, instructions, and optional tips.
-            `;
-            const ingredientsText = ingredients.join(', ');
 
-            const response = await RecipeGeneratingService.generateRecipe(prompt, ingredientsText);
+            const ingredientsText = ingredients.join(', ');
+            const prompt = `
+                You are a creative international chef who can make delicious recipes with limited ingredients.
+                From the list of available ingredients: ${ingredientsText},
+                create a recipe that matches the dish type (${dishType}), origin:(${origin}), spice level:(${spiceLevel}).
+                Only use ingredients that make sense for this type of dish (e.g., avoid savory ingredients in desserts).
+                Format your response in markdown with a title, ingredients list, instructions, and optional tips.
+                `;
+            
+            const response = await RecipeGeneratingService.generateRecipe(prompt);
             res.status(200).json({ success: true, data: response });
         } catch (error) {
             console.error('Error generating recipe from pantry items:', error);
@@ -66,10 +68,12 @@ const GenerateRecipeController = {
             `;
 
             const systemPrompt = `
-                You are a creative chef who can create delicious recipes based on descriptions or available ingredients.
-                ${metaInfo}
-                Format your response in markdown with a title, ingredients list with measurements, and detailed instructions.
-            `;
+                You are a creative international chef who can make delicious recipes with limited ingredients.
+                From the list of available ingredients: ${systemPrompt},
+                create a recipe that matches the dish type (${dishType}), origin:(${origin}), spice level:(${spiceLevel}).
+                Only use ingredients that make sense for this type of dish (e.g., avoid savory ingredients in desserts).
+                Format your response in markdown with a title, ingredients list, instructions, and optional tips.
+                `;
             
             const response = await RecipeGeneratingService.generateRecipeFromText(systemPrompt, textPrompt);
             res.status(200).json({ success: true, data: response });

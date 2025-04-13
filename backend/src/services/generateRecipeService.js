@@ -28,9 +28,7 @@ const RecipeGeneratingService = {
                 temperature: temperature,
                 messages: [
                     {"role": "system", "content": unifiedSystemPrompt},
-                    {"role": "user", "content": `
-                        Create a recipe using the following ingredients: ${clientData}.
-                    `}
+                    {"role": "user", "content": prompt}
                 ],
                 model: model_choice,
             });
@@ -48,9 +46,7 @@ const RecipeGeneratingService = {
                 temperature: temperature,
                 messages: [
                     {"role": "system", "content": unifiedSystemPrompt},
-                    {"role": "user", "content": `
-                        Create a recipe based on the following text: ${textPrompt}.
-                    `}
+                    {"role": "user", "content": textPrompt}
                 ],
                 model: model_choice,
             });
