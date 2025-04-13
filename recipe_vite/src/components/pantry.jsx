@@ -476,62 +476,6 @@ const Pantry = () => {
             </div>
           )}
           
-          {isScanning && (
-            <div className="mt-4 flex flex-col items-center">
-              <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#1e2d3d]"></div>
-              <p className="mt-2 text-[#1e2d3d]">Analyzing...</p>
-            </div>
-          )}
-          
-          {scanError && (
-            <div className="mt-4">
-              <p className="text-red-500">{scanError}</p>
-              <button 
-                className="mt-2 text-[#1e2d3d] underline hover:text-[#16232e]"
-                onClick={() => {
-                  setScanError('');
-                  if (activeScanner === 'receipt' && receiptFileInputRef.current) {
-                    receiptFileInputRef.current.value = "";
-                    setSelectedReceipt(null);
-                  } else if (activeScanner === 'pantry' && pantryFileInputRef.current) {
-                    pantryFileInputRef.current.value = "";
-                    setSelectedPantryImage(null);
-                  }
-                }}
-              >
-                Try a different image
-              </button>
-            </div>
-          )}
-          
-          {/* Extracted Items Display */}
-          {showExtractedItems && extractedItems.length > 0 && (
-            <div className="mt-4 w-full">
-              <div className="bg-white p-4 rounded-md shadow-sm">
-                <h4 className="font-semibold mb-2 text-[#1e2d3d]">Food Items Found:</h4>
-                <ul className="list-disc pl-6 mb-4 max-h-32 overflow-y-auto">
-                  {extractedItems.map((item, index) => (
-                    <li key={index} className="text-[#1e2d3d] text-left">{item}</li>
-                  ))}
-                </ul>
-                <div className="flex gap-2">
-                  <button
-                    className="bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md"
-                    onClick={handleAddExtractedItems}
-                  >
-                    Add All to Pantry
-                  </button>
-                  <button
-                    className="bg-white hover:bg-gray-100 text-[#1e2d3d] font-bold py-2 px-4 rounded-md border border-[#1e2d3d]"
-                    onClick={resetScanStates}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-          
           {scanError && (
             <div className="mt-4">
               <p className="text-red-500">{scanError}</p>
