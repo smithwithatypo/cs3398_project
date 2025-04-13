@@ -1,64 +1,84 @@
-Plan: Test receiptScanningService.js and receiptScanningController.js logic
+# Receipt Scanning Test Plan
 
-Sources:
-    - https://vitest.dev/guide/features.html
-    - https://vitest.dev/guide/mocking.html
-    - https://openai.com/docs/guides/images/api-reference
+## Plan: Test receiptScanningService.js and receiptScanningController.js logic
 
-File Structure:
-    - To have a standardized setup and process across all team members we will use vitest
-    - Both the backend and the frontend will have their own "tests" folder within src and vite.config.js files
-        - the tests folder will have a "plans" folder where our unit test planning txt files will go
-        - the actual unit test files will be just within the tests folder 
-        - add vite.config.js on same level outside of src 
-        - update package.json file
-    - Visualization of the new file structure:    
-    backend --> *src, ~vite.config.js --> *controllers, *routes, *services, *tests --> *tests --> *plans, ~pantry.test.js, ~dishIdentifcation.test.js, ~receiptScanning.test.js ...
-        * folders
-        ~ files
+### Sources:
+- https://vitest.dev/guide/features.html
+- https://vitest.dev/guide/mocking.html
+- https://openai.com/docs/guides/images/api-reference
 
-Vitest:
-    - unit testing framework 
-    - vite
-    - has mock request (vi.fn())
-    - npm vitest run for terminal output
-    - npx vitest --ui
+### File Structure:
+- To have a standardized setup and process across all team members we will use vitest
+- Both the backend and the frontend will have their own "tests" folder within src and vite.config.js files
+    - the tests folder will have a "plans" folder where our unit test planning txt files will go
+    - the actual unit test files will be just within the tests folder 
+    - add vite.config.js on same level outside of src 
+    - update package.json file
+- Visualization of the new file structure:    
+```
+backend --> *src, ~vite.config.js --> *controllers, *routes, *services, *tests --> *tests --> *plans, ~pantry.test.js, ~dishIdentifcation.test.js, ~receiptScanning.test.js ...
+    * folders
+    ~ files
+```
 
-receiptScanningController.js Tests:
-    scanReceipt(req, res)
-        - Why: I want to test the controller returns food items after successful scanning
-        - How: 
-            1. Mock request with file (originalname, buffer)
-            2. Mock response object (status, json)
-            3. Mock service to return food items ["apples", "milk", "bread"]
-            4. Call scanReceipt(req, res)
-            5. Verify response status is 200 and json data contains food items
+### Vitest:
+- unit testing framework 
+- vite
+- has mock request (vi.fn())
+- npm vitest run for terminal output
+- npx vitest --ui
 
-    scanReceipt(req, res)
-        - Why: I want to test the controller handles missing files correctly
-        - How:
-            1. Mock request with null file
-            2. Mock response object (status, json)
-            3. Call scanReceipt(req, res)
-            4. Verify response status is 400 and json contains appropriate error message
+### Updated receiptScanning.test.js Tests:
 
-    scanReceipt(req, res)
-        - Why: I want to test the controller handles service errors appropriately
-        - How:
-            1. Mock request with file
-            2. Mock response object (status, json)
-            3. Mock service to reject with error "Could not find any food items"
-            4. Call scanReceipt(req, res)
-            5. Verify response status is 500 and error message is user-friendly
+#### 1. Controller Test: Successful Scanning
+- **Why**: To test the controller returns food items after successful scanning
+- **How**: 
+    1. Mock OpenAI, fs, path, and os modules before importing code under test
+    2. Mock request with file (originalname, buffer)
+    3. Mock response object (status, json)
+    4. Mock service to return food items ["apples", "milk", "bread"]
+    5. Call scanReceipt(req, res)
+    6. Verify response status is 200 and json data contains food items
+    7. Verify service was called with correct parameters
 
-Mocking Strategy:
-    - OpenAI module is mocked to avoid actual API calls
-    - vi.mock('openai') is called before importing service
-    - Service layer is mocked for different test scenarios
-    - Request/Response objects are mocked to simulate Express behavior
+#### 2. Controller Test: Missing File Error
+- **Why**: To test the controller handles missing files correctly
+- **How**:
+    1. Mock request with null file
+    2. Mock response object (status, json)
+    3. Call scanReceipt(req, res)
+    4. Verify response status is 400 and json contains appropriate error message
+    5. Verify service was not called
 
-Results:
-    - Results of test from npm run test:receipt
-    - Test results stored in JSON format: test-results/json/results.json
-    - HTML report: test-results/html/index.html
-    - All 3 controller tests passing
+#### 3. Controller Test: No Food Items Error
+- **Why**: To test the controller handles service errors about no food items
+- **How**:
+    1. Mock request with file
+    2. Mock response object (status, json)
+    3. Mock service to reject with error "Could not find any food items"
+    4. Call scanReceipt(req, res)
+    5. Verify response status is 500 and error message is user-friendly
+
+### Mocking Strategy:
+- OpenAI module is mocked to avoid actual API calls
+- fs, path, and os modules are mocked to avoid file system operations
+- vi.mock() is called before importing the modules to ensure mocks are applied
+- Service layer is mocked for different test scenarios
+- Request/Response objects are mocked to simulate Express behavior
+
+### Running Tests:
+- Run specific test file: `npx vitest run src/tests/receiptScanning.test.js`
+- Run with UI: `npx vitest --ui`
+- Run all tests: `npx vitest run`
+- Run with coverage: `npx vitest run --coverage`
+
+### Test Output:
+- Terminal output shows test results directly
+- UI view available with `npx vitest --ui` at http://localhost:51204/__vitest__/
+- Coverage reports in "coverage" directory (open coverage/index.html in browser)
+- Save output to file: `npx vitest run src/tests/receiptScanning.test.js > test-results.txt`
+
+### Current Status:
+- All 3 controller tests are passing
+- Path resolution issues fixed by using correct relative imports
+- Mocks for all external dependencies are properly set up

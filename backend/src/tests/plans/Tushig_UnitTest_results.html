@@ -1,32 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="./favicon.ico" sizes="48x48">
-    <link rel="icon" href="./favicon.svg" sizes="any" type="image/svg+xml">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vitest</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400&display=swap"
-      rel="stylesheet"
-    />
-    <script>
-      (function () {
-        const prefersDark =
-          window.matchMedia &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches;
-        const setting = localStorage.getItem("vueuse-color-scheme") || "auto";
-        if (setting === "dark" || (prefersDark && setting !== "light"))
-          document.documentElement.classList.toggle("dark", true);
-      })();
-    </script>
-    <script>window.METADATA_PATH="html.meta.json.gz"</script>
-    <script type="module" src="./assets/index-BLZJq7cG.js"></script>
-    <link rel="stylesheet" href="./assets/index-B0KEk_KY.css">
-  </head>
-  <body>
-    <div id="app"></div>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <title>Test Report</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+      padding: 40px;
+    }
+    .summary {
+      margin-bottom: 30px;
+      padding: 20px;
+      background-color: #e9ecef;
+      border-radius: 10px;
+    }
+    .test-suite {
+      margin-bottom: 20px;
+      padding: 20px;
+      border-left: 5px solid #28a745;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .test-suite h2 {
+      margin-top: 0;
+    }
+    .test-result.passed {
+      color: #28a745;
+    }
+    .test-result.failed {
+      color: #dc3545;
+    }
+    .test {
+      margin-left: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Test Report</h1>
+
+  <div class="summary">
+    <p><strong>Total Suites:</strong> 2</p>
+    <p><strong>Passed Suites:</strong> 2</p>
+    <p><strong>Failed Suites:</strong> 0</p>
+    <p><strong>Total Tests:</strong> 3</p>
+    <p><strong>Passed Tests:</strong> 3</p>
+    <p><strong>Failed Tests:</strong> 0</p>
+    <p><strong>Status:</strong> All tests passed</p>
+  </div>
+
+  <div class="test-suite">
+    <h2>Test File: receiptScanning.test.js</h2>
+    <div class="test">
+      <p class="test-result passed">✔ <strong>returns food items after successful scanning</strong></p>
+      <p class="test-result passed">✔ <strong>returns error when no image file is provided</strong></p>
+      <p class="test-result passed">✔ <strong>handles service error about no food items</strong></p>
+    </div>
+  </div>
+
+</body>
 </html>
