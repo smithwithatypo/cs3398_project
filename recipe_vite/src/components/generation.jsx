@@ -103,57 +103,70 @@ const Generation = () => {
     setLoading(false);
   };
 
-  const StepView = ({ recipe, currentStep, setCurrentStep }) => {
-    const stepMatches = recipe.match(/\d+\.\s.+/g); // extract lines like "1. Do this"
-    const steps = stepMatches || ['No steps found.'];
-  
-    const handleNext = () => {
-      if (currentStep < steps.length - 1) {
-        setCurrentStep(currentStep + 1);
-      }
+const StepView = ({ recipe, currentStep, setCurrentStep }) => {
+  const stepBlocks = recipe.match(/\d+\.\s[\s\S]*?(?=\n\d+\.|$)/g);
+  const steps = (stepBlocks || ['No steps found.']).map(block => {
+    const [main, ...bullets] = block.split(/\n- /);
+    return {
+      main: main.trim(),
+      bullets: bullets.map(b => b.trim())
     };
-  
-    const handleBack = () => {
-      if (currentStep > 0) {
-        setCurrentStep(currentStep - 1);
-      }
-    };
-    
-    const progress = ((currentStep + 1) / steps.length) * 100;
+  });
 
-    return (
-      <div className="text-[#1e2d3d] p-4 bg-[#f0f4f2] rounded-lg text-center">
-        <h2 className="text-xl font-bold mb-4">Step-by-Step Instructions</h2>
-        <p className="text-lg">{steps[currentStep]}</p>
-  
-        <div className="flex justify-between mt-6">
-          <button
-            className="bg-[#1e2d3d] text-white py-2 px-4 rounded-md disabled:opacity-40"
-            onClick={handleBack}
-            disabled={currentStep === 0}
-          >
-            Back
-          </button>
-          <button
-            className="bg-[#1e2d3d] text-white py-2 px-4 rounded-md disabled:opacity-40"
-            onClick={handleNext}
-            disabled={currentStep === steps.length - 1}
-          >
-            Next
-          </button>
-        </div>
-
-        <div className="w-full bg-gray-200 rounded-full h-3 mt-6">
-          <div className="bg-[#1e2d3d] h-3 rounded-full" style={{ width: `${progress}%` }}></div>
-        </div>
-  
-        <div className="text-sm text-gray-600 mt-4 italic">
-          Step {currentStep + 1} of {steps.length}
-        </div>
-      </div>
-    );
+  const handleNext = () => {
+    if (currentStep < steps.length - 1) {
+      setCurrentStep(currentStep + 1);
+    }
   };
-  
+
+  const handleBack = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
+
+  const progress = ((currentStep + 1) / steps.length) * 100;
+  const step = steps[currentStep];
+
+  return (
+    <div className="text-[#1e2d3d] p-4 bg-[#f0f4f2] rounded-lg text-center">
+      <h2 className="text-xl font-bold mb-4">Step-by-Step Instructions</h2>
+      <div className="text-left mb-4">
+        <p className="mb-2 whitespace-pre-line">{step.main}</p>
+        {step.bullets.length > 0 && (
+          <ul className="list-disc list-inside ml-4">
+            {step.bullets.map((item, idx) => (
+              <li key={idx}>{item}</li>
+            ))}
+          </ul>
+        )}
+      </div>
+      <div className="flex justify-between mt-6">
+        <button
+          className="bg-[#1e2d3d] text-white py-2 px-4 rounded-md disabled:opacity-40"
+          onClick={handleBack}
+          disabled={currentStep === 0}
+        >
+          Back
+        </button>
+        <button
+          className="bg-[#1e2d3d] text-white py-2 px-4 rounded-md disabled:opacity-40"
+          onClick={handleNext}
+          disabled={currentStep === steps.length - 1}
+        >
+          Next
+        </button>
+      </div>
+      <div className="w-full bg-gray-200 rounded-full h-3 mt-6">
+        <div className="bg-[#1e2d3d] h-3 rounded-full" style={{ width: `${progress}%` }}></div>
+      </div>
+      <div className="text-sm text-gray-600 mt-2 italic">
+        Step {currentStep + 1} of {steps.length}
+      </div>
+    </div>
+  );
+};
+
   return (
     <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center p-8">
       {/* Page Header */}
