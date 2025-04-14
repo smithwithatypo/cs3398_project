@@ -193,6 +193,10 @@ const StepView = ({ recipe, currentStep, setCurrentStep }) => {
       <div className="text-sm text-gray-600 mt-2 italic">
         Step {currentStep + 1} of {steps.length}
       </div>
+      <div className="text-[9px] text-gray-400 mt-1">
+        inspired by Jackson Beroux
+      </div>
+
     </div>
   );
 };
