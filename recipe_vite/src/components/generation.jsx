@@ -104,14 +104,17 @@ const Generation = () => {
   };
 
 const StepView = ({ recipe, currentStep, setCurrentStep }) => {
+  const titleMatch = recipe.match(/^#\s(.+)/m);
+  const recipeTitle = titleMatch ? titleMatch[1].trim() : 'Generated Recipe';
+
   const stepBlocks = recipe.match(/\d+\.\s[\s\S]*?(?=\n\d+\.|$)/g);
   const steps = (stepBlocks || ['No steps found.']).map(block => {
     const lines = block.split(/\n/);
-    const main = lines[0].trim();
+    const main = lines[0].trim().replace(/\*\*(.*?)\*\*/g, '$1');
     const bullets = lines.slice(1)
       .map(line => line.trim())
       .filter(line => line.startsWith('-'))
-      .map(bullet => bullet.slice(1).trim());
+      .map(bullet => bullet.slice(1).trim().replace(/\*\*(.*?)\*\*/g, '$1'));
     return { main, bullets };
   });
 
@@ -146,7 +149,7 @@ const StepView = ({ recipe, currentStep, setCurrentStep }) => {
 
   return (
     <div className="text-[#1e2d3d] p-4 bg-[#f0f4f2] rounded-lg text-center">
-      <h2 className="text-xl font-bold mb-4">Step-by-Step Instructions</h2>
+      <h2 className="text-2xl font-bold mb-1">{recipeTitle}</h2>
       <div className="text-left mb-4">
         <p className="mb-2 whitespace-pre-line">{step.main}</p>
         {step.bullets.length > 0 && (
