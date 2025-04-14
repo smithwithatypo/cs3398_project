@@ -103,22 +103,51 @@ const Generation = () => {
     setLoading(false);
   };
 
-  // Toggle the current recipe in favorites (add or remove)
-  const toggleFavorite = () => {
-    if (!recipe) return;
-
-    if (isFavorited) {
-      // Remove the current recipe from favorites
-      const updatedFavorites = favorites.filter((r) => r !== recipe);
-      setFavorites(updatedFavorites);
-      setIsFavorited(false);
-    } else {
-      // Add the current recipe to favorites
-      setFavorites([...favorites, recipe]);
-      setIsFavorited(true);
-    }
+  const StepView = ({ recipe, currentStep, setCurrentStep }) => {
+    const stepMatches = recipe.match(/\d+\.\s.+/g); // extract lines like "1. Do this"
+    const steps = stepMatches || ['No steps found.'];
+  
+    const handleNext = () => {
+      if (currentStep < steps.length - 1) {
+        setCurrentStep(currentStep + 1);
+      }
+    };
+  
+    const handleBack = () => {
+      if (currentStep > 0) {
+        setCurrentStep(currentStep - 1);
+      }
+    };
+  
+    return (
+      <div className="text-[#1e2d3d] p-4 bg-[#f0f4f2] rounded-lg text-center">
+        <h2 className="text-xl font-bold mb-4">Step-by-Step Instructions</h2>
+        <p className="text-lg">{steps[currentStep]}</p>
+  
+        <div className="flex justify-between mt-6">
+          <button
+            className="bg-[#1e2d3d] text-white py-2 px-4 rounded-md disabled:opacity-40"
+            onClick={handleBack}
+            disabled={currentStep === 0}
+          >
+            Back
+          </button>
+          <button
+            className="bg-[#1e2d3d] text-white py-2 px-4 rounded-md disabled:opacity-40"
+            onClick={handleNext}
+            disabled={currentStep === steps.length - 1}
+          >
+            Next
+          </button>
+        </div>
+  
+        <div className="text-sm text-gray-600 mt-4 italic">
+          Step {currentStep + 1} of {steps.length}
+        </div>
+      </div>
+    );
   };
-
+  
   return (
     <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center p-8">
       {/* Page Header */}
