@@ -106,12 +106,20 @@ const Generation = () => {
 const StepView = ({ recipe, currentStep, setCurrentStep }) => {
   const stepBlocks = recipe.match(/\d+\.\s[\s\S]*?(?=\n\d+\.|$)/g);
   const steps = (stepBlocks || ['No steps found.']).map(block => {
-    const [main, ...bullets] = block.split(/\n- /);
-    return {
-      main: main.trim(),
-      bullets: bullets.map(b => b.trim())
-    };
+    const lines = block.split(/\n/);
+    const main = lines[0].trim();
+    const bullets = lines.slice(1)
+      .map(line => line.trim())
+      .filter(line => line.startsWith('-'))
+      .map(bullet => bullet.slice(1).trim());
+    return { main, bullets };
   });
+
+  const [checkedItems, setCheckedItems] = useState({});
+  const handleCheckboxChange = (stepIndex, bulletIndex) => {
+    const key = `${stepIndex}-${bulletIndex}`;
+    setCheckedItems(prev => ({ ...prev, [key]: !prev[key] }));
+  };
 
   const handleNext = () => {
     if (currentStep < steps.length - 1) {
@@ -134,10 +142,21 @@ const StepView = ({ recipe, currentStep, setCurrentStep }) => {
       <div className="text-left mb-4">
         <p className="mb-2 whitespace-pre-line">{step.main}</p>
         {step.bullets.length > 0 && (
-          <ul className="list-disc list-inside ml-4">
-            {step.bullets.map((item, idx) => (
-              <li key={idx}>{item}</li>
-            ))}
+          <ul className="ml-2">
+            {step.bullets.map((item, idx) => {
+              const key = `${currentStep}-${idx}`;
+              return (
+                <li key={idx} className="flex items-center space-x-2 mb-1">
+                  <input
+                    type="checkbox"
+                    checked={checkedItems[key] || false}
+                    onChange={() => handleCheckboxChange(currentStep, idx)}
+                    className="accent-[#1e2d3d]"
+                  />
+                  <span className={checkedItems[key] ? 'line-through text-gray-500' : ''}>{item}</span>
+                </li>
+              );
+            })}
           </ul>
         )}
       </div>
