@@ -115,10 +115,18 @@ const StepView = ({ recipe, currentStep, setCurrentStep }) => {
     return { main, bullets };
   });
 
-  const [checkedItems, setCheckedItems] = useState({});
+  const [checkedItems, setCheckedItems] = useState(() => {
+    const saved = localStorage.getItem('stepCheckState');
+    return saved ? JSON.parse(saved) : {};
+  });
+
   const handleCheckboxChange = (stepIndex, bulletIndex) => {
     const key = `${stepIndex}-${bulletIndex}`;
-    setCheckedItems(prev => ({ ...prev, [key]: !prev[key] }));
+    setCheckedItems(prev => {
+      const updated = { ...prev, [key]: !prev[key] };
+      localStorage.setItem('stepCheckState', JSON.stringify(updated));
+      return updated;
+    });
   };
 
   const handleNext = () => {
