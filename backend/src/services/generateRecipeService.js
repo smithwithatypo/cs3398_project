@@ -22,12 +22,12 @@ const unifiedSystemPrompt = `
 
 // service
 const RecipeGeneratingService = {
-    async generateRecipe(prompt, clientData) {
+    async generateRecipe(prompt, clientData = unifiedSystemPrompt) {
         try {
             const completion = await openai.chat.completions.create({
                 temperature: temperature,
                 messages: [
-                    {"role": "system", "content": unifiedSystemPrompt},
+                    {"role": "system", "content": clientData},
                     {"role": "user", "content": prompt}
                 ],
                 model: model_choice,
@@ -40,13 +40,13 @@ const RecipeGeneratingService = {
     },
     
     // New method for text-to-recipe
-    async generateRecipeFromText(systemPrompt, textPrompt) {
+    async generateRecipeFromText(userPrompt, systemPrompt = unifiedSystemPrompt) {
         try {
             const completion = await openai.chat.completions.create({
                 temperature: temperature,
                 messages: [
-                    {"role": "system", "content": unifiedSystemPrompt},
-                    {"role": "user", "content": textPrompt}
+                    {"role": "system", "content": systemPrompt},
+                    {"role": "user", "content": userPrompt}
                 ],
                 model: model_choice,
             });

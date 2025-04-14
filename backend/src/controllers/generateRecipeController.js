@@ -36,7 +36,7 @@ const GenerateRecipeController = {
                 Format your response in markdown as a complete recipe.
             `;
             
-            const response = await RecipeGeneratingService.generateRecipe(prompt);
+            const response = await RecipeGeneratingService.generateRecipe(userPrompt);
             res.status(200).json({ success: true, data: response });
         } catch (error) {
             console.error('Error generating recipe from pantry items:', error);
