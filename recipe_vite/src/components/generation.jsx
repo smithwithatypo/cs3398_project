@@ -148,7 +148,7 @@ const StepView = ({ recipe, currentStep, setCurrentStep }) => {
   const step = steps[currentStep];
 
   return (
-    <div className="text-[#1e2d3d] p-4 bg-[#f0f4f2] rounded-lg text-center">
+    <div className="text-[#1e2d3d] p-4 bg-[#d0ded5] rounded-lg text-center">
       <h2 className="text-2xl font-bold mb-1">{recipeTitle}</h2>
       <div className="text-left mb-4">
         <p className="mb-2 whitespace-pre-line">{step.main}</p>
