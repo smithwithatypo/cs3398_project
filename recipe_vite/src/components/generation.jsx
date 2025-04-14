@@ -220,6 +220,9 @@ const Generation = () => {
 
             }}
           />
+          <div className="text-sm text-gray-600 mt-2 text-center italic">
+            Preferences used: Origin - {origin || 'Any'}, Dish Type - {dishType || 'Any'}, Spice Level - {spiceLevel || 'Any'}
+          </div>
         </div>
       )}
 
