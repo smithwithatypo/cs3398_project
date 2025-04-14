@@ -118,7 +118,9 @@ const Generation = () => {
         setCurrentStep(currentStep - 1);
       }
     };
-  
+    
+    const progress = ((currentStep + 1) / steps.length) * 100;
+
     return (
       <div className="text-[#1e2d3d] p-4 bg-[#f0f4f2] rounded-lg text-center">
         <h2 className="text-xl font-bold mb-4">Step-by-Step Instructions</h2>
@@ -139,6 +141,10 @@ const Generation = () => {
           >
             Next
           </button>
+        </div>
+
+        <div className="w-full bg-gray-200 rounded-full h-3 mt-6">
+          <div className="bg-[#1e2d3d] h-3 rounded-full" style={{ width: `${progress}%` }}></div>
         </div>
   
         <div className="text-sm text-gray-600 mt-4 italic">
