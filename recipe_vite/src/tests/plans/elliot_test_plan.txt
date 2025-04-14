@@ -1,0 +1,85 @@
+
+Plan: Test recipeService.js, profileUtils.js, and Navbar rendering
+Sources:
+    - https://vitest.dev/guide/features.html  
+
+File Structure:
+    - To have a standardized setup and process across all team members, we will use Vitest.
+    - The frontend has its own "tests" folder within "src", along with a "vite.config.js" file in the root.
+        - The tests folder will have a "plans" subfolder for test planning .txt files.
+        - Unit test .js files will be placed directly within the tests folder.
+        - vite.config.js is located outside of src for proper config scope.
+        - package.json will be updated to include vitest, c8, and other necessary devDependencies.
+
+Visualization of the file structure:
+
+recipe_vite/
+│
+├── src/
+│   ├── components/
+│   ├── shared/
+│   ├── tests/
+│   │   ├── plans/
+│   │   │   └── elliot_test_plan.txt
+│   │   ├── recipeService.test.js
+│   │   ├── profileUtils.test.js
+│
+├── App.test.jsx
+├── vite.config.js
+├── c8.config.js
+├── package.json
+
+Vitest:
+    - Unit testing framework for Vite-based React projects
+    - Supports mocking with vi.fn()
+    - Run tests in terminal: npm run test
+    - Run coverage: npm run coverage
+    - Optional UI mode: npx vitest --ui
+
+Tests Included
+
+recipeService.js Tests
+generateRecipeFromText()
+    - Why: Ensure that a valid prompt returns a matching recipe string
+    - How:
+        1. Mock the entire recipeService module using vi.mock()
+        2. Return a resolved Promise with known recipe string
+        3. Call generateRecipeFromText(systemPrompt, prompt)
+        4. Use expect(result).toContain("Tofu Stir Fry")
+
+profileUtils.js Tests
+
+addItemToList()
+    - Why: Check that a new item is added to the array
+    - How:
+        1. Pass ["Tofu"] and "Mushrooms" to addItemToList
+        2. Expect result to equal ["Tofu", "Mushrooms"]
+
+addItemToList() with empty input
+    - Why: Ensure whitespace-only strings are ignored
+    - How:
+        1. Pass ["Lentils"] and "   " to addItemToList
+        2. Expect result to equal ["Lentils"]
+
+removeItemFromList()
+    - Why: Ensure an item is removed by index
+    - How:
+        1. Pass ["Eggs", "Spinach", "Cheese"] and index 1 to removeItemFromList
+        2. Expect result to equal ["Eggs", "Cheese"]
+
+App.test.jsx
+
+Navbar Rendering
+    - Why: Verify the navbar renders the correct app title
+    - How:
+        1. Render <Navbar /> inside <BrowserRouter />
+        2. Use screen.getByText(/Recipe Generator/i)
+        3. Assert that it is present in the document
+
+Results:
+- Run in terminal:
+    - npm run test
+    - npm run coverage
+- Filename:
+    - elliot_unitTest_results.html
+    - results_allTest_frontend.html
