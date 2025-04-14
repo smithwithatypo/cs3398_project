@@ -16,7 +16,7 @@ const GenerateRecipeController = {
     
     async generateFromPantryItems(req, res) {
         try {
-            const ingredients = req.body.ingredients || [];
+            const { ingredients = [], origin = 'Any', dishType = 'Any', spiceLevel = 'Any' } = req.body;
             
             if (!ingredients.length) {
                 return res.status(400).json({ 
@@ -24,11 +24,19 @@ const GenerateRecipeController = {
                     error: "No ingredients provided" 
                 });
             }
-            
-            const prompt = "You are a creative chef who can make delicious recipes with limited ingredients. Format your response in markdown.";
+
             const ingredientsText = ingredients.join(', ');
+            const userPrompt = `
+                Based on the user's ingredients: "${ingredientsText}",
+                generate a recipe that fits the following preferences:
+                - Origin: ${origin}
+                - Dish Type: ${dishType}
+                - Spice Level: ${spiceLevel}
+                Ensure the recipe aligns with the cuisine and dish type, and incorporates an appropriate spice level.
+                Format your response in markdown as a complete recipe.
+            `;
             
-            const response = await RecipeGeneratingService.generateRecipe(prompt, ingredientsText);
+            const response = await RecipeGeneratingService.generateRecipe(userPrompt);
             res.status(200).json({ success: true, data: response });
         } catch (error) {
             console.error('Error generating recipe from pantry items:', error);
@@ -42,7 +50,7 @@ const GenerateRecipeController = {
     // New method for text-to-recipe
     async generateFromText(req, res) {
         try {
-            const textPrompt = req.body.textPrompt || '';
+            const { textPrompt = '', origin = 'Any', dishType = 'Any', spiceLevel = 'Any' } = req.body;
             
             if (!textPrompt.trim()) {
                 return res.status(400).json({ 
@@ -50,10 +58,18 @@ const GenerateRecipeController = {
                     error: "No text prompt provided" 
                 });
             }
+
+            const userPrompt = `
+                Based on the user's description: "${textPrompt}",
+                generate a recipe that fits the following preferences:
+                - Origin: ${origin}
+                - Dish Type: ${dishType}
+                - Spice Level: ${spiceLevel}
+                Ensure the recipe aligns with the cuisine and dish type, and incorporates an appropriate spice level.
+                Format your response in markdown as a complete recipe.
+            `;
             
-            const systemPrompt = "You are a creative chef who can create delicious recipes based on descriptions or available ingredients. Format your response in markdown with a title, ingredients list with measurements, and detailed instructions.";
-            
-            const response = await RecipeGeneratingService.generateRecipeFromText(systemPrompt, textPrompt);
+            const response = await RecipeGeneratingService.generateRecipeFromText(userPrompt);
             res.status(200).json({ success: true, data: response });
         } catch (error) {
             console.error('Error generating recipe from text:', error);
