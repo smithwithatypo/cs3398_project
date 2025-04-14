@@ -61,21 +61,18 @@ const GenerateRecipeController = {
                     error: "No text prompt provided" 
                 });
             }
-            const metaInfo = `
-                Preferred Origin: ${origin}.
-                Spice Level: ${spiceLevel}.
-                Time Frame: ${timeFrame}.
-            `;
 
-            const systemPrompt = `
-                You are a creative international chef who can make delicious recipes with limited ingredients.
-                From the list of available ingredients: ${systemPrompt},
-                create a recipe that matches the dish type (${dishType}), origin:(${origin}), spice level:(${spiceLevel}).
-                Only use ingredients that make sense for this type of dish (e.g., avoid savory ingredients in desserts).
-                Format your response in markdown with a title, ingredients list, instructions, and optional tips.
-                `;
+            const userPrompt = `
+                Based on the user's description: "${textPrompt}",
+                generate a recipe that fits the following preferences:
+                - Origin: ${origin}
+                - Dish Type: ${dishType}
+                - Spice Level: ${spiceLevel}
+                Ensure the recipe aligns with the cuisine and dish type, and incorporates an appropriate spice level.
+                Format your response in markdown as a complete recipe.
+            `;
             
-            const response = await RecipeGeneratingService.generateRecipeFromText(systemPrompt, textPrompt);
+            const response = await RecipeGeneratingService.generateRecipeFromText(userPrompt);
             res.status(200).json({ success: true, data: response });
         } catch (error) {
             console.error('Error generating recipe from text:', error);
