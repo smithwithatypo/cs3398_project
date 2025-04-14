@@ -149,7 +149,7 @@ const StepView = ({ recipe, currentStep, setCurrentStep }) => {
 
   return (
     <div className="text-[#1e2d3d] p-4 bg-[#d0ded5] rounded-lg shadow-md text-center">
-      <h2 className="text-2xl font-bold mb-1">{recipeTitle}</h2>
+      <h2 className="text-2xl font-bold mb-1">{recipeTitle} </h2>
       <div className="text-left mb-4">
         <p className="mb-2 whitespace-pre-line">{step.main}</p>
         {step.bullets.length > 0 && (
