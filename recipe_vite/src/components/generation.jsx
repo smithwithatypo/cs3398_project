@@ -308,7 +308,7 @@ const StepView = ({ recipe, currentStep, setCurrentStep }) => {
               setCurrentStep(0); // Reset step view if switching
             }}
           >
-            <option value="full">Full Styled Recipe</option>
+            <option value="full">Full Instructions</option>
             <option value="step">Step-by-Step Instructions</option>
           </select>
         </div>
