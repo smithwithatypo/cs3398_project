@@ -104,11 +104,20 @@ const Generation = () => {
     setLoading(false);
   };
 
-  // Save the current recipe to favorites and mark it as favorited
-  const handleFavorite = () => {
+  // Toggle the current recipe in favorites (add or remove)
+  const toggleFavorite = () => {
     if (!recipe) return;
-    setFavorites([...favorites, recipe]);
-    setIsFavorited(true);
+
+    if (isFavorited) {
+      // Remove the current recipe from favorites
+      const updatedFavorites = favorites.filter((r) => r !== recipe);
+      setFavorites(updatedFavorites);
+      setIsFavorited(false);
+    } else {
+      // Add the current recipe to favorites
+      setFavorites([...favorites, recipe]);
+      setIsFavorited(true);
+    }
   };
 
   return (
