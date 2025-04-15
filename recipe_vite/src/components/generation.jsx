@@ -14,9 +14,8 @@ const Generation = () => {
   const [origin, setOrigin] = useState('');
   const [dishType, setDishType] = useState('');
   const [spiceLevel, setSpiceLevel] = useState('');
-  const [favorites, setFavorites] = useState([]);
-  const [isFavorited, setIsFavorited] = useState(false);
-
+  const [viewMode, setViewMode] = useState('full'); // 'full' or 'step'
+  const [currentStep, setCurrentStep] = useState(0);
 
   useEffect(() => {
     fetchPantryItems();
@@ -104,21 +103,103 @@ const Generation = () => {
     setLoading(false);
   };
 
-  // Toggle the current recipe in favorites (add or remove)
-  const toggleFavorite = () => {
-    if (!recipe) return;
+const StepView = ({ recipe, currentStep, setCurrentStep }) => {
+  const titleMatch = recipe.match(/^#\s(.+)/m);
+  const recipeTitle = titleMatch ? titleMatch[1].trim() : 'Generated Recipe';
 
-    if (isFavorited) {
-      // Remove the current recipe from favorites
-      const updatedFavorites = favorites.filter((r) => r !== recipe);
-      setFavorites(updatedFavorites);
-      setIsFavorited(false);
-    } else {
-      // Add the current recipe to favorites
-      setFavorites([...favorites, recipe]);
-      setIsFavorited(true);
+  const stepBlocks = recipe.match(/\d+\.\s[\s\S]*?(?=\n\d+\.|$)/g);
+  const steps = (stepBlocks || ['No steps found.']).map(block => {
+    const lines = block.split(/\n/);
+    const main = lines[0].trim().replace(/\*\*(.*?)\*\*/g, '$1');
+    const bullets = lines.slice(1)
+      .map(line => line.trim())
+      .filter(line => line.startsWith('-'))
+      .map(bullet => bullet.slice(1).trim().replace(/\*\*(.*?)\*\*/g, '$1'));
+    return { main, bullets };
+  });
+
+  const [checkedItems, setCheckedItems] = useState(() => {
+    const saved = localStorage.getItem('stepCheckState');
+    return saved ? JSON.parse(saved) : {};
+  });
+
+  const handleCheckboxChange = (stepIndex, bulletIndex) => {
+    const key = `${stepIndex}-${bulletIndex}`;
+    setCheckedItems(prev => {
+      const updated = { ...prev, [key]: !prev[key] };
+      localStorage.setItem('stepCheckState', JSON.stringify(updated));
+      return updated;
+    });
+  };
+
+  const handleNext = () => {
+    if (currentStep < steps.length - 1) {
+      setCurrentStep(currentStep + 1);
     }
   };
+
+  const handleBack = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
+
+  const progress = ((currentStep + 1) / steps.length) * 100;
+  const step = steps[currentStep];
+
+  return (
+    <div className="text-[#1e2d3d] p-4 bg-[#d0ded5] rounded-lg shadow-md text-center">
+      <h2 className="text-2xl font-bold mb-1">{recipeTitle} </h2>
+      <div className="text-left mb-4">
+        <p className="mb-2 whitespace-pre-line">{step.main}</p>
+        {step.bullets.length > 0 && (
+          <ul className="ml-2">
+            {step.bullets.map((item, idx) => {
+              const key = `${currentStep}-${idx}`;
+              return (
+                <li key={idx} className="flex items-center space-x-2 mb-1">
+                  <input
+                    type="checkbox"
+                    checked={checkedItems[key] || false}
+                    onChange={() => handleCheckboxChange(currentStep, idx)}
+                    className="accent-[#1e2d3d]"
+                  />
+                  <span className={checkedItems[key] ? 'line-through text-gray-500' : ''}>{item}</span>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </div>
+      <div className="flex justify-between mt-6">
+        <button
+          className="bg-[#1e2d3d] text-white py-2 px-4 rounded-md disabled:opacity-40"
+          onClick={handleBack}
+          disabled={currentStep === 0}
+        >
+          Back
+        </button>
+        <button
+          className="bg-[#1e2d3d] text-white py-2 px-4 rounded-md disabled:opacity-40"
+          onClick={handleNext}
+          disabled={currentStep === steps.length - 1}
+        >
+          Next
+        </button>
+      </div>
+      <div className="w-full bg-gray-200 rounded-full h-3 mt-6">
+        <div className="bg-[#1e2d3d] h-3 rounded-full" style={{ width: `${progress}%` }}></div>
+      </div>
+      <div className="text-sm text-gray-600 mt-2 italic">
+        Step {currentStep + 1} of {steps.length}
+      </div>
+      <div className="text-[9px] text-gray-400 mt-1">
+        inspired by Jackson Beroux
+      </div>
+
+    </div>
+  );
+};
 
   return (
     <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center p-8">
@@ -220,43 +301,53 @@ const Generation = () => {
 
       {/* Recipe Display */}
       {recipe && (
-        <div className="bg-white shadow-md rounded-lg p-6 mt-8 w-full max-w-2xl">
-          <div
-            className="text-[#1e2d3d] font-medium p-4 bg-[#d0ded5] rounded-lg shadow-md max-w-3xl mx-auto my-4"
-            dangerouslySetInnerHTML={{
-              __html: recipe
-                .replace(/(\d+\.)(\s+)/g, '<br>$1 ') 
-                .replace(/^####\s*(.+)$/gm, '<strong>$1</strong><br>') 
-                .replace(/^###\s*(.+)$/gm, '## $1 ')
-                .replace(/\n{2,}/g, '\n')
-                .replace(/\*\*(.+?)\*\*/g, '$1')
-                .replace(/^# (.+)$/gm, '<h1 class="text-2xl font-extrabold text-center mb-1 text-[#1e2d3d]">$1</h1>')
-                .replace(/^## (.+)$/gm, '<h2 class="text-xl font-bold bg-[#1e2d3d] text-white py-1 px-3 rounded-md mt-2">$1</h2>')
-                .replace(/^### (.+)$/gm, '<h3 class="text-lg font-semibold bg-[#8aa29e] text-white py-1 px-2 rounded-md">$1</h3>')
-                .replace(/[-] (.+)$/gm, '<li class="list-disc ml-6 text-[#1e2d3d]">$1</li>') // Format bullet points
-                .replace(/\n<li class="list-disc ml-6 text-[#1e2d3d]">/g, '<li class="list-disc ml-6 text-[#1e2d3d]">') // Remove newline before list item
-
+        <>
+        <div className="mt-6 w-full max-w-lg">
+          <label className="block mb-2 text-[#1e2d3d] font-medium">Choose Display Mode:</label>
+          <select
+            className="w-full p-2 border border-gray-300 rounded-md"
+            value={viewMode}
+            onChange={(e) => {
+              setViewMode(e.target.value);
+              setCurrentStep(0); // Reset step view if switching
             }}
-          />
-          <div className="text-sm text-gray-600 mt-2 text-center italic">
-            Preferences used: Origin - {origin || 'Any'}, Dish Type - {dishType || 'Any'}, Spice Level - {spiceLevel || 'Any'}
-          </div>
-        {/* Favorite Button */}
-        <div className="flex justify-center mt-4">
-          <button
-            onClick={toggleFavorite}
-            className={`flex items-center gap-2 px-4 py-2 rounded-md text-white font-bold ${
-              isFavorited ? 'bg-red-800 hover:bg-red-900' : 'bg-[#1e2d3d] hover:bg-[#16232e]'
-            }`}
           >
-            {isFavorited ? '💔 Unfavorite' : '❤️ Favorite'}
-          </button>
+            <option value="full">Full Instructions</option>
+            <option value="step">Step-by-Step Instructions</option>
+          </select>
         </div>
-        </div>
-      )}
 
+        <div className="bg-white shadow-md rounded-lg p-6 mt-8 w-full max-w-2xl">
+          {viewMode === 'full' ? (
+            <>
+              <div
+                className="text-[#1e2d3d] font-medium p-4 bg-[#d0ded5] rounded-lg shadow-md max-w-3xl mx-auto my-4"
+                dangerouslySetInnerHTML={{
+                  __html: recipe
+                    .replace(/(\d+\.)(\s+)/g, '<br>$1 ')
+                    .replace(/^####\s*(.+)$/gm, '<strong>$1</strong><br>')
+                    .replace(/^###\s*(.+)$/gm, '## $1 ')
+                    .replace(/\n{2,}/g, '\n')
+                    .replace(/\*\*(.+?)\*\*/g, '$1')
+                    .replace(/^# (.+)$/gm, '<h1 class="text-2xl font-extrabold text-center mb-1 text-[#1e2d3d]">$1</h1>')
+                    .replace(/^## (.+)$/gm, '<h2 class="text-xl font-bold bg-[#1e2d3d] text-white py-1 px-3 rounded-md mt-2">$1</h2>')
+                    .replace(/^### (.+)$/gm, '<h3 class="text-lg font-semibold bg-[#8aa29e] text-white py-1 px-2 rounded-md">$1</h3>')
+                    .replace(/[-] (.+)$/gm, '<li class="list-disc ml-6 text-[#1e2d3d]">$1</li>')
+                    .replace(/\n<li class="list-disc ml-6 text-[#1e2d3d]">/g, '<li class="list-disc ml-6 text-[#1e2d3d]">')
+                }}
+              />
+              <div className="text-sm text-gray-600 mt-2 text-center italic">
+                Preferences used: Origin - {origin || 'Any'}, Dish Type - {dishType || 'Any'}, Spice Level - {spiceLevel || 'Any'}
+              </div>
+            </>
+          ) : (
+            <StepView recipe={recipe} currentStep={currentStep} setCurrentStep={setCurrentStep} />
+          )}
+        </div>
+      </>
+      )}
       {error && <p className="text-red-500 mt-4">{error}</p>}
-    </div>
+      </div>
   );
 };
 
