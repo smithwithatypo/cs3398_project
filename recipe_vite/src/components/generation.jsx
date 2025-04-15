@@ -14,6 +14,8 @@ const Generation = () => {
   const [origin, setOrigin] = useState('');
   const [dishType, setDishType] = useState('');
   const [spiceLevel, setSpiceLevel] = useState('');
+  const [favorites, setFavorites] = useState([]);
+  const [isFavorited, setIsFavorited] = useState(false);
 
 
   useEffect(() => {
@@ -100,6 +102,13 @@ const Generation = () => {
     }
 
     setLoading(false);
+  };
+
+  // Save the current recipe to favorites and mark it as favorited
+  const handleFavorite = () => {
+    if (!recipe) return;
+    setFavorites([...favorites, recipe]);
+    setIsFavorited(true);
   };
 
   return (
