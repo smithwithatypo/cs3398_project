@@ -250,7 +250,7 @@ const Generation = () => {
             }`}
             disabled={isFavorited}
           >
-            ❤️ {isFavorited ? 'Favorited' : 'Favorite'}
+            {isFavorited ? '💔 Unfavorite' : '❤️ Favorite'}
           </button>
         </div>
         </div>
