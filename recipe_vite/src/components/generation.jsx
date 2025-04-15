@@ -14,6 +14,8 @@ const Generation = () => {
   const [origin, setOrigin] = useState('');
   const [dishType, setDishType] = useState('');
   const [spiceLevel, setSpiceLevel] = useState('');
+  const [favorites, setFavorites] = useState([]);
+  const [isFavorited, setIsFavorited] = useState(false);
 
 
   useEffect(() => {
@@ -100,6 +102,22 @@ const Generation = () => {
     }
 
     setLoading(false);
+  };
+
+  // Toggle the current recipe in favorites (add or remove)
+  const toggleFavorite = () => {
+    if (!recipe) return;
+
+    if (isFavorited) {
+      // Remove the current recipe from favorites
+      const updatedFavorites = favorites.filter((r) => r !== recipe);
+      setFavorites(updatedFavorites);
+      setIsFavorited(false);
+    } else {
+      // Add the current recipe to favorites
+      setFavorites([...favorites, recipe]);
+      setIsFavorited(true);
+    }
   };
 
   return (
@@ -223,6 +241,17 @@ const Generation = () => {
           <div className="text-sm text-gray-600 mt-2 text-center italic">
             Preferences used: Origin - {origin || 'Any'}, Dish Type - {dishType || 'Any'}, Spice Level - {spiceLevel || 'Any'}
           </div>
+        {/* Favorite Button */}
+        <div className="flex justify-center mt-4">
+          <button
+            onClick={toggleFavorite}
+            className={`flex items-center gap-2 px-4 py-2 rounded-md text-white font-bold ${
+              isFavorited ? 'bg-red-800 hover:bg-red-900' : 'bg-[#1e2d3d] hover:bg-[#16232e]'
+            }`}
+          >
+            {isFavorited ? '💔 Unfavorite' : '❤️ Favorite'}
+          </button>
+        </div>
         </div>
       )}
 
