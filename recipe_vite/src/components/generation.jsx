@@ -232,6 +232,18 @@ const Generation = () => {
           <div className="text-sm text-gray-600 mt-2 text-center italic">
             Preferences used: Origin - {origin || 'Any'}, Dish Type - {dishType || 'Any'}, Spice Level - {spiceLevel || 'Any'}
           </div>
+        {/* Favorite Button */}
+        <div className="flex justify-center mt-4">
+          <button
+            onClick={handleFavorite}
+            className={`flex items-center gap-2 px-4 py-2 rounded-md text-white font-bold ${
+              isFavorited ? 'bg-red-500 cursor-not-allowed' : 'bg-[#1e2d3d] hover:bg-[#16232e]'
+            }`}
+            disabled={isFavorited}
+          >
+            ❤️ {isFavorited ? 'Favorited' : 'Favorite'}
+          </button>
+        </div>
         </div>
       )}
 
