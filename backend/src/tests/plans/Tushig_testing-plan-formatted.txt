@@ -82,3 +82,6 @@ backend --> *src, ~vite.config.js --> *controllers, *routes, *services, *tests -
 - All 3 controller tests are passing
 - Path resolution issues fixed by using correct relative imports
 - Mocks for all external dependencies are properly set up
+
+
+*for commit purposes*
