@@ -1,4 +1,4 @@
-import { RecipeGeneratingService } from '../services/generateRecipeService.js';
+import { RecipeGeneratingService, generateRecipeImage} from '../services/generateRecipeService.js';
 
 const GenerateRecipeController = {
     async getGeneratedRecipe(req, res) {
@@ -37,7 +37,9 @@ const GenerateRecipeController = {
             `;
             
             const response = await RecipeGeneratingService.generateRecipe(userPrompt);
-            res.status(200).json({ success: true, data: response });
+            const recipeImage = await generateRecipeImage(recipeText);
+
+            res.status(200).json({ success: true, data: {response, recipeImage} });
         } catch (error) {
             console.error('Error generating recipe from pantry items:', error);
             res.status(500).json({ 
@@ -70,7 +72,9 @@ const GenerateRecipeController = {
             `;
             
             const response = await RecipeGeneratingService.generateRecipeFromText(userPrompt);
-            res.status(200).json({ success: true, data: response });
+            const recipeImage = await generateRecipeImage(recipeText);
+
+            res.status(200).json({ success: true, data: {response, recipeImage} });
         } catch (error) {
             console.error('Error generating recipe from text:', error);
             res.status(500).json({ 
