@@ -61,7 +61,8 @@ async function generateRecipeImage(recipeText) {
     try{
         const titleMatch = recipeText.match(/^# (.+)$/m);
         const recipeTitle = titleMatch ? titleMatch[1].trim() : 'Delicious Dish';
-        const imagePrompt = `Create a beautiful food recipe illustration for the following recipe: ${recipeText}. Style: clean, aesthetic, recipe card style.`;
+        const imagePrompt = `From this recipe tile: ${recipeTitle}
+        Create an image of this food dish without including individual ingredients or text-like words showing`;
         const imageResponse = await openai.images.generate({
             model: "dall-e-3",
             prompt: imagePrompt,
