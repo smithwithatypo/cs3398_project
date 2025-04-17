@@ -66,6 +66,7 @@ const Generation = () => {
       });
 
       if (response.data.success) {
+        localStorage.removeItem('stepCheckState'); 
         setIsFavorited(false);
         setRecipe(response.data.data.recipeText);
         setRecipeImage(response.data.data.recipeImage);
@@ -96,6 +97,7 @@ const Generation = () => {
       });
 
       if (response.data.success) {
+        localStorage.removeItem('stepCheckState'); 
         setIsFavorited(false);
         setRecipe(response.data.data.recipeText);
         setRecipeImage(response.data.data.recipeImage);
@@ -337,6 +339,7 @@ const Generation = () => {
             </>
           ) : (
             <StepView recipe={recipe} currentStep={currentStep} setCurrentStep={setCurrentStep} />
+            <StepView recipe={recipe} currentStep={currentStep} setCurrentStep={setCurrentStep} recipeImage={recipeImage}/>
           )}
         </div>
       </>
