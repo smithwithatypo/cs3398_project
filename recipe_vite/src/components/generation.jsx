@@ -291,13 +291,13 @@ const Generation = () => {
         )}
       </div>
 
-      {/* Recipe Display */}
       {recipe && (
-        <>
-          <div className="mt-6 w-full max-w-lg">
-            <label className="block mb-2 text-[#1e2d3d] font-medium">Choose Display Mode:</label>
+        <div className="bg-white shadow-md rounded-lg p-6 mt-8 w-full max-w-2xl">
+          {/* Choose Mode Dropdown (inside white box now) */}
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <label className="text-[#1e2d3d] font-medium whitespace-nowrap">Choose Display Mode:</label>
             <select
-              className="w-full p-2 border border-gray-300 rounded-md"
+              className="p-2 border border-gray-300 rounded-md"
               value={viewMode}
               onChange={(e) => {
                 setViewMode(e.target.value);
@@ -309,7 +309,7 @@ const Generation = () => {
             </select>
           </div>
 
-        <div className="bg-white shadow-md rounded-lg p-6 mt-8 w-full max-w-2xl">
+          {/* Actual Recipe */}
           {viewMode === 'full' ? (
             <>
               <div
@@ -333,16 +333,16 @@ const Generation = () => {
                     .replace(/\n<li class="list-disc ml-6 text-[#1e2d3d]">/g, '<li class="list-disc ml-6 text-[#1e2d3d]">')
                 }}
               />
+              {/* Preferences Info */}
               <div className="text-sm text-gray-600 mt-2 text-center italic">
                 Preferences used: Origin - {origin || 'Any'}, Dish Type - {dishType || 'Any'}, Spice Level - {spiceLevel || 'Any'}
               </div>
             </>
           ) : (
-            <StepView recipe={recipe} currentStep={currentStep} setCurrentStep={setCurrentStep} />
+            // Pass recipeImage to StepView too
             <StepView recipe={recipe} currentStep={currentStep} setCurrentStep={setCurrentStep} recipeImage={recipeImage}/>
           )}
         </div>
-      </>
       )}
 
       {error && <p className="text-red-500 mt-4">{error}</p>}
