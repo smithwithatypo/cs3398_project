@@ -336,17 +336,6 @@ const Generation = () => {
             </select>
           </div>
 
-        {recipeImage && (
-            <div className="mt-8">
-              <h3 className="text-xl font-semibold text-[#1e2d3d] text-center">Recipe Image</h3>
-              <img 
-                src={recipeImage} 
-                alt="Generated Recipe" 
-                className="mt-4 rounded-lg shadow-md w-full max-w-md mx-auto"
-              />
-            </div>
-          )}
-
         <div className="bg-white shadow-md rounded-lg p-6 mt-8 w-full max-w-2xl">
           {viewMode === 'full' ? (
             <>
@@ -354,12 +343,17 @@ const Generation = () => {
                 className="text-[#1e2d3d] font-medium p-4 bg-[#d0ded5] rounded-lg shadow-md max-w-3xl mx-auto my-4"
                 dangerouslySetInnerHTML={{
                   __html: recipe
+                    .replace(/^# (.+)$/m, (match, p1) => {
+                      return `
+                        <h1 class="text-2xl font-extrabold text-center mb-4 text-[#1e2d3d]">${p1}</h1>
+                        ${recipeImage ? `<img src="${recipeImage}" alt="Recipe Dish" class="rounded-lg shadow-md mx-auto mb-6" style="max-width: 400px;">` : ''}
+                      `;
+                    })
                     .replace(/(\d+\.)(\s+)/g, '<br>$1 ')
                     .replace(/^####\s*(.+)$/gm, '<strong>$1</strong><br>')
                     .replace(/^###\s*(.+)$/gm, '## $1 ')
                     .replace(/\n{2,}/g, '\n')
                     .replace(/\*\*(.+?)\*\*/g, '$1')
-                    .replace(/^# (.+)$/gm, '<h1 class="text-2xl font-extrabold text-center mb-1 text-[#1e2d3d]">$1</h1>')
                     .replace(/^## (.+)$/gm, '<h2 class="text-xl font-bold bg-[#1e2d3d] text-white py-1 px-3 rounded-md mt-2">$1</h2>')
                     .replace(/^### (.+)$/gm, '<h3 class="text-lg font-semibold bg-[#8aa29e] text-white py-1 px-2 rounded-md">$1</h3>')
                     .replace(/[-] (.+)$/gm, '<li class="list-disc ml-6 text-[#1e2d3d]">$1</li>')
