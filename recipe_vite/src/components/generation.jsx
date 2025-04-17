@@ -18,6 +18,7 @@ const Generation = () => {
   const [isFavorited, setIsFavorited] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const [recipeImage, setRecipeImage] = useState('');
 
   useEffect(() => {
     fetchPantryItems();
@@ -65,8 +66,9 @@ const Generation = () => {
       });
 
       if (response.data.success) {
-        setRecipe(response.data.data);
         setIsFavorited(false);
+        setRecipe(response.data.data.recipeText);
+        setRecipeImage(response.data.data.recipeImage);
       } else {
         setError('Failed to generate recipe.');
       }
@@ -94,8 +96,9 @@ const Generation = () => {
       });
 
       if (response.data.success) {
-        setRecipe(response.data.data);
         setIsFavorited(false);
+        setRecipe(response.data.data.recipeText);
+        setRecipeImage(response.data.data.recipeImage);
       } else {
         setError('Failed to generate recipe.');
       }
@@ -333,46 +336,45 @@ const Generation = () => {
             </select>
           </div>
 
-          <div className="bg-white shadow-md rounded-lg p-6 mt-8 w-full max-w-2xl">
-            {viewMode === 'full' ? (
-              <>
-                <div
-                  className="text-[#1e2d3d] font-medium p-4 bg-[#d0ded5] rounded-lg shadow-md max-w-3xl mx-auto my-4"
-                  dangerouslySetInnerHTML={{
-                    __html: recipe
-                      .replace(/(\d+\.)(\s+)/g, '<br>$1 ')
-                      .replace(/^####\s*(.+)$/gm, '<strong>$1</strong><br>')
-                      .replace(/^###\s*(.+)$/gm, '## $1 ')
-                      .replace(/\n{2,}/g, '\n')
-                      .replace(/\*\*(.+?)\*\*/g, '$1')
-                      .replace(/^# (.+)$/gm, '<h1 class="text-2xl font-extrabold text-center mb-1 text-[#1e2d3d]">$1</h1>')
-                      .replace(/^## (.+)$/gm, '<h2 class="text-xl font-bold bg-[#1e2d3d] text-white py-1 px-3 rounded-md mt-2">$1</h2>')
-                      .replace(/^### (.+)$/gm, '<h3 class="text-lg font-semibold bg-[#8aa29e] text-white py-1 px-2 rounded-md">$1</h3>')
-                      .replace(/[-] (.+)$/gm, '<li class="list-disc ml-6 text-[#1e2d3d]">$1</li>')
-                      .replace(/\n<li class="list-disc ml-6 text-[#1e2d3d]">/g, '<li class="list-disc ml-6 text-[#1e2d3d]">')
-                  }}
-                />
-                <div className="text-sm text-gray-600 mt-2 text-center italic">
-                  Preferences used: Origin - {origin || 'Any'}, Dish Type - {dishType || 'Any'}, Spice Level - {spiceLevel || 'Any'}
-                </div>
+        {recipeImage && (
+            <div className="mt-8">
+              <h3 className="text-xl font-semibold text-[#1e2d3d] text-center">Recipe Image</h3>
+              <img 
+                src={recipeImage} 
+                alt="Generated Recipe" 
+                className="mt-4 rounded-lg shadow-md w-full max-w-md mx-auto"
+              />
+            </div>
+          )}
 
-                {/* Favorite Button */}
-                <div className="flex justify-center mt-4">
-                  <button
-                    onClick={toggleFavorite}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-md text-white font-bold ${
-                      isFavorited ? 'bg-red-800 hover:bg-red-900' : 'bg-[#1e2d3d] hover:bg-[#16232e]'
-                    }`}
-                  >
-                    {isFavorited ? '💔 Unfavorite' : '❤️ Favorite'}
-                  </button>
-                </div>
-              </>
-            ) : (
-              <StepView recipe={recipe} currentStep={currentStep} setCurrentStep={setCurrentStep} />
-            )}
-          </div>
-        </>
+        <div className="bg-white shadow-md rounded-lg p-6 mt-8 w-full max-w-2xl">
+          {viewMode === 'full' ? (
+            <>
+              <div
+                className="text-[#1e2d3d] font-medium p-4 bg-[#d0ded5] rounded-lg shadow-md max-w-3xl mx-auto my-4"
+                dangerouslySetInnerHTML={{
+                  __html: recipe
+                    .replace(/(\d+\.)(\s+)/g, '<br>$1 ')
+                    .replace(/^####\s*(.+)$/gm, '<strong>$1</strong><br>')
+                    .replace(/^###\s*(.+)$/gm, '## $1 ')
+                    .replace(/\n{2,}/g, '\n')
+                    .replace(/\*\*(.+?)\*\*/g, '$1')
+                    .replace(/^# (.+)$/gm, '<h1 class="text-2xl font-extrabold text-center mb-1 text-[#1e2d3d]">$1</h1>')
+                    .replace(/^## (.+)$/gm, '<h2 class="text-xl font-bold bg-[#1e2d3d] text-white py-1 px-3 rounded-md mt-2">$1</h2>')
+                    .replace(/^### (.+)$/gm, '<h3 class="text-lg font-semibold bg-[#8aa29e] text-white py-1 px-2 rounded-md">$1</h3>')
+                    .replace(/[-] (.+)$/gm, '<li class="list-disc ml-6 text-[#1e2d3d]">$1</li>')
+                    .replace(/\n<li class="list-disc ml-6 text-[#1e2d3d]">/g, '<li class="list-disc ml-6 text-[#1e2d3d]">')
+                }}
+              />
+              <div className="text-sm text-gray-600 mt-2 text-center italic">
+                Preferences used: Origin - {origin || 'Any'}, Dish Type - {dishType || 'Any'}, Spice Level - {spiceLevel || 'Any'}
+              </div>
+            </>
+          ) : (
+            <StepView recipe={recipe} currentStep={currentStep} setCurrentStep={setCurrentStep} />
+          )}
+        </div>
+      </>
       )}
 
       {error && <p className="text-red-500 mt-4">{error}</p>}
