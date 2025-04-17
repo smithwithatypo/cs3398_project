@@ -57,5 +57,13 @@ const RecipeGeneratingService = {
         }
     }
 };
+async function generateRecipeImage(recipeText) {
+    const imagePrompt = `Create a beautiful food recipe illustration for the following recipe: ${recipeText}. Style: clean, aesthetic, recipe card style.`;
+    const imageResponse = await openai.images.generate({
+        prompt: imagePrompt,
+        n: 1,
+        size: "512x512"
+    });
+}
 
-export { RecipeGeneratingService };
+export { RecipeGeneratingService, generateRecipeImage};
