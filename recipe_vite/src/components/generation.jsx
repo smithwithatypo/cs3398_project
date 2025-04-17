@@ -158,64 +158,35 @@ const Generation = () => {
       }
     };
 
-    const handleBack = () => {
-      if (currentStep > 0) {
-        setCurrentStep(currentStep - 1);
-      }
-    };
-
-    const progress = ((currentStep + 1) / steps.length) * 100;
-    const step = steps[currentStep];
-
-    return (
-      <div className="text-[#1e2d3d] p-4 bg-[#d0ded5] rounded-lg shadow-md text-center">
-        <h2 className="text-2xl font-bold mb-1">{recipeTitle}</h2>
-        <div className="text-left mb-4">
-          <p className="mb-2 whitespace-pre-line">{step.main}</p>
-          {step.bullets.length > 0 && (
-            <ul className="ml-2">
-              {step.bullets.map((item, idx) => {
-                const key = `${currentStep}-${idx}`;
-                return (
-                  <li key={idx} className="flex items-center space-x-2 mb-1">
-                    <input
-                      type="checkbox"
-                      checked={checkedItems[key] || false}
-                      onChange={() => handleCheckboxChange(currentStep, idx)}
-                      className="accent-[#1e2d3d]"
-                    />
-                    <span className={checkedItems[key] ? 'line-through text-gray-500' : ''}>{item}</span>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-        </div>
-        <div className="flex justify-between mt-6">
-          <button
-            className="bg-[#1e2d3d] text-white py-2 px-4 rounded-md disabled:opacity-40"
-            onClick={handleBack}
-            disabled={currentStep === 0}
-          >
-            Back
-          </button>
-          <button
-            className="bg-[#1e2d3d] text-white py-2 px-4 rounded-md disabled:opacity-40"
-            onClick={handleNext}
-            disabled={currentStep === steps.length - 1}
-          >
-            Next
-          </button>
-        </div>
-        <div className="w-full bg-gray-200 rounded-full h-3 mt-6">
-          <div className="bg-[#1e2d3d] h-3 rounded-full" style={{ width: `${progress}%` }}></div>
-        </div>
-        <div className="text-sm text-gray-600 mt-2 italic">
-          Step {currentStep + 1} of {steps.length}
-        </div>
-        <div className="text-[9px] text-gray-400 mt-1">
-          inspired by Jackson Beroux
-        </div>
+  return (
+    <div className="text-[#1e2d3d] p-4 bg-[#d0ded5] rounded-lg shadow-md text-center">
+      <h2 className="text-2xl font-bold mb-1">{recipeTitle} </h2>
+      <img
+        src={recipeImage}
+        alt="Recipe Dish"
+        className="rounded-lg shadow-md mx-auto my-6"
+        style={{ maxWidth: '400px' }}
+      />
+      <div className="text-left mb-4">
+        <p className="mb-2 whitespace-pre-line">{step.main}</p>
+        {step.bullets.length > 0 && (
+          <ul className="ml-2">
+            {step.bullets.map((item, idx) => {
+              const key = `${currentStep}-${idx}`;
+              return (
+                <li key={idx} className="flex items-center space-x-2 mb-1">
+                  <input
+                    type="checkbox"
+                    checked={checkedItems[key] || false}
+                    onChange={() => handleCheckboxChange(currentStep, idx)}
+                    className="accent-[#1e2d3d]"
+                  />
+                  <span className={checkedItems[key] ? 'line-through text-gray-500' : ''}>{item}</span>
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </div>
     );
   };
