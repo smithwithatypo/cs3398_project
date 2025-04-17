@@ -36,10 +36,10 @@ const GenerateRecipeController = {
                 Format your response in markdown as a complete recipe.
             `;
             
-            const response = await RecipeGeneratingService.generateRecipe(userPrompt);
+            const recipeText = await RecipeGeneratingService.generateRecipe(userPrompt);
             const recipeImage = await generateRecipeImage(recipeText);
 
-            res.status(200).json({ success: true, data: {response, recipeImage} });
+            res.status(200).json({ success: true, data: {recipeText, recipeImage} });
         } catch (error) {
             console.error('Error generating recipe from pantry items:', error);
             res.status(500).json({ 
@@ -71,10 +71,10 @@ const GenerateRecipeController = {
                 Format your response in markdown as a complete recipe.
             `;
             
-            const response = await RecipeGeneratingService.generateRecipeFromText(userPrompt);
+            const recipeText = await RecipeGeneratingService.generateRecipeFromText(userPrompt);
             const recipeImage = await generateRecipeImage(recipeText);
 
-            res.status(200).json({ success: true, data: {response, recipeImage} });
+            res.status(200).json({ success: true, data: {recipeText, recipeImage} });
         } catch (error) {
             console.error('Error generating recipe from text:', error);
             res.status(500).json({ 

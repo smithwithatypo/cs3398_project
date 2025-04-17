@@ -59,11 +59,14 @@ const RecipeGeneratingService = {
 };
 async function generateRecipeImage(recipeText) {
     try{
+        const titleMatch = recipeText.match(/^# (.+)$/m);
+        const recipeTitle = titleMatch ? titleMatch[1].trim() : 'Delicious Dish';
         const imagePrompt = `Create a beautiful food recipe illustration for the following recipe: ${recipeText}. Style: clean, aesthetic, recipe card style.`;
         const imageResponse = await openai.images.generate({
+            model: "dall-e-3",
             prompt: imagePrompt,
             n: 1,
-            size: "512x512"
+            size: "1024x1024"
         });
         const imageUrl = imageResponse.data[0].url;
         return imageUrl;
