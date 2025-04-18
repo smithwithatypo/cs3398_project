@@ -23,8 +23,6 @@ const Generation = () => {
   const [activeTab, setActiveTab] = useState('pantry'); // 'pantry', 'text', or 'photo'
   const navigate = useNavigate();
   const location = useLocation();
-  const [recipeImage, setRecipeImage] = useState('');
-  const [uploadedImageUrl, setUploadedImageUrl] = useState('');
 
   useEffect(() => {
     fetchPantryItems();
@@ -83,7 +81,6 @@ const Generation = () => {
     setLoading(false);
   };
 
-  // Generate recipe from text prompt
   const generateRecipeFromText = async () => {
     if (!textPrompt.trim()) {
       setError('Please enter a description or ingredients.');
@@ -186,11 +183,6 @@ const Generation = () => {
       return saved ? JSON.parse(saved) : {};
     });
 
-    useEffect(() => {
-      const saved = localStorage.getItem('stepCheckState');
-      setCheckedItems(saved ? JSON.parse(saved) : {});
-    }, [recipe]);
-    
     const handleCheckboxChange = (stepIndex, bulletIndex) => {
       const key = `${stepIndex}-${bulletIndex}`;
       setCheckedItems(prev => {
@@ -200,17 +192,6 @@ const Generation = () => {
       });
     };
 
-    const handleNext = () => {
-      if (currentStep < steps.length - 1) {
-        setCurrentStep(currentStep + 1);
-      }
-    };
-    const handleBack = () => {
-      if (currentStep > 0) {
-        setCurrentStep(currentStep - 1);
-      }
-    };
-
     const step = steps[currentStep] || { main: 'No step found.', bullets: [] };
     const progress = ((currentStep + 1) / steps.length) * 100;
 
@@ -218,12 +199,7 @@ const Generation = () => {
       <div className="text-[#1e2d3d] p-4 bg-[#d0ded5] rounded-lg shadow-md text-center fade-in">
         <h2 className="text-2xl font-bold mb-1">{recipeTitle}</h2>
         {recipeImage && (
-          <img
-            src={recipeImage}
-            alt="Recipe Dish"
-            className="rounded-lg shadow-md mx-auto my-6"
-            style={{ maxWidth: '400px' }}
-          />
+          <img src={recipeImage} alt="Recipe Dish" className="rounded-lg shadow-md mx-auto my-6" style={{ maxWidth: '400px' }} />
         )}
         <div className="text-left mb-4">
           <p className="mb-2 whitespace-pre-line">{step.main}</p>
@@ -247,30 +223,14 @@ const Generation = () => {
           )}
         </div>
         <div className="flex justify-between mt-6">
-          <button
-            className="bg-[#1e2d3d] text-white py-2 px-4 rounded-md disabled:opacity-40"
-            onClick={handleBack}
-            disabled={currentStep === 0}
-          >
-            Back
-          </button>
-          <button
-            className="bg-[#1e2d3d] text-white py-2 px-4 rounded-md disabled:opacity-40"
-            onClick={handleNext}
-            disabled={currentStep >= steps.length - 1}
-          >
-            Next
-          </button>
+          <button className="bg-[#1e2d3d] text-white py-2 px-4 rounded-md disabled:opacity-40" onClick={() => setCurrentStep(currentStep - 1)} disabled={currentStep === 0}>Back</button>
+          <button className="bg-[#1e2d3d] text-white py-2 px-4 rounded-md disabled:opacity-40" onClick={() => setCurrentStep(currentStep + 1)} disabled={currentStep >= steps.length - 1}>Next</button>
         </div>
         <div className="w-full bg-gray-200 rounded-full h-3 mt-6">
           <div className="bg-[#1e2d3d] h-3 rounded-full" style={{ width: `${progress}%` }}></div>
         </div>
-        <div className="text-sm text-gray-600 mt-2 italic">
-          Step {currentStep + 1} of {steps.length}
-        </div>
-        <div className="text-[9px] text-gray-400 mt-1">
-          inspired by Jackson Beroux
-        </div>
+        <div className="text-sm text-gray-600 mt-2 italic">Step {currentStep + 1} of {steps.length}</div>
+        <div className="text-[9px] text-gray-400 mt-1">inspired by Jackson Beroux</div>
       </div>
     );
   };
@@ -468,19 +428,13 @@ const Generation = () => {
             </span>
           </div>
 
-          {/* Actual Recipe */}
           {viewMode === 'full' ? (
             <>
               <div
-                className="text-[#1e2d3d] font-medium p-4 bg-[#d0ded5] rounded-lg shadow-md max-w-3xl mx-auto my-4"
+                className="text-[#1e2d3d] font-medium p-4 bg-[#d0ded5] rounded-lg shadow-md my-4"
                 dangerouslySetInnerHTML={{
                   __html: recipe
-                    .replace(/^# (.+)$/m, (match, p1) => {
-                      return `
-                        <h1 class="text-2xl font-extrabold text-center mb-4 text-[#1e2d3d]">${p1}</h1>
-                        ${recipeImage ? `<img src="${recipeImage}" alt="Recipe Dish" class="rounded-lg shadow-md mx-auto mb-6" style="max-width: 400px;">` : ''}
-                      `;
-                    })
+                    .replace(/^# (.+)$/m, (match, p1) => `<h1 class="text-2xl font-extrabold text-center mb-4 text-[#1e2d3d]">${p1}</h1>${recipeImage ? `<img src="${recipeImage}" alt="Recipe Dish" class="rounded-lg shadow-md mx-auto mb-6" style="max-width: 400px;">` : ''}`)
                     .replace(/(\d+\.)(\s+)/g, '<br>$1 ')
                     .replace(/^####\s*(.+)$/gm, '<strong>$1</strong><br>')
                     .replace(/^###\s*(.+)$/gm, '## $1 ')
@@ -492,11 +446,9 @@ const Generation = () => {
                     .replace(/\n<li class="list-disc ml-6 text-[#1e2d3d]">/g, '<li class="list-disc ml-6 text-[#1e2d3d]">')
                 }}
               />
-              {/* Preferences Info */}
               <div className="text-sm text-gray-600 mt-2 text-center italic">
                 Preferences used: Origin - {origin || 'Any'}, Dish Type - {dishType || 'Any'}, Spice Level - {spiceLevel || 'Any'}
               </div>
-              {/* Favorite Button */}
               <div className="flex justify-center mt-4">
                 <button
                   onClick={toggleFavorite}
@@ -507,7 +459,7 @@ const Generation = () => {
               </div>
             </>
           ) : (
-            <StepView recipe={recipe} currentStep={currentStep} setCurrentStep={setCurrentStep} recipeImage={recipeImage}/>
+            <StepView recipe={recipe} currentStep={currentStep} setCurrentStep={setCurrentStep} recipeImage={recipeImage} />
           )}
         </div>
       )}
