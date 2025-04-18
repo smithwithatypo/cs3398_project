@@ -461,20 +461,28 @@ const Generation = () => {
       {/* Generated Recipe Display */}
       {recipe && (
         <div className="bg-white shadow-md rounded-lg p-6 mt-8 w-full max-w-2xl">
-          {/* Choose Mode Dropdown */}
+          {/* Toggle Switch for Mode Selection */}
           <div className="flex items-center justify-center gap-4 mb-6">
-            <label className="text-[#1e2d3d] font-medium whitespace-nowrap">Choose Display Mode:</label>
-            <select
-              className="p-2 border border-gray-300 rounded-md"
-              value={viewMode}
-              onChange={(e) => {
-                setViewMode(e.target.value);
+            <span className={`text-${viewMode === 'full' ? '[#1e2d3d]' : 'gray-400'} font-medium`}>
+              Full Instructions
+            </span>
+            <div 
+              className="relative inline-block w-12 h-6 transition-colors duration-200 ease-in-out rounded-full cursor-pointer bg-gray-200"
+              onClick={() => {
+                setViewMode(viewMode === 'full' ? 'step' : 'full');
                 setCurrentStep(0);
               }}
             >
-              <option value="full">Full Instructions</option>
-              <option value="step">Step-by-Step Instructions</option>
-            </select>
+              <div className={`absolute left-1 top-1 w-4 h-4 transition-transform duration-200 ease-in-out bg-white rounded-full shadow-md transform ${
+                viewMode === 'step' ? 'translate-x-6' : ''
+              }`}></div>
+              <div className={`absolute inset-0 rounded-full ${
+                viewMode === 'step' ? 'bg-[#1e2d3d]' : ''
+              }`}></div>
+            </div>
+            <span className={`text-${viewMode === 'step' ? '[#1e2d3d]' : 'gray-400'} font-medium`}>
+              Step-by-Step
+            </span>
           </div>
 
           {/* Actual Recipe */}
