@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const Cookbook = () => {
@@ -9,6 +9,15 @@ const Cookbook = () => {
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('name'); // 'name' or 'ingredients'
   const [selectedRecipe, setSelectedRecipe] = useState(null);
+
+  useEffect(() => {
+    const storedRecipeId = localStorage.getItem('selectedRecipeId');
+    
+    if (storedRecipeId) {
+      viewRecipe(storedRecipeId);
+      localStorage.removeItem('selectedRecipeId'); // Clean it up after loading
+    }
+  }, []);
 
   // Function to search recipes by name (using TheMealDB)
   const searchByName = async () => {
