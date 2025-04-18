@@ -184,6 +184,14 @@ const Generation = () => {
     return (
       <div className="text-[#1e2d3d] p-4 bg-[#d0ded5] rounded-lg shadow-md text-center">
         <h2 className="text-2xl font-bold mb-1">{recipeTitle} </h2>
+        {recipeImage && (
+          <img
+            src={recipeImage}
+            alt="Recipe Dish"
+            className="rounded-lg shadow-md mx-auto my-6"
+            style={{ maxWidth: '400px' }}
+          />
+        )}
         <div className="text-left mb-4">
           <p className="mb-2 whitespace-pre-line">{step.main}</p>
           {step.bullets.length > 0 && (
@@ -378,6 +386,17 @@ const Generation = () => {
               {/* Preferences Info */}
               <div className="text-sm text-gray-600 mt-2 text-center italic">
                 Preferences used: Origin - {origin || 'Any'}, Dish Type - {dishType || 'Any'}, Spice Level - {spiceLevel || 'Any'}
+              </div>
+              {/* Favorite Button */}
+              <div className="flex justify-center mt-4">
+                <button
+                  onClick={toggleFavorite}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-md text-white font-bold ${
+                    isFavorited ? 'bg-red-800 hover:bg-red-900' : 'bg-[#1e2d3d] hover:bg-[#16232e]'
+                  }`}
+                >
+                  {isFavorited ? '💔 Unfavorite' : '❤️ Favorite'}
+                </button>
               </div>
             </>
           ) : (
