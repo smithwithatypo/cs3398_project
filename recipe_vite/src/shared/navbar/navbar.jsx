@@ -1,9 +1,24 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import icon from "../../assets/Icon.jpg";
 
 const Navbar = () => {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <nav className="flex justify-between items-center bg-[#114945] p-4 relative">
+    <nav
+      className={`sticky top-0 z-50 p-4 transition-shadow duration-300 ${
+        scrolled ? "shadow-lg" : ""
+      } bg-gradient-to-r from-[#0e3b2f] via-[#114945] to-[#19725b] flex justify-between items-center`}
+    >
       {/* Logo & Title */}
       <Link to="/" className="flex items-center gap-2">
         <img src={icon} alt="Logo" className="h-10 w-auto rounded-full" />
@@ -12,14 +27,11 @@ const Navbar = () => {
 
       {/* Right-side nav links */}
       <div className="flex gap-6 items-center">
-        {/* Pantry with hover dropdown (fixed with group and absolute positioning) */}
+        {/* Pantry with hover dropdown */}
         <div className="relative group">
-          {/* Button trigger */}
           <Link to="/pantry" className="text-white font-bold hover:underline">
             Pantry
           </Link>
-
-          {/* Dropdown menu (stays open when hovering over it) */}
           <div className="absolute top-full left-0 mt-2 hidden group-hover:flex flex-col w-48 bg-white shadow-md rounded-md z-50">
             <Link
               to="/cookbook"
