@@ -38,9 +38,10 @@ const Home = () => {
       console.log("Upload response received:", response.data.success);
       
       if (response.data.success) {
-        // Use localStorage instead of sessionStorage for better persistence
         localStorage.setItem("imageRecipeData", response.data.data);
-        console.log("Recipe data saved to localStorage:", response.data.data.substring(0, 50) + "...");
+        const imageUrl = URL.createObjectURL(selectedFile);  // 👈 NEW
+        localStorage.setItem("uploadedImageUrl", imageUrl);  // 👈 NEW
+        console.log("Recipe and uploadedImageUrl saved to localStorage.");
         navigate("/generation?source=image");
       } else {
         setUploadError("Failed to identify dish");

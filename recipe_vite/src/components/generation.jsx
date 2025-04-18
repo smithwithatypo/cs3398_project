@@ -44,8 +44,13 @@ const Generation = () => {
   const checkImageRecipe = () => {
     if (location.search.includes('source=image')) {
       const imageData = localStorage.getItem('imageRecipeData');
+      const imageFileURL = localStorage.getItem('uploadedImageUrl');
       if (imageData) {
         setRecipe(imageData);
+        if (imageFileURL) {
+          console.log('Found uploadedImageUrl:', imageFileURL);
+          setRecipeImage(imageFileURL);
+        }
       }
     }
   };
@@ -67,6 +72,7 @@ const Generation = () => {
 
       if (response.data.success) {
         localStorage.removeItem('stepCheckState'); 
+        localStorage.removeItem('uploadedImageUrl');
         setIsFavorited(false);
         setRecipe(response.data.data.recipeText);
         setRecipeImage(response.data.data.recipeImage);
@@ -98,6 +104,7 @@ const Generation = () => {
 
       if (response.data.success) {
         localStorage.removeItem('stepCheckState'); 
+        localStorage.removeItem('uploadedImageUrl');
         setIsFavorited(false);
         setRecipe(response.data.data.recipeText);
         setRecipeImage(response.data.data.recipeImage);

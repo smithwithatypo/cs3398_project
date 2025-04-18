@@ -33,12 +33,12 @@ const DishIdentificationService = {
                 messages: [
                     {
                         role: "system",
-                        content: "You are a culinary expert who can identify dishes from photos and provide recipes. When shown a food image, identify the dish, list its ingredients, and provide a detailed recipe with preparation instructions. Format your response in markdown."
+                        content: "You are a culinary expert who can identify dishes from photos and provide recipes. When shown a food image, identify the dish, list its ingredients, and provide a detailed recipe with preparation instructions. Format your response in markdown, starting with a # title"
                     },
                     {
                         role: "user",
                         content: [
-                            { type: "text", text: "What dish is this? Please identify it and provide a recipe." },
+                            { type: "text", text: "What dish is this? Please identify it and provide a recipe with title." },
                             {
                                 type: "image_url",
                                 image_url: {
