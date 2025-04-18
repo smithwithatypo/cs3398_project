@@ -21,8 +21,10 @@ const Cookbook = () => {
   }, []);
 
   // Function to search recipes by name (using TheMealDB)
-  const searchByName = async (term = searchTerm) => {
-    if (!term.trim()) {
+  const searchByName = async (term = null) => {
+    const valueToSearch = typeof term === 'string' ? term : searchTerm;
+
+    if (!valueToSearch.trim()) {
       setError('Please enter a recipe name to search.');
       return;
     }
@@ -32,7 +34,7 @@ const Cookbook = () => {
   
     try {
       const response = await axios.post('/api/ai/search-recipes', {
-        query: term
+        query: valueToSearch
       });
       
       if (response.data.success) {
