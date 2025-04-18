@@ -123,68 +123,34 @@ const Home = () => {
           Start Here!
         </button>
       </div>
-
-      {/* Photo Upload Section */}
-      <div className="bg-[#d0ded5] shadow-md rounded-lg p-6 w-full max-w-lg mt-6 text-center">
-        <h2 className="text-2xl font-bold mb-4 text-[#1e2d3d]">See a Dish You Like?</h2>
-        <p className="text-[#1e2d3d] mb-4">
-          Take a photo of any dish and we'll identify it and generate a recipe for you!
-        </p>
-        <div className="flex flex-col items-center">
-          <label className="flex flex-col items-center px-4 py-2 bg-white text-[#1e2d3d] rounded-lg shadow-md tracking-wide border border-[#1e2d3d] cursor-pointer hover:bg-gray-100">
-            <svg className="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-              <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
-            </svg>
-            <span className="mt-2 text-base leading-normal">Select a photo</span>
-            <input type="file" className="hidden" accept="image/*" onChange={handleFileChange} />
-          </label>
-          
-          {selectedFile && (
-            <div className="mt-3 text-center">
-              <p className="text-sm text-[#1e2d3d]">{selectedFile.name}</p>
-              <div className="mt-2">
-                <button
-                  className={`bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md ${isUploading ? "opacity-50 cursor-not-allowed" : ""}`}
-                  onClick={handleUpload}
-                  disabled={isUploading}
-                >
-                  {isUploading ? "Processing..." : "Upload & Generate Recipe"}
-                </button>
-              </div>
-            </div>
-          )}
-          
-          {uploadError && <p className="mt-2 text-red-500">{uploadError}</p>}
-        </div>
-      </div>
       {/* Carousel Section */}
-      <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-5xl mt-6 text-center">
-        <h2 className="text-2xl font-bold text-[#1e2d3d] mb-6">Recommended Recipes</h2>
+      {randomRecipes.length > 0 && (
+        <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-5xl mt-6 text-center fade-in">
+          <h2 className="text-2xl font-bold text-[#1e2d3d] mb-6">Recommended Recipes</h2>
 
-        {/* Carousel */}
-        <div className="flex justify-center gap-6 transition-all duration-700 ease-in-out">
-          {visibleRecipes.map((recipe) => (
-            <div
-              key={recipe?.id}
-              className="bg-[#d0ded5] rounded-lg shadow-md p-4 w-72 transition-transform duration-500 transform hover:scale-105"
-              onClick={() => handleRecipeClick(recipe)}
-            >
-              <img
-                src={recipe?.image}
-                alt={recipe?.name}
-                className="w-full h-48 object-cover rounded-md"
-              />
-              <h3 className="text-lg font-semibold text-[#1e2d3d] mt-4">{recipe?.name}</h3>
-              {recipe?.area && recipe?.category && (
-                <p className="text-sm text-[#5a7d8c] mt-1">
-                  {recipe.area} • {recipe.category}
-                </p>
-              )}
-              <p className="text-sm text-[#1e2d3d] mt-2">{recipe?.description}</p>
-            </div>
-          ))}
+          {/* Carousel */}
+          <div className="flex justify-center gap-6 transition-all duration-700 ease-in-out">
+            {visibleRecipes.map((recipe) => (
+              <div key={recipe?.id} className="bg-[#d0ded5] rounded-lg shadow-md p-4 w-72 transition-transform duration-500 transform hover:scale-105"
+                onClick={() => handleRecipeClick(recipe)} 
+              >
+                <img
+                  src={recipe?.image}
+                  alt={recipe?.name}
+                  className="w-full h-48 object-cover rounded-md"
+                />
+                <h3 className="text-lg font-semibold text-[#1e2d3d] mt-4">{recipe?.name}</h3>
+                {recipe?.area && recipe?.category && (
+                  <p className="text-sm text-[#5a7d8c] mt-1">
+                    {recipe.area} • {recipe.category}
+                  </p>
+                )}
+                <p className="text-sm text-[#1e2d3d] mt-2">{recipe?.description}</p>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+)}
     </div>
   );
 };
