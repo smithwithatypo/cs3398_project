@@ -12,6 +12,10 @@ const Generation = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadError, setUploadError] = useState("");
+  const [textPrompt, setTextPrompt] = useState(''); 
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadError, setUploadError] = useState("");
   const [origin, setOrigin] = useState('');
   const [dishType, setDishType] = useState('');
   const [spiceLevel, setSpiceLevel] = useState('');
@@ -82,6 +86,7 @@ const Generation = () => {
     setLoading(false);
   };
 
+  // Generate recipe from text prompt
   const generateRecipeFromText = async () => {
     if (!textPrompt.trim()) {
       setError('Please enter a description or ingredients.');
@@ -287,6 +292,8 @@ const Generation = () => {
 
       {/* Recipe Preferences */}
       <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-lg mt-6 hover:shadow-xl transition-shadow duration-300">
+      {/* Recipe Preferences */}
+      <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-lg mt-6">
         <h3 className="text-lg font-semibold text-[#1e2d3d] mb-2">Recipe Preferences</h3>
         <input
           className="w-full mb-2 p-2 border border-gray-300 rounded-md"
@@ -342,10 +349,53 @@ const Generation = () => {
             From Photo
           </button>
         </div>
+      {/* Generation Methods Tabs */}
+      <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-lg mt-6">
+        <div className="flex border-b border-gray-200">
+          <button
+            className={`flex-1 py-2 px-4 font-medium ${
+              activeTab === 'pantry'
+                ? 'text-[#1e2d3d] border-b-2 border-[#1e2d3d]'
+                : 'text-gray-500 hover:text-[#1e2d3d]'
+            }`}
+            onClick={() => setActiveTab('pantry')}
+          >
+            From Pantry
+          </button>
+          <button
+            className={`flex-1 py-2 px-4 font-medium ${
+              activeTab === 'text'
+                ? 'text-[#1e2d3d] border-b-2 border-[#1e2d3d]'
+                : 'text-gray-500 hover:text-[#1e2d3d]'
+            }`}
+            onClick={() => setActiveTab('text')}
+          >
+            From Text
+          </button>
+          <button
+            className={`flex-1 py-2 px-4 font-medium ${
+              activeTab === 'photo'
+                ? 'text-[#1e2d3d] border-b-2 border-[#1e2d3d]'
+                : 'text-gray-500 hover:text-[#1e2d3d]'
+            }`}
+            onClick={() => setActiveTab('photo')}
+          >
+            From Photo
+          </button>
+        </div>
 
         {/* Pantry Method */}
         {activeTab === 'pantry' && (
           <div className="mt-4 fade-in">
+            <h3 className="text-lg font-semibold text-[#1e2d3d] mb-2">Your Pantry Items:</h3>
+            {pantryItems.length === 0 ? (
+              <p className="text-gray-500">No ingredients in pantry.</p>
+            ) : (
+              <p className="text-[#1e2d3d] font-medium mb-4">{pantryItems.join(', ')}</p>
+            )}
+        {/* Pantry Method */}
+        {activeTab === 'pantry' && (
+          <div className="mt-4">
             <h3 className="text-lg font-semibold text-[#1e2d3d] mb-2">Your Pantry Items:</h3>
             {pantryItems.length === 0 ? (
               <p className="text-gray-500">No ingredients in pantry.</p>
@@ -377,6 +427,34 @@ const Generation = () => {
         {/* Text Method */}
         {activeTab === 'text' && (
           <div className="mt-4 fade-in">
+            <h3 className="text-lg font-semibold text-[#1e2d3d] mb-2">Generate from Text Description</h3>
+            <p className="text-[#1e2d3d] mb-4">
+              Describe what you want to cook or list ingredients you have available.
+            </p>
+            <div className="flex gap-4 mt-4">
+              <button
+                className={`bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md w-1/2 ${
+                  loading ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
+                onClick={generateRecipe}
+                disabled={loading || pantryItems.length === 0}
+              >
+                {loading && activeTab === 'pantry' ? 'Generating...' : 'Generate Recipe'}
+              </button>
+
+              <button
+                className="bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md w-1/2"
+                onClick={() => navigate('/pantry')}
+              >
+                Edit Pantry
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Text Method */}
+        {activeTab === 'text' && (
+          <div className="mt-4">
             <h3 className="text-lg font-semibold text-[#1e2d3d] mb-2">Generate from Text Description</h3>
             <p className="text-[#1e2d3d] mb-4">
               Describe what you want to cook or list ingredients you have available.
@@ -439,11 +517,52 @@ const Generation = () => {
             </div>
           </div>
         )}
+
+        {/* Photo Method */}
+        {activeTab === 'photo' && (
+          <div className="mt-4">
+            <h3 className="text-lg font-semibold text-[#1e2d3d] mb-2">Generate from Photo</h3>
+            <p className="text-[#1e2d3d] mb-4">
+              Upload a photo of a dish and we'll identify it and generate a recipe for you!
+            </p>
+            
+            <div className="flex flex-col items-center">
+              <label className="flex flex-col items-center px-4 py-2 bg-white text-[#1e2d3d] rounded-lg shadow-md tracking-wide border border-[#1e2d3d] cursor-pointer hover:bg-gray-100 w-full">
+                <svg className="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                  <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                </svg>
+                <span className="mt-2 text-base leading-normal">Select a photo</span>
+                <input type="file" className="hidden" accept="image/*" onChange={handleFileChange} />
+              </label>
+              
+              {selectedFile && (
+                <div className="mt-3 text-center w-full">
+                  <p className="text-sm text-[#1e2d3d]">{selectedFile.name}</p>
+                  <div className="mt-2 w-full">
+                    <button
+                      className={`bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md w-full ${
+                        isUploading ? "opacity-50 cursor-not-allowed" : ""
+                      }`}
+                      onClick={handleUpload}
+                      disabled={isUploading}
+                    >
+                      {isUploading ? "Processing..." : "Upload & Generate Recipe"}
+                    </button>
+                  </div>
+                </div>
+              )}
+              
+              {uploadError && <p className="mt-2 text-red-500">{uploadError}</p>}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Generated Recipe Display */}
       {recipe && (
         <div className="bg-white shadow-md rounded-lg p-6 mt-8 w-full max-w-2xl fade-in hover:shadow-xl transition-shadow duration-300">
+          {/* Toggle Switch for Mode Selection */}
+        <div className="bg-white shadow-md rounded-lg p-6 mt-8 w-full max-w-2xl">
           {/* Toggle Switch for Mode Selection */}
           <div className="flex items-center justify-center gap-4 mb-6">
             <span className={`text-${viewMode === 'full' ? '[#1e2d3d]' : 'gray-400'} font-medium`}>
