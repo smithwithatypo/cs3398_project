@@ -7,6 +7,7 @@ const Home = () => {
 
   const [randomRecipes, setRandomRecipes] = useState([]);
   const [currentRecipeIndex, setCurrentRecipeIndex] = useState(0);
+  const [isFading, setIsFading] = useState(false);
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -57,7 +58,7 @@ const Home = () => {
       try {
         const fetchedRecipes = [];
 
-        for (let i = 0; i < 5; i++) {  // Fetch 5 random recipes --- a way to get around free version API
+        for (let i = 0; i < 10; i++) {  // Fetch 10 random recipes --- a way to get around free version API
           const response = await axios.get('https://www.themealdb.com/api/json/v1/1/random.php');
           if (response.data.meals && response.data.meals.length > 0) {
             const meal = response.data.meals[0];
@@ -84,11 +85,16 @@ const Home = () => {
 
     const interval = setInterval(() => {
       setCurrentRecipeIndex((prevIndex) => (prevIndex + 1) % randomRecipes.length);
-    }, 5000); // change recipe every 3 seconds
+    }, 4000); // speed of images
 
-    return () => clearInterval(interval); // cleanup on unmount
+    return () => clearInterval(interval);
   }, [randomRecipes]);
 
+  const visibleRecipes = [
+    randomRecipes[currentRecipeIndex % randomRecipes.length],
+    randomRecipes[(currentRecipeIndex + 1) % randomRecipes.length],
+    randomRecipes[(currentRecipeIndex + 2) % randomRecipes.length],
+  ];
   return (
     <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center p-8 fade-in">
       {/* How It Works */}
@@ -139,24 +145,27 @@ const Home = () => {
           {uploadError && <p className="mt-2 text-red-500">{uploadError}</p>}
         </div>
       </div>
-    {/* Recommended Recipes Carousel */}
-      <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-2xl mt-6 text-center">
+      {/* Carousel Section */}
+      <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-5xl mt-6 text-center">
         <h2 className="text-2xl font-bold text-[#1e2d3d] mb-6">Recommended Recipes</h2>
 
-        {randomRecipes.length > 0 && (
-          <div
-            key={randomRecipes[currentRecipeIndex].id}
-            className="bg-[#d0ded5] shadow-md rounded-lg p-6 text-center transition-opacity duration-700 ease-in-out opacity-100"
-          >
-            <h3 className="text-xl font-semibold text-[#1e2d3d] mt-2">{randomRecipes[currentRecipeIndex].name}</h3>
-            <img
-              src={randomRecipes[currentRecipeIndex].image}
-              alt={randomRecipes[currentRecipeIndex].name}
-              className="w-full max-w-md mx-auto h-auto rounded-md mt-4"
-            />
-            <p className="text-[#1e2d3d] mt-4">{randomRecipes[currentRecipeIndex].description}</p>
-          </div>
-        )}
+        {/* Carousel */}
+        <div className="flex justify-center gap-6 transition-all duration-700 ease-in-out">
+          {visibleRecipes.map((recipe) => (
+            <div
+              key={recipe?.id}
+              className="bg-[#d0ded5] rounded-lg shadow-md p-4 w-72 transition-transform duration-500 transform hover:scale-105"
+            >
+              <img
+                src={recipe?.image}
+                alt={recipe?.name}
+                className="w-full h-48 object-cover rounded-md"
+              />
+              <h3 className="text-lg font-semibold text-[#1e2d3d] mt-4">{recipe?.name}</h3>
+              <p className="text-sm text-[#1e2d3d] mt-2">{recipe?.description}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
