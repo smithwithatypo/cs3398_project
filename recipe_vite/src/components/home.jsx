@@ -98,8 +98,8 @@ const Home = () => {
     randomRecipes[(currentRecipeIndex + 2) % randomRecipes.length],
   ];
 
-  const handleRecipeClick = (id) => {
-    localStorage.setItem('selectedRecipeId', id); 
+  const handleRecipeClick = (recipe) => {
+    localStorage.setItem('selectedRecipeName', recipe.name); 
     navigate('/cookbook'); //routes to cookbook page
   };
   
@@ -163,7 +163,7 @@ const Home = () => {
             <div
               key={recipe?.id}
               className="bg-[#d0ded5] rounded-lg shadow-md p-4 w-72 transition-transform duration-500 transform hover:scale-105"
-              onClick={() => handleRecipeClick(recipe?.id)}
+              onClick={() => handleRecipeClick(recipe)}
             >
               <img
                 src={recipe?.image}

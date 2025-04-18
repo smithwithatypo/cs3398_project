@@ -11,17 +11,18 @@ const Cookbook = () => {
   const [selectedRecipe, setSelectedRecipe] = useState(null);
 
   useEffect(() => {
-    const storedRecipeId = localStorage.getItem('selectedRecipeId');
+    const storedRecipeName = localStorage.getItem('selectedRecipeName');
     
-    if (storedRecipeId) {
-      viewRecipe(storedRecipeId);
-      localStorage.removeItem('selectedRecipeId'); // Clean it up after loading
+    if (storedRecipeName) {
+      setSearchTerm(storedRecipeName);  
+      searchByName(storedRecipeName);             
+      localStorage.removeItem('selectedRecipeName'); // Clean it up after loading
     }
   }, []);
 
   // Function to search recipes by name (using TheMealDB)
-  const searchByName = async () => {
-    if (!searchTerm.trim()) {
+  const searchByName = async (term = searchTerm) => {
+    if (!term.trim()) {
       setError('Please enter a recipe name to search.');
       return;
     }
@@ -31,7 +32,7 @@ const Cookbook = () => {
   
     try {
       const response = await axios.post('/api/ai/search-recipes', {
-        query: searchTerm
+        query: term
       });
       
       if (response.data.success) {
