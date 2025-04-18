@@ -67,6 +67,8 @@ const Home = () => {
               name: meal.strMeal,
               description: meal.strInstructions.substring(0, 150) + '...',
               image: meal.strMealThumb,
+              area: meal.strArea,        
+              category: meal.strCategory
             });
           }
         }
@@ -162,6 +164,11 @@ const Home = () => {
                 className="w-full h-48 object-cover rounded-md"
               />
               <h3 className="text-lg font-semibold text-[#1e2d3d] mt-4">{recipe?.name}</h3>
+              {recipe?.area && recipe?.category && (
+                <p className="text-sm text-[#5a7d8c] mt-1">
+                  {recipe.area} • {recipe.category}
+                </p>
+              )}
               <p className="text-sm text-[#1e2d3d] mt-2">{recipe?.description}</p>
             </div>
           ))}
