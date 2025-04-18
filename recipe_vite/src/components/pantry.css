@@ -1,87 +1,25 @@
-.pantry-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+/* pantry.css */
+
+/* Fade-in effect for page load */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
   }
-  
-  .add-item-form {
-    display: flex;
-    margin-bottom: 20px;
-  }
-  
-  .add-item-form input {
-    flex: 1;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 4px 0 0 4px;
-  }
-  
-  .add-item-form button {
-    padding: 10px 15px;
-    font-size: 16px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 0 4px 4px 0;
-    cursor: pointer;
-  }
-  
-  .pantry-items {
-    margin-bottom: 20px;
-  }
-  
-  .pantry-items ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .pantry-items li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    margin-bottom: 5px;
-    background-color: #f9f9f9;
-    border-radius: 4px;
-  }
-  
-  .pantry-items li button {
-    padding: 5px 10px;
-    background-color: #f44336;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .generate-recipe-btn {
-    padding: 15px;
-    font-size: 18px;
-    background-color: #2196f3;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-    margin-bottom: 20px;
-  }
-  
-  .generate-recipe-btn:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-  }
-  
-  .recipe-result {
-    background-color: #f5f5f5;
-    padding: 20px;
-    border-radius: 4px;
-    margin-top: 20px;
-    line-height: 1.6;
-  }
-  
-  .recipe-result h3 {
-    margin-top: 0;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-  }
+}
+
+/* Optional: Enhance button hover glow */
+button:hover {
+  transition: box-shadow 0.2s ease;
+  box-shadow: 0 0 8px rgba(30, 45, 61, 0.4);
+}
+
+/* Optional: Smooth scaling effect for hoverable cards */
+.hover\\:shadow-xl:hover {
+  transform: scale(1.01);
+  transition: transform 0.2s ease-in-out;
+}
