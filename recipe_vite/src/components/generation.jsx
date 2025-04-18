@@ -18,6 +18,8 @@ const Generation = () => {
   const [isFavorited, setIsFavorited] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const [recipeImage, setRecipeImage] = useState('');
+  const [uploadedImageUrl, setUploadedImageUrl] = useState('');
 
   useEffect(() => {
     fetchPantryItems();
@@ -43,8 +45,13 @@ const Generation = () => {
   const checkImageRecipe = () => {
     if (location.search.includes('source=image')) {
       const imageData = localStorage.getItem('imageRecipeData');
+      const imageFileURL = localStorage.getItem('uploadedImageUrl');
       if (imageData) {
         setRecipe(imageData);
+        if (imageFileURL) {
+          console.log('Found uploadedImageUrl:', imageFileURL);
+          setRecipeImage(imageFileURL);
+        }
       }
     }
   };
@@ -65,8 +72,11 @@ const Generation = () => {
       });
 
       if (response.data.success) {
-        setRecipe(response.data.data);
+        localStorage.removeItem('stepCheckState'); 
+        localStorage.removeItem('uploadedImageUrl');
         setIsFavorited(false);
+        setRecipe(response.data.data.recipeText);
+        setRecipeImage(response.data.data.recipeImage);
       } else {
         setError('Failed to generate recipe.');
       }
@@ -94,8 +104,11 @@ const Generation = () => {
       });
 
       if (response.data.success) {
-        setRecipe(response.data.data);
+        localStorage.removeItem('stepCheckState'); 
+        localStorage.removeItem('uploadedImageUrl');
         setIsFavorited(false);
+        setRecipe(response.data.data.recipeText);
+        setRecipeImage(response.data.data.recipeImage);
       } else {
         setError('Failed to generate recipe.');
       }
@@ -120,7 +133,7 @@ const Generation = () => {
     }
   };
 
-  const StepView = ({ recipe, currentStep, setCurrentStep }) => {
+  const StepView = ({ recipe, currentStep, setCurrentStep, recipeImage }) => {
     const titleMatch = recipe.match(/^#\s(.+)/m);
     const recipeTitle = titleMatch ? titleMatch[1].trim() : 'Generated Recipe';
 
@@ -140,6 +153,11 @@ const Generation = () => {
       return saved ? JSON.parse(saved) : {};
     });
 
+    useEffect(() => {
+      const saved = localStorage.getItem('stepCheckState');
+      setCheckedItems(saved ? JSON.parse(saved) : {});
+    }, [recipe]);
+    
     const handleCheckboxChange = (stepIndex, bulletIndex) => {
       const key = `${stepIndex}-${bulletIndex}`;
       setCheckedItems(prev => {
@@ -154,19 +172,26 @@ const Generation = () => {
         setCurrentStep(currentStep + 1);
       }
     };
-
     const handleBack = () => {
       if (currentStep > 0) {
         setCurrentStep(currentStep - 1);
       }
     };
 
+    const step = steps[currentStep] || { main: 'No step found.', bullets: [] };
     const progress = ((currentStep + 1) / steps.length) * 100;
-    const step = steps[currentStep];
 
     return (
       <div className="text-[#1e2d3d] p-4 bg-[#d0ded5] rounded-lg shadow-md text-center">
-        <h2 className="text-2xl font-bold mb-1">{recipeTitle}</h2>
+        <h2 className="text-2xl font-bold mb-1">{recipeTitle} </h2>
+        {recipeImage && (
+          <img
+            src={recipeImage}
+            alt="Recipe Dish"
+            className="rounded-lg shadow-md mx-auto my-6"
+            style={{ maxWidth: '400px' }}
+          />
+        )}
         <div className="text-left mb-4">
           <p className="mb-2 whitespace-pre-line">{step.main}</p>
           {step.bullets.length > 0 && (
@@ -213,6 +238,7 @@ const Generation = () => {
         <div className="text-[9px] text-gray-400 mt-1">
           inspired by Jackson Beroux
         </div>
+
       </div>
     );
   };
@@ -315,13 +341,13 @@ const Generation = () => {
         )}
       </div>
 
-      {/* Recipe Display */}
       {recipe && (
-        <>
-          <div className="mt-6 w-full max-w-lg">
-            <label className="block mb-2 text-[#1e2d3d] font-medium">Choose Display Mode:</label>
+        <div className="bg-white shadow-md rounded-lg p-6 mt-8 w-full max-w-2xl">
+          {/* Choose Mode Dropdown (inside white box now) */}
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <label className="text-[#1e2d3d] font-medium whitespace-nowrap">Choose Display Mode:</label>
             <select
-              className="w-full p-2 border border-gray-300 rounded-md"
+              className="p-2 border border-gray-300 rounded-md"
               value={viewMode}
               onChange={(e) => {
                 setViewMode(e.target.value);
@@ -333,46 +359,51 @@ const Generation = () => {
             </select>
           </div>
 
-          <div className="bg-white shadow-md rounded-lg p-6 mt-8 w-full max-w-2xl">
-            {viewMode === 'full' ? (
-              <>
-                <div
-                  className="text-[#1e2d3d] font-medium p-4 bg-[#d0ded5] rounded-lg shadow-md max-w-3xl mx-auto my-4"
-                  dangerouslySetInnerHTML={{
-                    __html: recipe
-                      .replace(/(\d+\.)(\s+)/g, '<br>$1 ')
-                      .replace(/^####\s*(.+)$/gm, '<strong>$1</strong><br>')
-                      .replace(/^###\s*(.+)$/gm, '## $1 ')
-                      .replace(/\n{2,}/g, '\n')
-                      .replace(/\*\*(.+?)\*\*/g, '$1')
-                      .replace(/^# (.+)$/gm, '<h1 class="text-2xl font-extrabold text-center mb-1 text-[#1e2d3d]">$1</h1>')
-                      .replace(/^## (.+)$/gm, '<h2 class="text-xl font-bold bg-[#1e2d3d] text-white py-1 px-3 rounded-md mt-2">$1</h2>')
-                      .replace(/^### (.+)$/gm, '<h3 class="text-lg font-semibold bg-[#8aa29e] text-white py-1 px-2 rounded-md">$1</h3>')
-                      .replace(/[-] (.+)$/gm, '<li class="list-disc ml-6 text-[#1e2d3d]">$1</li>')
-                      .replace(/\n<li class="list-disc ml-6 text-[#1e2d3d]">/g, '<li class="list-disc ml-6 text-[#1e2d3d]">')
-                  }}
-                />
-                <div className="text-sm text-gray-600 mt-2 text-center italic">
-                  Preferences used: Origin - {origin || 'Any'}, Dish Type - {dishType || 'Any'}, Spice Level - {spiceLevel || 'Any'}
-                </div>
-
-                {/* Favorite Button */}
-                <div className="flex justify-center mt-4">
-                  <button
-                    onClick={toggleFavorite}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-md text-white font-bold ${
-                      isFavorited ? 'bg-red-800 hover:bg-red-900' : 'bg-[#1e2d3d] hover:bg-[#16232e]'
-                    }`}
-                  >
-                    {isFavorited ? '💔 Unfavorite' : '❤️ Favorite'}
-                  </button>
-                </div>
-              </>
-            ) : (
-              <StepView recipe={recipe} currentStep={currentStep} setCurrentStep={setCurrentStep} />
-            )}
-          </div>
-        </>
+          {/* Actual Recipe */}
+          {viewMode === 'full' ? (
+            <>
+              <div
+                className="text-[#1e2d3d] font-medium p-4 bg-[#d0ded5] rounded-lg shadow-md max-w-3xl mx-auto my-4"
+                dangerouslySetInnerHTML={{
+                  __html: recipe
+                    .replace(/^# (.+)$/m, (match, p1) => {
+                      return `
+                        <h1 class="text-2xl font-extrabold text-center mb-4 text-[#1e2d3d]">${p1}</h1>
+                        ${recipeImage ? `<img src="${recipeImage}" alt="Recipe Dish" class="rounded-lg shadow-md mx-auto mb-6" style="max-width: 400px;">` : ''}
+                      `;
+                    })
+                    .replace(/(\d+\.)(\s+)/g, '<br>$1 ')
+                    .replace(/^####\s*(.+)$/gm, '<strong>$1</strong><br>')
+                    .replace(/^###\s*(.+)$/gm, '## $1 ')
+                    .replace(/\n{2,}/g, '\n')
+                    .replace(/\*\*(.+?)\*\*/g, '$1')
+                    .replace(/^## (.+)$/gm, '<h2 class="text-xl font-bold bg-[#1e2d3d] text-white py-1 px-3 rounded-md mt-2">$1</h2>')
+                    .replace(/^### (.+)$/gm, '<h3 class="text-lg font-semibold bg-[#8aa29e] text-white py-1 px-2 rounded-md">$1</h3>')
+                    .replace(/[-] (.+)$/gm, '<li class="list-disc ml-6 text-[#1e2d3d]">$1</li>')
+                    .replace(/\n<li class="list-disc ml-6 text-[#1e2d3d]">/g, '<li class="list-disc ml-6 text-[#1e2d3d]">')
+                }}
+              />
+              {/* Preferences Info */}
+              <div className="text-sm text-gray-600 mt-2 text-center italic">
+                Preferences used: Origin - {origin || 'Any'}, Dish Type - {dishType || 'Any'}, Spice Level - {spiceLevel || 'Any'}
+              </div>
+              {/* Favorite Button */}
+              <div className="flex justify-center mt-4">
+                <button
+                  onClick={toggleFavorite}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-md text-white font-bold ${
+                    isFavorited ? 'bg-red-800 hover:bg-red-900' : 'bg-[#1e2d3d] hover:bg-[#16232e]'
+                  }`}
+                >
+                  {isFavorited ? '💔 Unfavorite' : '❤️ Favorite'}
+                </button>
+              </div>
+            </>
+          ) : (
+            // Pass recipeImage to StepView too
+            <StepView recipe={recipe} currentStep={currentStep} setCurrentStep={setCurrentStep} recipeImage={recipeImage}/>
+          )}
+        </div>
       )}
 
       {error && <p className="text-red-500 mt-4">{error}</p>}

@@ -57,5 +57,24 @@ const RecipeGeneratingService = {
         }
     }
 };
+async function generateRecipeImage(recipeText) {
+    try{
+        const titleMatch = recipeText.match(/^# (.+)$/m);
+        const recipeTitle = titleMatch ? titleMatch[1].trim() : 'Delicious Dish';
+        const imagePrompt = `From this recipe tile: ${recipeTitle}
+        Create an image of this food dish without including individual ingredients or text-like words showing`;
+        const imageResponse = await openai.images.generate({
+            model: "dall-e-3",
+            prompt: imagePrompt,
+            n: 1,
+            size: "1024x1024"
+        });
+        const imageUrl = imageResponse.data[0].url;
+        return imageUrl;
+    } catch (error) {
+        console.error('Error generating recipe image:', error);
+        throw error;
+    }
+}
 
-export { RecipeGeneratingService };
+export { RecipeGeneratingService, generateRecipeImage};
