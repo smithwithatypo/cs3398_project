@@ -15,7 +15,7 @@ const Navbar = () => {
         {/* Pantry */}
         <Link 
           to="/pantry" 
-          className="text-[#114945] font-medium bg-[#d9b75e] hover:bg-[#c9a74e] px-3 py-1.5 rounded-md text-sm transition-colors"
+          className="text-white font-normal bg-[#c9a74e] hover:bg-[#b99540] hover:scale-105 px-3 py-1.5 rounded-md text-sm transition-all duration-200"
         >
           Pantry
         </Link>
@@ -23,7 +23,7 @@ const Navbar = () => {
         {/* Cookbook */}
         <Link 
           to="/cookbook" 
-          className="text-[#114945] font-medium bg-[#d9b75e] hover:bg-[#c9a74e] px-3 py-1.5 rounded-md text-sm transition-colors"
+          className="text-white font-normal bg-[#c9a74e] hover:bg-[#b99540] hover:scale-105 px-3 py-1.5 rounded-md text-sm transition-all duration-200"
         >
           Cookbook
         </Link>
@@ -31,7 +31,7 @@ const Navbar = () => {
         {/* Generate Recipe */}
         <Link 
           to="/generation" 
-          className="text-[#114945] font-medium bg-[#d9b75e] hover:bg-[#c9a74e] px-3 py-1.5 rounded-md text-sm transition-colors"
+          className="text-white font-normal bg-[#c9a74e] hover:bg-[#b99540] hover:scale-105 px-3 py-1.5 rounded-md text-sm transition-all duration-200"
         >
           Generate
         </Link>
@@ -39,7 +39,7 @@ const Navbar = () => {
         {/* Ingredient Replacement */}
         <Link 
           to="/replacement" 
-          className="text-[#114945] font-medium bg-[#d9b75e] hover:bg-[#c9a74e] px-3 py-1.5 rounded-md text-sm transition-colors"
+          className="text-white font-normal bg-[#c9a74e] hover:bg-[#b99540] hover:scale-105 px-3 py-1.5 rounded-md text-sm transition-all duration-200"
         >
           Replacements
         </Link>
@@ -47,7 +47,7 @@ const Navbar = () => {
         {/* Favorites */}
         <Link 
           to="/favorites" 
-          className="text-[#114945] font-medium bg-[#d9b75e] hover:bg-[#c9a74e] px-3 py-1.5 rounded-md text-sm transition-colors"
+          className="text-white font-normal bg-[#c9a74e] hover:bg-[#b99540] hover:scale-105 px-3 py-1.5 rounded-md text-sm transition-all duration-200"
         >
           Favorites
         </Link>
@@ -55,7 +55,7 @@ const Navbar = () => {
         {/* Profile */}
         <Link 
           to="/profile" 
-          className="text-[#114945] font-medium bg-[#d9b75e] hover:bg-[#c9a74e] px-3 py-1.5 rounded-md text-sm transition-colors"
+          className="text-white font-normal bg-[#c9a74e] hover:bg-[#b99540] hover:scale-105 px-3 py-1.5 rounded-md text-sm transition-all duration-200"
         >
           Profile
         </Link>
@@ -63,7 +63,7 @@ const Navbar = () => {
         {/* Logout */}
         <Link 
           to="/login" 
-          className="text-[#114945] font-medium bg-[#d9b75e] hover:bg-[#c9a74e] px-3 py-1.5 rounded-md text-sm transition-colors"
+          className="text-white font-normal bg-[#c9a74e] hover:bg-[#b99540] hover:scale-105 px-3 py-1.5 rounded-md text-sm transition-all duration-200"
         >
           Logout
         </Link>
