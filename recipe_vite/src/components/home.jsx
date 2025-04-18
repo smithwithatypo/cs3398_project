@@ -23,21 +23,6 @@ const Home = () => {
         </button>
       </div>
 
-      {/* Quick Generate Button */}
-      <div className="bg-[#d0ded5] shadow-md rounded-lg p-6 w-full max-w-lg mt-6 text-center">
-        <h2 className="text-2xl font-bold mb-4 text-[#1e2d3d]">Ready to Generate Recipes?</h2>
-        <p className="text-[#1e2d3d] mb-4">
-          Go directly to our recipe generation page to create recipes based on your pantry, 
-          text description, or by uploading a photo of a dish you like!
-        </p>
-        <button
-          className="mt-2 bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md"
-          onClick={() => navigate("/generation")}
-        >
-          Generate Recipes
-        </button>
-      </div>
-
       {/* Recommended Recipes Section */}
       <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-2xl mt-6 text-center">
         <h2 className="text-2xl font-bold text-[#1e2d3d]">Recommended Recipes</h2>
