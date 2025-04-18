@@ -11,49 +11,60 @@ const Navbar = () => {
       </Link>
 
       {/* Right-side nav links */}
-      <div className="flex gap-6 items-center">
-        {/* Pantry with hover dropdown (fixed with group and absolute positioning) */}
-        <div className="relative group">
-          {/* Button trigger */}
-          <Link to="/pantry" className="text-white font-bold hover:underline">
-            Pantry
-          </Link>
+      <div className="flex gap-2 items-center">
+        {/* Pantry */}
+        <Link 
+          to="/pantry" 
+          className="text-white font-medium hover:bg-[#1a6b65] px-3 py-1.5 rounded-md text-sm border border-[#d9b75e] transition-colors"
+        >
+          Pantry
+        </Link>
 
-          {/* Dropdown menu (stays open when hovering over it) */}
-          <div className="absolute top-full left-0 mt-2 hidden group-hover:flex flex-col w-48 bg-white shadow-md rounded-md z-50">
-            <Link
-              to="/cookbook"
-              className="px-4 py-2 text-[#1e2d3d] hover:bg-gray-100"
-            >
-              Cookbook
-            </Link>
-            <Link
-              to="/replacement"
-              className="px-4 py-2 text-[#1e2d3d] hover:bg-gray-100"
-            >
-              Ingredient Replacement
-            </Link>
-            <Link
-              to="/favorites"
-              className="px-4 py-2 text-[#1e2d3d] hover:bg-gray-100"
-            >
-              Favorites
-            </Link>
-          </div>
-        </div>
+        {/* Cookbook */}
+        <Link 
+          to="/cookbook" 
+          className="text-white font-medium hover:bg-[#1a6b65] px-3 py-1.5 rounded-md text-sm border border-[#d9b75e] transition-colors"
+        >
+          Cookbook
+        </Link>
 
         {/* Generate Recipe */}
-        <Link to="/generate" className="text-white font-bold hover:underline">
-          Generate Recipe
+        <Link 
+          to="/generation" 
+          className="text-white font-medium hover:bg-[#1a6b65] px-3 py-1.5 rounded-md text-sm border border-[#d9b75e] transition-colors"
+        >
+          Generate
+        </Link>
+
+        {/* Ingredient Replacement */}
+        <Link 
+          to="/replacement" 
+          className="text-white font-medium hover:bg-[#1a6b65] px-3 py-1.5 rounded-md text-sm border border-[#d9b75e] transition-colors"
+        >
+          Replacements
+        </Link>
+
+        {/* Favorites */}
+        <Link 
+          to="/favorites" 
+          className="text-white font-medium hover:bg-[#1a6b65] px-3 py-1.5 rounded-md text-sm border border-[#d9b75e] transition-colors"
+        >
+          Favorites
         </Link>
 
         {/* Profile */}
-        <Link to="/profile" className="text-white font-bold hover:underline">
+        <Link 
+          to="/profile" 
+          className="text-white font-medium hover:bg-[#1a6b65] px-3 py-1.5 rounded-md text-sm border border-[#d9b75e] transition-colors"
+        >
           Profile
         </Link>
 
         {/* Logout */}
-        <Link to="/login" className="text-white font-bold hover:underline">
+        <Link 
+          to="/login" 
+          className="text-white font-medium hover:bg-[#1a6b65] px-3 py-1.5 rounded-md text-sm border border-[#d9b75e] transition-colors"
+        >
           Logout
         </Link>
       </div>
