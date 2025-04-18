@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import './generation.css';
+
 
 const Generation = () => {
   const [pantryItems, setPantryItems] = useState([]);
@@ -218,7 +220,7 @@ const Generation = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center p-8">
+<div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center p-8 fade-in">
       {/* Page Header */}
       <div className="bg-[#d9b75e] shadow-md rounded-lg p-6 w-full max-w-lg text-center">
         <h2 className="text-2xl font-bold mb-4 text-[#1e2d3d]">Generate a Recipe</h2>
