@@ -13,6 +13,10 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Tailwind classes for glowing button-style links
+  const navLinkStyle =
+    "text-white font-bold px-4 py-2 rounded-md transition duration-300 hover:bg-white hover:text-[#114945] hover:shadow-lg hover:shadow-[#d9b75e]/50";
+
   return (
     <nav
       className={`sticky top-0 z-50 p-4 transition-shadow duration-300 ${
@@ -26,10 +30,10 @@ const Navbar = () => {
       </Link>
 
       {/* Right-side nav links */}
-      <div className="flex gap-6 items-center">
+      <div className="flex gap-4 items-center">
         {/* Pantry with hover dropdown */}
         <div className="relative group">
-          <Link to="/pantry" className="text-white font-bold hover:underline">
+          <Link to="/pantry" className={navLinkStyle}>
             Pantry
           </Link>
           <div className="absolute top-full left-0 mt-2 hidden group-hover:flex flex-col w-48 bg-white shadow-md rounded-md z-50">
@@ -55,17 +59,17 @@ const Navbar = () => {
         </div>
 
         {/* Generate Recipe */}
-        <Link to="/generate" className="text-white font-bold hover:underline">
+        <Link to="/generate" className={navLinkStyle}>
           Generate Recipe
         </Link>
 
         {/* Profile */}
-        <Link to="/profile" className="text-white font-bold hover:underline">
+        <Link to="/profile" className={navLinkStyle}>
           Profile
         </Link>
 
         {/* Logout */}
-        <Link to="/login" className="text-white font-bold hover:underline">
+        <Link to="/login" className={navLinkStyle}>
           Logout
         </Link>
       </div>
