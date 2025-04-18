@@ -5,6 +5,10 @@ import axios from "axios";
 const Home = () => {
   const navigate = useNavigate();
 
+  const [selectedFile, setSelectedFile] = useState(null);  
+  const [isUploading, setIsUploading] = useState(false);    
+  const [uploadError, setUploadError] = useState(""); 
+
   const [randomRecipes, setRandomRecipes] = useState([]);
   const [currentRecipeIndex, setCurrentRecipeIndex] = useState(0);
   const [isFading, setIsFading] = useState(false);
