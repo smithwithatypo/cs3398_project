@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import curryImage from "./curry.jpg";
-import quesadillaImage from "./quesadilla.jpg";
-import "./home.css"; // Custom CSS for fade-in
+import { useState } from "react";
+import axios from "axios";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -27,25 +26,14 @@ const Home = () => {
       <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-2xl mt-6 text-center fade-in hover:shadow-xl transition-shadow duration-300">
         <h2 className="text-2xl font-bold text-[#1e2d3d]">Recommended Recipes</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-          <div className="bg-[#d0ded5] shadow-md rounded-lg p-4 text-left hover:shadow-lg transition-shadow duration-300">
-            <p className="text-sm font-semibold text-right text-[#1e2d3d]">Macros: 20C 30F 40P</p>
-            <h3 className="text-lg font-semibold text-[#1e2d3d]">Chicken Curry</h3>
-            <img src={curryImage} alt="Chicken Curry" className="w-full h-auto rounded-md mt-2" />
-            <p className="text-[#1e2d3d] mt-2">
-              A rich and flavorful dish made with tender chicken, aromatic spices, 
-              and a creamy curry sauce. Perfect with rice or naan.
-            </p>
-          </div>
-
-          <div className="bg-[#d0ded5] shadow-md rounded-lg p-4 text-left hover:shadow-lg transition-shadow duration-300">
-            <p className="text-sm font-semibold text-right text-[#1e2d3d]">Macros: 20C 30F 40P</p>
-            <h3 className="text-lg font-semibold text-[#1e2d3d]">Quesadillas</h3>
-            <img src={quesadillaImage} alt="Quesadillas" className="w-full h-auto rounded-md mt-2" />
-            <p className="text-[#1e2d3d] mt-2">
-              A crispy tortilla filled with melted cheese, black beans, and fresh veggies. 
-              Great as a snack or a quick meal!
-            </p>
-          </div>
+          {randomRecipes.map((recipe) => (
+            <div key={recipe.id} className="bg-[#d0ded5] shadow-md rounded-lg p-4 text-left">
+              <p className="text-sm font-semibold text-right text-[#1e2d3d]">From MealDB</p>
+              <h3 className="text-lg font-semibold text-[#1e2d3d]">{recipe.name}</h3>
+              <img src={recipe.image} alt={recipe.name} className="w-full h-auto rounded-md mt-2" />
+              <p className="text-[#1e2d3d] mt-2">{recipe.description}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
