@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const Cookbook = () => {
@@ -10,9 +10,21 @@ const Cookbook = () => {
   const [activeTab, setActiveTab] = useState('name'); // 'name' or 'ingredients'
   const [selectedRecipe, setSelectedRecipe] = useState(null);
 
+  useEffect(() => {
+    const storedRecipeName = localStorage.getItem('selectedRecipeName');
+    
+    if (storedRecipeName) {
+      setSearchTerm(storedRecipeName);  
+      searchByName(storedRecipeName);             
+      localStorage.removeItem('selectedRecipeName'); // Clean it up after loading
+    }
+  }, []);
+
   // Function to search recipes by name (using TheMealDB)
-  const searchByName = async () => {
-    if (!searchTerm.trim()) {
+  const searchByName = async (term = null) => {
+    const valueToSearch = typeof term === 'string' ? term : searchTerm;
+
+    if (!valueToSearch.trim()) {
       setError('Please enter a recipe name to search.');
       return;
     }
@@ -22,7 +34,7 @@ const Cookbook = () => {
   
     try {
       const response = await axios.post('/api/ai/search-recipes', {
-        query: searchTerm
+        query: valueToSearch
       });
       
       if (response.data.success) {

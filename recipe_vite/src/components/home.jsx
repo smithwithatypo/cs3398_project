@@ -1,11 +1,112 @@
 import { useNavigate } from "react-router-dom";
-import curryImage from "./curry.jpg";
-import quesadillaImage from "./quesadilla.jpg";
-import "./home.css"; // Custom CSS for fade-in
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Home = () => {
   const navigate = useNavigate();
 
+  const [selectedFile, setSelectedFile] = useState(null);  
+  const [isUploading, setIsUploading] = useState(false);    
+  const [uploadError, setUploadError] = useState(""); 
+
+  const [randomRecipes, setRandomRecipes] = useState([]);
+  const [currentRecipeIndex, setCurrentRecipeIndex] = useState(0);
+  const [isFading, setIsFading] = useState(false);
+
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+    setUploadError("");
+  };
+
+  const handleUpload = async () => {
+    if (!selectedFile) {
+      setUploadError("Please select an image first");
+      return;
+    }
+
+    setIsUploading(true);
+    setUploadError("");
+
+    const formData = new FormData();
+    formData.append("image", selectedFile);
+
+    try {
+      console.log("Uploading image...");
+      const response = await axios.post("/api/ai/identify-dish", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      
+      console.log("Upload response received:", response.data.success);
+      
+      if (response.data.success) {
+        localStorage.setItem("imageRecipeData", response.data.data);
+        const imageUrl = URL.createObjectURL(selectedFile);  // 👈 NEW
+        localStorage.setItem("uploadedImageUrl", imageUrl);  // 👈 NEW
+        console.log("Recipe and uploadedImageUrl saved to localStorage.");
+        navigate("/generation?source=image");
+      } else {
+        setUploadError("Failed to identify dish");
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      setUploadError("Something went wrong. Please try again.");
+    }
+
+    setIsUploading(false);
+  };
+
+  useEffect(() => {
+    const fetchRandomRecipes = async () => {
+      try {
+        const fetchedRecipes = [];
+
+        for (let i = 0; i < 10; i++) {  // Fetch 10 random recipes --- a way to get around free version API
+          const response = await axios.get('https://www.themealdb.com/api/json/v1/1/random.php');
+          if (response.data.meals && response.data.meals.length > 0) {
+            const meal = response.data.meals[0];
+            fetchedRecipes.push({
+              id: meal.idMeal,
+              name: meal.strMeal,
+              description: meal.strInstructions.substring(0, 150) + '...',
+              image: meal.strMealThumb,
+              area: meal.strArea,        
+              category: meal.strCategory
+            });
+          }
+        }
+
+        setRandomRecipes(fetchedRecipes);
+      } catch (error) {
+        console.error("Error fetching random recipes:", error);
+      }
+    };
+
+    fetchRandomRecipes();
+  }, []);
+
+  useEffect(() => {
+    if (randomRecipes.length === 0) return;
+
+    const interval = setInterval(() => {
+      setCurrentRecipeIndex((prevIndex) => (prevIndex + 1) % randomRecipes.length);
+    }, 4000); // speed of images
+
+    return () => clearInterval(interval);
+  }, [randomRecipes]);
+
+  const visibleRecipes = [
+    randomRecipes[currentRecipeIndex % randomRecipes.length],
+    randomRecipes[(currentRecipeIndex + 1) % randomRecipes.length],
+    randomRecipes[(currentRecipeIndex + 2) % randomRecipes.length],
+  ];
+
+  const handleRecipeClick = (recipe) => {
+    localStorage.setItem('selectedRecipeName', recipe.name); 
+    navigate('/cookbook'); //routes to cookbook page
+  };
+  
   return (
     <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center p-8 fade-in">
       {/* How It Works */}
@@ -22,32 +123,34 @@ const Home = () => {
           Start Here!
         </button>
       </div>
+      {/* Carousel Section */}
+      {randomRecipes.length > 0 && (
+        <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-5xl mt-6 text-center fade-in">
+          <h2 className="text-2xl font-bold text-[#1e2d3d] mb-6">Recommended Recipes</h2>
 
-      {/* Recommended Recipes */}
-      <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-2xl mt-6 text-center fade-in hover:shadow-xl transition-shadow duration-300">
-        <h2 className="text-2xl font-bold text-[#1e2d3d]">Recommended Recipes</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-          <div className="bg-[#d0ded5] shadow-md rounded-lg p-4 text-left hover:shadow-lg transition-shadow duration-300">
-            <p className="text-sm font-semibold text-right text-[#1e2d3d]">Macros: 20C 30F 40P</p>
-            <h3 className="text-lg font-semibold text-[#1e2d3d]">Chicken Curry</h3>
-            <img src={curryImage} alt="Chicken Curry" className="w-full h-auto rounded-md mt-2" />
-            <p className="text-[#1e2d3d] mt-2">
-              A rich and flavorful dish made with tender chicken, aromatic spices, 
-              and a creamy curry sauce. Perfect with rice or naan.
-            </p>
-          </div>
-
-          <div className="bg-[#d0ded5] shadow-md rounded-lg p-4 text-left hover:shadow-lg transition-shadow duration-300">
-            <p className="text-sm font-semibold text-right text-[#1e2d3d]">Macros: 20C 30F 40P</p>
-            <h3 className="text-lg font-semibold text-[#1e2d3d]">Quesadillas</h3>
-            <img src={quesadillaImage} alt="Quesadillas" className="w-full h-auto rounded-md mt-2" />
-            <p className="text-[#1e2d3d] mt-2">
-              A crispy tortilla filled with melted cheese, black beans, and fresh veggies. 
-              Great as a snack or a quick meal!
-            </p>
+          {/* Carousel */}
+          <div className="flex justify-center gap-6 transition-all duration-700 ease-in-out">
+            {visibleRecipes.map((recipe) => (
+              <div key={recipe?.id} className="bg-[#d0ded5] rounded-lg shadow-md p-4 w-72 transition-transform duration-500 transform hover:scale-105"
+                onClick={() => handleRecipeClick(recipe)} 
+              >
+                <img
+                  src={recipe?.image}
+                  alt={recipe?.name}
+                  className="w-full h-48 object-cover rounded-md"
+                />
+                <h3 className="text-lg font-semibold text-[#1e2d3d] mt-4">{recipe?.name}</h3>
+                {recipe?.area && recipe?.category && (
+                  <p className="text-sm text-[#5a7d8c] mt-1">
+                    {recipe.area} • {recipe.category}
+                  </p>
+                )}
+                <p className="text-sm text-[#1e2d3d] mt-2">{recipe?.description}</p>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
+)}
     </div>
   );
 };
