@@ -13,10 +13,6 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Tailwind classes for glowing button-style links
-  const navLinkStyle =
-    "text-white font-bold px-4 py-2 rounded-md transition duration-300 hover:bg-white hover:text-[#114945] hover:shadow-lg hover:shadow-[#d9b75e]/50";
-
   return (
     <nav
       className={`sticky top-0 z-50 p-4 transition-shadow duration-300 ${
@@ -30,46 +26,60 @@ const Navbar = () => {
       </Link>
 
       {/* Right-side nav links */}
-      <div className="flex gap-4 items-center">
-        {/* Pantry with hover dropdown */}
-        <div className="relative group">
-          <Link to="/pantry" className={navLinkStyle}>
-            Pantry
-          </Link>
-          <div className="absolute top-full left-0 mt-2 hidden group-hover:flex flex-col w-48 bg-white shadow-md rounded-md z-50">
-            <Link
-              to="/cookbook"
-              className="px-4 py-2 text-[#1e2d3d] hover:bg-gray-100"
-            >
-              Cookbook
-            </Link>
-            <Link
-              to="/replacement"
-              className="px-4 py-2 text-[#1e2d3d] hover:bg-gray-100"
-            >
-              Ingredient Replacement
-            </Link>
-            <Link
-              to="/favorites"
-              className="px-4 py-2 text-[#1e2d3d] hover:bg-gray-100"
-            >
-              Favorites
-            </Link>
-          </div>
-        </div>
+      <div className="flex gap-2 items-center">
+        {/* Pantry */}
+        <Link 
+          to="/pantry" 
+          className="text-white font-normal bg-[#c9a74e] hover:bg-[#b99540] hover:scale-105 px-3 py-1.5 rounded-md text-sm transition-all duration-200"
+        >
+          Pantry
+        </Link>
+
+        {/* Cookbook */}
+        <Link 
+          to="/cookbook" 
+          className="text-white font-normal bg-[#c9a74e] hover:bg-[#b99540] hover:scale-105 px-3 py-1.5 rounded-md text-sm transition-all duration-200"
+        >
+          Cookbook
+        </Link>
 
         {/* Generate Recipe */}
-        <Link to="/generate" className={navLinkStyle}>
-          Generate Recipe
+        <Link 
+          to="/generation" 
+          className="text-white font-normal bg-[#c9a74e] hover:bg-[#b99540] hover:scale-105 px-3 py-1.5 rounded-md text-sm transition-all duration-200"
+        >
+          Generate
+        </Link>
+
+        {/* Ingredient Replacement */}
+        <Link 
+          to="/replacement" 
+          className="text-white font-normal bg-[#c9a74e] hover:bg-[#b99540] hover:scale-105 px-3 py-1.5 rounded-md text-sm transition-all duration-200"
+        >
+          Replacements
+        </Link>
+
+        {/* Favorites */}
+        <Link 
+          to="/favorites" 
+          className="text-white font-normal bg-[#c9a74e] hover:bg-[#b99540] hover:scale-105 px-3 py-1.5 rounded-md text-sm transition-all duration-200"
+        >
+          Favorites
         </Link>
 
         {/* Profile */}
-        <Link to="/profile" className={navLinkStyle}>
+        <Link 
+          to="/profile" 
+          className="text-white font-normal bg-[#c9a74e] hover:bg-[#b99540] hover:scale-105 px-3 py-1.5 rounded-md text-sm transition-all duration-200"
+        >
           Profile
         </Link>
 
         {/* Logout */}
-        <Link to="/login" className={navLinkStyle}>
+        <Link 
+          to="/login" 
+          className="text-white font-normal bg-[#c9a74e] hover:bg-[#b99540] hover:scale-105 px-3 py-1.5 rounded-md text-sm transition-all duration-200"
+        >
           Logout
         </Link>
       </div>
