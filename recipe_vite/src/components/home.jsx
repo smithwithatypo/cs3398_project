@@ -6,6 +6,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const [randomRecipes, setRandomRecipes] = useState([]);
+  const [currentRecipeIndex, setCurrentRecipeIndex] = useState(0);
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -56,7 +57,7 @@ const Home = () => {
       try {
         const fetchedRecipes = [];
 
-        for (let i = 0; i < 2; i++) {  // Fetch 2 random recipes
+        for (let i = 0; i < 5; i++) {  // Fetch 5 random recipes --- a way to get around free version API
           const response = await axios.get('https://www.themealdb.com/api/json/v1/1/random.php');
           if (response.data.meals && response.data.meals.length > 0) {
             const meal = response.data.meals[0];
@@ -77,6 +78,16 @@ const Home = () => {
 
     fetchRandomRecipes();
   }, []);
+
+  useEffect(() => {
+    if (randomRecipes.length === 0) return;
+
+    const interval = setInterval(() => {
+      setCurrentRecipeIndex((prevIndex) => (prevIndex + 1) % randomRecipes.length);
+    }, 5000); // change recipe every 3 seconds
+
+    return () => clearInterval(interval); // cleanup on unmount
+  }, [randomRecipes]);
 
   return (
     <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center p-8 fade-in">
@@ -128,19 +139,24 @@ const Home = () => {
           {uploadError && <p className="mt-2 text-red-500">{uploadError}</p>}
         </div>
       </div>
-    {/* Recommended Recipes Section */}
-    <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-2xl mt-6 text-center">
-        <h2 className="text-2xl font-bold text-[#1e2d3d]">Recommended Recipes</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-          {randomRecipes.map((recipe) => (
-            <div key={recipe.id} className="bg-[#d0ded5] shadow-md rounded-lg p-4 text-left">
-              <p className="text-sm font-semibold text-right text-[#1e2d3d]">From MealDB</p>
-              <h3 className="text-lg font-semibold text-[#1e2d3d]">{recipe.name}</h3>
-              <img src={recipe.image} alt={recipe.name} className="w-full h-auto rounded-md mt-2" />
-              <p className="text-[#1e2d3d] mt-2">{recipe.description}</p>
-            </div>
-          ))}
-        </div>
+    {/* Recommended Recipes Carousel */}
+      <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-2xl mt-6 text-center">
+        <h2 className="text-2xl font-bold text-[#1e2d3d] mb-6">Recommended Recipes</h2>
+
+        {randomRecipes.length > 0 && (
+          <div
+            key={randomRecipes[currentRecipeIndex].id}
+            className="bg-[#d0ded5] shadow-md rounded-lg p-6 text-center transition-opacity duration-700 ease-in-out opacity-100"
+          >
+            <h3 className="text-xl font-semibold text-[#1e2d3d] mt-2">{randomRecipes[currentRecipeIndex].name}</h3>
+            <img
+              src={randomRecipes[currentRecipeIndex].image}
+              alt={randomRecipes[currentRecipeIndex].name}
+              className="w-full max-w-md mx-auto h-auto rounded-md mt-4"
+            />
+            <p className="text-[#1e2d3d] mt-4">{randomRecipes[currentRecipeIndex].description}</p>
+          </div>
+        )}
       </div>
     </div>
   );
