@@ -1,13 +1,13 @@
-import { CookbookService} from '../services/spoonacularService.js';
+import { CookbookService} from '../services/cookbookService.js';
 
-const RecipeSearchController = {
+const CookbookController = {
   async searchRecipes(req, res) {
     try {
       const { query, ingredients } = req.body;
       
       const results = await CookbookService.searchRecipes({
         query,
-        ingredients: ingredients?.join(',')
+        ingredients
       });
 
       if (results.length === 0) {
@@ -28,4 +28,4 @@ const RecipeSearchController = {
   }
 };
 
-export { RecipeSearchController };
+export { CookbookController };

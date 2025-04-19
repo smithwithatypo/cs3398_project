@@ -13,7 +13,7 @@ const CookbookService = {
       }
       return [];
     } catch (error) {
-      console.error('API error:', error);
+      console.error('API error:', error);a
       throw new Error('Failed to fetch recipes');
     }
   },
