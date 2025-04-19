@@ -196,7 +196,7 @@ const Generation = () => {
     const progress = ((currentStep + 1) / steps.length) * 100;
 
     return (
-      <div className="text-[#1e2d3d] p-4 bg-[#d0ded5] rounded-lg shadow-md text-center fade-in">
+      <div className="text-[#1e2d3d] p-4 bg-[#d0ded5] rounded-lg shadow-md text-center">
         <h2 className="text-2xl font-bold mb-1">{recipeTitle}</h2>
         {recipeImage && (
           <img src={recipeImage} alt="Recipe Dish" className="rounded-lg shadow-md mx-auto my-6" style={{ maxWidth: '400px' }} />

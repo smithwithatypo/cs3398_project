@@ -187,78 +187,116 @@ const Pantry = () => {
       <div className="bg-[#d0ded5] rounded-lg p-6 w-full max-w-lg mt-6 text-center shadow-md hover:shadow-xl transition-shadow duration-300">
         <h2 className="text-2xl font-bold text-[#1e2d3d]">Scan Ingredients</h2>
         <p className="text-[#1e2d3d] mb-4">Upload a receipt or pantry image.</p>
-        <div className="flex gap-4 justify-center mb-4">
-          <button
-            onClick={() => setActiveScanner("receipt")}
-            className={`px-4 py-2 rounded-md ${activeScanner === "receipt" ? "bg-[#1e2d3d] text-white" : "bg-white text-[#1e2d3d] border"}`}
-          >
-            Scan Receipt
-          </button>
-          <button
-            onClick={() => setActiveScanner("pantry")}
-            className={`px-4 py-2 rounded-md ${activeScanner === "pantry" ? "bg-[#1e2d3d] text-white" : "bg-white text-[#1e2d3d] border"}`}
-          >
-            Scan Pantry
-          </button>
-        </div>
-
-        {activeScanner && (
-          <>
-            <input
-              type="file"
-              accept="image/*"
-              ref={activeScanner === "receipt" ? receiptFileInputRef : pantryFileInputRef}
-              onChange={(e) => handleFileChange(e, activeScanner)}
-              className="mb-2"
-            />
+        {!activeScanner && !showExtractedItems && (
+          <div className="flex gap-4 justify-center mb-4">
             <button
-              onClick={() => handleScan(activeScanner)}
-              disabled={isScanning}
-              className={`bg-[#1e2d3d] text-white py-2 px-4 rounded-md ${isScanning ? "opacity-50 cursor-not-allowed" : "hover:bg-[#16232e]"}`}
+              onClick={() => setActiveScanner("receipt")}
+              className={`px-4 py-2 rounded-md ${activeScanner === "receipt" ? "bg-[#1e2d3d] text-white" : "bg-white text-[#1e2d3d] border"}`}
             >
-              {isScanning ? "Scanning..." : "Scan Image"}
+              Scan Receipt
             </button>
-          </>
+            <button
+              onClick={() => setActiveScanner("pantry")}
+              className={`px-4 py-2 rounded-md ${activeScanner === "pantry" ? "bg-[#1e2d3d] text-white" : "bg-white text-[#1e2d3d] border"}`}
+            >
+              Scan Pantry
+            </button>
+          </div>
         )}
 
-        {scanError && <p className="mt-2 text-red-500">{scanError}</p>}
+        {activeScanner && (
+          <div className="flex flex-col items-center mt-4 space-y-4">
+            {/* Upload Area */}
+            <div className="relative inline-block">
+              <label className="flex flex-col items-center px-6 py-3 bg-white border border-[#1e2d3d] rounded-md cursor-pointer hover:bg-gray-100 transition">
+                <svg className="w-8 h-8 text-[#1e2d3d]" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                </svg>
+                <span className="mt-2 text-sm font-medium text-[#1e2d3d]">
+                  {selectedReceipt || selectedPantryImage ? "Change File" : "Choose File"}
+                </span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  ref={activeScanner === "receipt" ? receiptFileInputRef : pantryFileInputRef}
+                  onChange={(e) => handleFileChange(e, activeScanner)}
+                  className="hidden"
+                />
+              </label>
+            </div>
 
-        {showExtractedItems && (
-          <div className="mt-4 bg-white p-4 rounded-md shadow">
+            {/* After file selected */}
+            {selectedReceipt || selectedPantryImage ? (
+              <div className="flex gap-4">
+                <button
+                  onClick={() => handleScan(activeScanner)}
+                  disabled={isScanning}
+                  className={`bg-[#1e2d3d] text-white py-2 px-4 rounded-md ${
+                    isScanning ? "opacity-50 cursor-not-allowed" : "hover:bg-[#16232e]"
+                  }`}
+                >
+                  {isScanning ? "Scanning..." : "Scan Image"}
+                </button>
+                <button
+                  onClick={resetScan}
+                  className="px-4 py-2 rounded-md bg-[#1e2d3d] bg-white text-[#1e2d3d] border border-[#1e2d3d]"
+                >
+                  Cancel
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={resetScan}
+                className="px-4 py-2 rounded-md bg-[#1e2d3d] bg-white text-[#1e2d3d] border border-[#1e2d3d]"
+              >
+                Cancel
+              </button>
+            )}
+
+            {scanError && <p className="text-red-500 text-sm">{scanError}</p>}
+          </div>
+        )}
+
+        {showExtractedItems && extractedItems.length > 0 && (
+          <div className="mt-6 bg-white p-4 rounded-md shadow">
             <h4 className="font-semibold text-[#1e2d3d] mb-2">Found Items:</h4>
             <ul className="text-left list-disc pl-4 mb-4">
               {extractedItems.map((item, i) => (
                 <li key={i} className="text-[#1e2d3d]">{item}</li>
               ))}
             </ul>
-            <button
-              onClick={handleAddExtractedItems}
-              className="bg-[#1e2d3d] text-white py-2 px-4 rounded-md hover:bg-[#16232e] mr-2"
-            >
-              Add All
-            </button>
-            <button
-              onClick={resetScan}
-              className="text-[#1e2d3d] border border-[#1e2d3d] py-2 px-4 rounded-md hover:bg-gray-100"
-            >
-              Cancel
-            </button>
+            <div className="flex gap-4 justify-center">
+              <button
+                onClick={handleAddExtractedItems}
+                className="bg-[#1e2d3d] text-white py-2 px-4 rounded-md hover:bg-[#16232e]"
+              >
+                Add All
+              </button>
+              <button
+                onClick={resetScan}
+                className="text-[#1e2d3d] border border-[#1e2d3d] py-2 px-4 rounded-md hover:bg-gray-100"
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         )}
       </div>
-
+    
+    {/* Current Pantry List */}
       <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-lg mt-6 hover:shadow-xl transition-shadow duration-300">
         <div className="flex items-center justify-between mb-2">
-            <h3 className="text-lg font-semibold text-[#1e2d3d]">Current Ingredients</h3>
-            <div className="relative inline-block group">
-              <div className="rounded-full border border-bg-gray-500 w-6 h-6 flex items-center justify-center text-gray-500 cursor-pointer">
-                i
-              </div>
-              <div className="absolute right-0 top-full mt-2 w-max bg-gray-800 text-white text-sm p-2 rounded-md opacity-0 group-hover:opacity-[0.85] transition-opacity z-10 pointer-events-none">
-                  To remove an item from your pantry, click the '-' button until the quantity is reduced to 0.
-              </div>
+          <h3 className="text-lg font-semibold text-[#1e2d3d]">Current Ingredients</h3>
+          <div className="relative inline-block group">
+            <div className="rounded-full border border-gray-500 w-6 h-6 flex items-center justify-center text-gray-500 cursor-pointer">
+              i
+            </div>
+            <div className="absolute right-0 top-full mt-2 w-max bg-gray-800 text-white text-sm p-2 rounded-md opacity-0 group-hover:opacity-[0.85] transition-opacity z-10 pointer-events-none">
+              To remove an item from your pantry, click the '-' button until the quantity is reduced to 0.
             </div>
           </div>
+        </div>
+
         {items.length === 0 ? (
           <p className="text-gray-500">No items yet.</p>
         ) : (
