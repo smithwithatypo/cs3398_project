@@ -208,7 +208,7 @@ const Cookbook = () => {
           )}
           <div className="space-y-4 overflow-y-auto max-h-[500px] pr-2">
             {searchResults.slice(0, visibleCount).map((recipe) => (
-              <div key={recipe.id} className="bg-[#d0ded5] p-4 rounded-lg">
+              <div key={recipe.id} className="bg-[#d0ded5] p-4 rounded-lg fade-in">
                 <div className="flex flex-col md:flex-row">
                   {recipe.image && (
                     <div className="md:w-1/3 mb-3 md:mb-0 md:mr-4">
