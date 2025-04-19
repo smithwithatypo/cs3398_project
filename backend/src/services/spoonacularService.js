@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-const SPOONACULAR_API_KEY = process.env.SPOONACULAR_API_KEY;
-
-const SpoonacularService = {
+const CookbookService = {
   async searchRecipes({ query, ingredients }) {
     try {
       // If a query is provided, use TheMealDB API
@@ -10,27 +8,10 @@ const SpoonacularService = {
         return await this.searchRecipesByName(query);
       }
       
-      // For ingredient search, continue using Spoonacular
-      const params = {
-        api_key: SPOONACULAR_API_KEY,
-        number: 5, // Number of results
-        addRecipeInformation: true
-      };
-
-      if (query) params.query = query;
-      if (ingredients) params.includeIngredients = ingredients;
-
-      const response = await axios.get(
-        'https://api.spoonacular.com/recipes/complexSearch',
-        { params }
-      );
-      
-      return response.data.results.map(recipe => ({
-        id: recipe.id,
-        name: recipe.title,
-        description: recipe.summary,
-        image: recipe.image
-      }));
+      if (ingredients && !query) {
+        return await this.searchRecipesByIngredients(ingredients);
+      }
+      return [];
     } catch (error) {
       console.error('API error:', error);
       throw new Error('Failed to fetch recipes');
@@ -61,6 +42,8 @@ const SpoonacularService = {
       console.error('TheMealDB API error:', error);
       throw new Error('Failed to fetch recipes from TheMealDB');
     }
+  },
+  async searchRecipesByIngredients(ingredients) {
   }
 };
 
