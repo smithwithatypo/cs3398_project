@@ -44,7 +44,27 @@ const CookbookService = {
     }
   },
   async searchRecipesByIngredients(ingredients) {
+    try {
+      const ingredientString = ingredients.join(',');
+      const response = await axios.get(
+        `https://www.themealdb.com/api/json/v1/1/filter.php?i=${encodeURIComponent(ingredientString)}`
+      );
+
+      if (!response.data.meals) {
+        return [];
+      }
+
+      return response.data.meals.map(meal => ({
+        id: meal.idMeal,
+        name: meal.strMeal,
+        description: 'Click to view full instructions.',
+        image: meal.strMealThumb
+      }));
+    } catch (error) {
+      console.error('TheMealDB API error (ingredient search):', error);
+      throw new Error('Failed to fetch recipes by ingredients from TheMealDB');
+    }
   }
 };
 
-export { SpoonacularService };
+export { CookbookService };
