@@ -43,11 +43,10 @@ const CookbookService = {
       throw new Error('Failed to fetch recipes from TheMealDB');
     }
   },
-  async searchRecipesByIngredients(ingredients) {
+  async searchRecipesByIngredients(ingredient) {
     try {
-      const ingredientString = ingredients.join(',');
       const response = await axios.get(
-        `https://www.themealdb.com/api/json/v1/1/filter.php?i=${encodeURIComponent(ingredientString)}`
+        `https://www.themealdb.com/api/json/v1/1/filter.php?i=${encodeURIComponent(ingredient)}`
       );
 
       if (!response.data.meals) {

@@ -60,22 +60,23 @@ const Home = () => {
   useEffect(() => {
     const fetchRandomRecipes = async () => {
       try {
-        const fetchedRecipes = [];
+        const requests = Array.from({ length: 10 }, () =>
+          axios.get('https://www.themealdb.com/api/json/v1/1/random.php')
+        );
 
-        for (let i = 0; i < 10; i++) {  // Fetch 10 random recipes --- a way to get around free version API
-          const response = await axios.get('https://www.themealdb.com/api/json/v1/1/random.php');
-          if (response.data.meals && response.data.meals.length > 0) {
-            const meal = response.data.meals[0];
-            fetchedRecipes.push({
-              id: meal.idMeal,
-              name: meal.strMeal,
-              description: meal.strInstructions.substring(0, 150) + '...',
-              image: meal.strMealThumb,
-              area: meal.strArea,        
-              category: meal.strCategory
-            });
-          }
-        }
+        const responses = await Promise.all(requests); // fires all at once
+
+        const fetchedRecipes = responses
+          .map(res => res.data.meals?.[0])
+          .filter(meal => meal)
+          .map(meal => ({
+            id: meal.idMeal,
+            name: meal.strMeal,
+            description: meal.strInstructions.substring(0, 150) + '...',
+            image: meal.strMealThumb,
+            area: meal.strArea,
+            category: meal.strCategory
+          }));
 
         setRandomRecipes(fetchedRecipes);
       } catch (error) {

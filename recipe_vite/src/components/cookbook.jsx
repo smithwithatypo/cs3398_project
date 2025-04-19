@@ -77,9 +77,8 @@ const Cookbook = () => {
     setSearchResults([]);
   
     try {
-      const ingredients = ingredientSearch.split(',').map(item => item.trim());
       const response = await axios.post('/api/ai/search-recipes', {
-        ingredients
+        ingredients:[ingredientSearch.trim()]
       });
   
       if (response.data.success) {
@@ -150,7 +149,7 @@ const Cookbook = () => {
               setActiveTab('ingredients');
             }}
             >
-            Search by Ingredients
+            Search by Ingredient
           </button>
         </div>
 
@@ -179,13 +178,13 @@ const Cookbook = () => {
         {/* Search by Ingredients */}
         {activeTab === 'ingredients' && (
           <div className="mt-4">
-            <textarea
+            <input
+              type="text"
               className="w-full p-3 border border-gray-300 rounded-md"
-              rows="3"
-              placeholder="Enter ingredients separated by commas..."
+              placeholder="Enter a single ingredient (e.g., chicken)"
               value={ingredientSearch}
               onChange={(e) => setIngredientSearch(e.target.value)}
-            ></textarea>
+            />
             <button
               className={`mt-4 bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md w-full ${
                 loading ? 'opacity-50 cursor-not-allowed' : ''
