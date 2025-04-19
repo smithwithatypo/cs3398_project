@@ -13,7 +13,7 @@ const CookbookService = {
       }
       return [];
     } catch (error) {
-      console.error('API error:', error);a
+      console.error('API error:', error);
       throw new Error('Failed to fetch recipes');
     }
   },
@@ -54,12 +54,28 @@ const CookbookService = {
         return [];
       }
 
-      return response.data.meals.map(meal => ({
-        id: meal.idMeal,
-        name: meal.strMeal,
-        description: 'Click to view full instructions.',
-        image: meal.strMealThumb
-      }));
+      const fullMeals = await Promise.all(
+        response.data.meals.map(async (meal) => {
+          const mealDetailsResponse = await axios.get(
+            `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal.idMeal}`
+          );
+          const fullMeal = mealDetailsResponse.data.meals[0];
+  
+          return {
+            id: fullMeal.idMeal,
+            name: fullMeal.strMeal,
+            fullInstructions: fullMeal.strInstructions,
+            description: fullMeal.strInstructions.substring(0, 150) + '...'
+              ? fullMeal.strInstructions.substring(0, 150) + '...'
+              : 'No description available.',
+            image: fullMeal.strMealThumb,
+            area: fullMeal.strArea,
+            category: fullMeal.strCategory
+          };
+        })
+      );
+  
+      return fullMeals;
     } catch (error) {
       console.error('TheMealDB API error (ingredient search):', error);
       throw new Error('Failed to fetch recipes by ingredients from TheMealDB');

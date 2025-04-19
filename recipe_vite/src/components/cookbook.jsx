@@ -178,7 +178,7 @@ const Cookbook = () => {
       {searchResults.length > 0 && (
         <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-lg mt-6">
           <h3 className="text-xl font-semibold mb-4 text-[#1e2d3d]">Search Results</h3>
-          <div className="space-y-4">
+          <div className="space-y-4 overflow-y-auto max-h-[500px] pr-2">
             {searchResults.map((recipe) => (
               <div key={recipe.id} className="bg-[#d0ded5] p-4 rounded-lg">
                 <div className="flex flex-col md:flex-row">
