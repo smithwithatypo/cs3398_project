@@ -2,7 +2,7 @@ import express from 'express';
 import { TestController } from '../controllers/testController.js';
 import { GenerateRecipeController } from '../controllers/generateRecipeController.js';
 import { PantryController } from '../controllers/pantryItemsController.js';
-import { RecipeSearchController } from '../controllers/recipeSearchController.js';
+import { CookbookController } from '../controllers/cookbookController.js';
 import { IngredientReplacementController } from '../controllers/ingredientReplacementController.js';
 import { DishIdentificationController } from '../controllers/dishIdentificationController.js';
 import { ReceiptScanningController } from '../controllers/receiptScanningController.js';
@@ -42,7 +42,7 @@ router.post('/pantry', PantryController.addPantryItem);
 router.delete('/pantry/:index', PantryController.removePantryItem);
 
 // Cookbook routes
-router.post('/search-recipes', RecipeSearchController.searchRecipes);
+router.post('/search-recipes', CookbookController.searchRecipes);
 
 // Ingredient Replacement
 router.post('/replace-ingredient', IngredientReplacementController.getReplacements);

@@ -9,7 +9,20 @@ const Cookbook = () => {
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('name'); // 'name' or 'ingredients'
   const [selectedRecipe, setSelectedRecipe] = useState(null);
+  const [visibleCount, setVisibleCount] = useState(5);
+  const [searchContext, setSearchContext] = useState('');
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
+  const resetSearch = () => {
+    setSearchTerm('');
+    setIngredientSearch('');
+    setSearchResults([]);
+    setSelectedRecipe(null);
+    setError('');
+    setSearchContext('');
+    setVisibleCount(5);
+  };
+  
   useEffect(() => {
     const storedRecipeName = localStorage.getItem('selectedRecipeName');
     
@@ -31,6 +44,7 @@ const Cookbook = () => {
   
     setLoading(true);
     setError('');
+    setSearchResults([]);
   
     try {
       const response = await axios.post('/api/ai/search-recipes', {
@@ -39,6 +53,8 @@ const Cookbook = () => {
       
       if (response.data.success) {
         setSearchResults(response.data.data);
+        setVisibleCount(5); 
+        setSearchContext(`Recipes with names containing "${valueToSearch}"`);
       } else {
         setError('No recipes found');
       }
@@ -58,15 +74,17 @@ const Cookbook = () => {
   
     setLoading(true);
     setError('');
+    setSearchResults([]);
   
     try {
-      const ingredients = ingredientSearch.split(',').map(item => item.trim());
       const response = await axios.post('/api/ai/search-recipes', {
-        ingredients
+        ingredients:[ingredientSearch.trim()]
       });
   
       if (response.data.success) {
         setSearchResults(response.data.data);
+        setVisibleCount(5);
+        setSearchContext(`Recipes with ingredients containing "${ingredientSearch}"`); 
       } else {
         setError('No matching recipes found');
       }
@@ -113,7 +131,10 @@ const Cookbook = () => {
                 ? 'bg-[#1e2d3d] text-white'
                 : 'bg-gray-200 text-[#1e2d3d]'
             }`}
-            onClick={() => setActiveTab('name')}
+            onClick={() => {
+              resetSearch();
+              setActiveTab('name');
+            }}
           >
             Search by Name
           </button>
@@ -123,9 +144,12 @@ const Cookbook = () => {
                 ? 'bg-[#1e2d3d] text-white'
                 : 'bg-gray-200 text-[#1e2d3d]'
             }`}
-            onClick={() => setActiveTab('ingredients')}
-          >
-            Search by Ingredients
+            onClick={() => {
+              resetSearch();
+              setActiveTab('ingredients');
+            }}
+            >
+            Search by Ingredient
           </button>
         </div>
 
@@ -154,13 +178,13 @@ const Cookbook = () => {
         {/* Search by Ingredients */}
         {activeTab === 'ingredients' && (
           <div className="mt-4">
-            <textarea
+            <input
+              type="text"
               className="w-full p-3 border border-gray-300 rounded-md"
-              rows="3"
-              placeholder="Enter ingredients separated by commas..."
+              placeholder="Enter an ingredient (e.g., chicken, onions)"
               value={ingredientSearch}
               onChange={(e) => setIngredientSearch(e.target.value)}
-            ></textarea>
+            />
             <button
               className={`mt-4 bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md w-full ${
                 loading ? 'opacity-50 cursor-not-allowed' : ''
@@ -168,7 +192,7 @@ const Cookbook = () => {
               onClick={searchByIngredients}
               disabled={loading || !ingredientSearch.trim()}
             >
-              {loading ? 'Searching...' : 'Find Recipes'}
+              {loading ? 'Searching...' : 'Search Recipes'}
             </button>
           </div>
         )}
@@ -177,10 +201,13 @@ const Cookbook = () => {
       {/* Search Results */}
       {searchResults.length > 0 && (
         <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-lg mt-6">
-          <h3 className="text-xl font-semibold mb-4 text-[#1e2d3d]">Search Results</h3>
-          <div className="space-y-4">
-            {searchResults.map((recipe) => (
-              <div key={recipe.id} className="bg-[#d0ded5] p-4 rounded-lg">
+          <h3 className="text-xl font-semibold mb-2 text-[#1e2d3d]">Search Results</h3>
+          {searchContext && (
+            <p className="text-sm text-[#5a7d8c] mb-4 italic">{searchContext}</p>
+          )}
+          <div className="space-y-4 overflow-y-auto max-h-[500px] pr-2">
+            {searchResults.slice(0, visibleCount).map((recipe) => (
+              <div key={recipe.id} className="bg-[#d0ded5] p-4 rounded-lg fade-in">
                 <div className="flex flex-col md:flex-row">
                   {recipe.image && (
                     <div className="md:w-1/3 mb-3 md:mb-0 md:mr-4">
@@ -209,6 +236,29 @@ const Cookbook = () => {
                 </div>
               </div>
             ))}
+          </div>
+          {visibleCount < searchResults.length && (
+            <div className="text-center mt-4">
+              <button
+                className={`bg-[#d9d9d9] hover:bg-[#c0c0c0] text-[#1e2d3d] font-semibold py-1 px-4 rounded-md text-sm shadow-none ${
+                  isLoadingMore ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
+                onClick={async () => {
+                  setIsLoadingMore(true);
+                  await new Promise(resolve => setTimeout(resolve, 700)); // simulates loading
+                  setVisibleCount(prev => prev + 5);
+                  setIsLoadingMore(false);
+                }}
+                disabled={isLoadingMore}
+              >
+                {isLoadingMore ? 'Loading...' : 'Load More'}
+              </button>
+            </div>
+          )}
+          <div className="text-center mt-2">
+            <p className="text-xs text-[#5a7d8c]">
+              Showing {Math.min(visibleCount, searchResults.length)} of {searchResults.length} results
+            </p>
           </div>
         </div>
       )}

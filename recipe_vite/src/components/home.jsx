@@ -60,22 +60,23 @@ const Home = () => {
   useEffect(() => {
     const fetchRandomRecipes = async () => {
       try {
-        const fetchedRecipes = [];
+        const requests = Array.from({ length: 10 }, () =>
+          axios.get('https://www.themealdb.com/api/json/v1/1/random.php')
+        );
 
-        for (let i = 0; i < 10; i++) {  // Fetch 10 random recipes --- a way to get around free version API
-          const response = await axios.get('https://www.themealdb.com/api/json/v1/1/random.php');
-          if (response.data.meals && response.data.meals.length > 0) {
-            const meal = response.data.meals[0];
-            fetchedRecipes.push({
-              id: meal.idMeal,
-              name: meal.strMeal,
-              description: meal.strInstructions.substring(0, 150) + '...',
-              image: meal.strMealThumb,
-              area: meal.strArea,        
-              category: meal.strCategory
-            });
-          }
-        }
+        const responses = await Promise.all(requests); // fires all at once
+
+        const fetchedRecipes = responses
+          .map(res => res.data.meals?.[0])
+          .filter(meal => meal)
+          .map(meal => ({
+            id: meal.idMeal,
+            name: meal.strMeal,
+            description: meal.strInstructions.substring(0, 150) + '...',
+            image: meal.strMealThumb,
+            area: meal.strArea,
+            category: meal.strCategory
+          }));
 
         setRandomRecipes(fetchedRecipes);
       } catch (error) {
@@ -109,20 +110,36 @@ const Home = () => {
   
   return (
     <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center p-8 fade-in">
-      {/* How It Works */}
-      <div className="bg-[#d9b75e] shadow-md rounded-lg p-6 w-full max-w-lg text-center hover:shadow-xl transition-shadow duration-300">
-        <h2 className="text-2xl font-bold mb-4 text-[#1e2d3d]">How It Works</h2>
-        <p className="text-[#1e2d3d]">
-          Welcome to Recipe Generator! Easily turn your ingredients into delicious meals 
-          with just a few taps. Enter the ingredients you have, and we'll suggest recipes you can make.
+      {/* Welcome Box */}
+      <div className="bg-[#d9b75e] shadow-md rounded-lg p-6 w-full max-w-2xl text-center hover:shadow-xl transition-shadow duration-300">
+        <h2 className="text-3xl font-bold mb-4 text-[#1e2d3d]">Welcome to Recipe Generator!</h2>
+        <p className="text-[#1e2d3d] mb-6 text-md">
+          Pantry to plate. Photo to feast. Cookbook to Master Chef.
+          Cook smarter, faster, and unleash your creativity — your next favorite dish is just a few clicks away!
         </p>
-        <button
-          className="mt-4 bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md"
-          onClick={() => navigate("/pantry")}
-        >
-          Start Here!
-        </button>
+
+        <div className="flex flex-col md:flex-row gap-4 justify-center">
+          <button
+            className="bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-6 rounded-md"
+            onClick={() => navigate("/pantry")}
+          >
+            📦 Start with My Pantry
+          </button>
+          <button
+            className="bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-6 rounded-md"
+            onClick={() => navigate("/generation")}
+          >
+            📸 Upload a Photo
+          </button>
+          <button
+            className="bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-6 rounded-md"
+            onClick={() => navigate("/cookbook")}
+          >
+            📚 Browse Cookbook
+          </button>
+        </div>
       </div>
+  
       {/* Carousel Section */}
       {randomRecipes.length > 0 && (
         <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-5xl mt-6 text-center fade-in">

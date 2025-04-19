@@ -196,7 +196,7 @@ const Generation = () => {
     const progress = ((currentStep + 1) / steps.length) * 100;
 
     return (
-      <div className="text-[#1e2d3d] p-4 bg-[#d0ded5] rounded-lg shadow-md text-center fade-in">
+      <div className="text-[#1e2d3d] p-4 bg-[#d0ded5] rounded-lg shadow-md text-center">
         <h2 className="text-2xl font-bold mb-1">{recipeTitle}</h2>
         {recipeImage && (
           <img src={recipeImage} alt="Recipe Dish" className="rounded-lg shadow-md mx-auto my-6" style={{ maxWidth: '400px' }} />
@@ -416,12 +416,15 @@ const Generation = () => {
                 setCurrentStep(0);
               }}
             >
-              <div className={`absolute left-1 top-1 w-4 h-4 transition-transform duration-200 ease-in-out bg-white rounded-full shadow-md transform ${
+            {/* background first */}
+              <div className={`absolute inset-0 rounded-full transition-colors duration-500 ${
+                viewMode === 'step' ? 'bg-[#1e2d3d]' : 'bg-gray-200'
+              }`}></div>
+
+              {/* ball second - stays on top */}
+              <div className={`absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow-md transition-transform duration-500 ease-in-out transform ${
                 viewMode === 'step' ? 'translate-x-6' : ''
-              }`}></div>
-              <div className={`absolute inset-0 rounded-full ${
-                viewMode === 'step' ? 'bg-[#1e2d3d]' : ''
-              }`}></div>
+              }`} style={{ zIndex: 10 }}></div>
             </div>
             <span className={`text-${viewMode === 'step' ? '[#1e2d3d]' : 'gray-400'} font-medium`}>
               Step-by-Step
