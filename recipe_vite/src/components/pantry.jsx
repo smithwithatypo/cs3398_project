@@ -21,6 +21,7 @@ const Pantry = () => {
   const pantryFileInputRef = useRef(null);
   const [selectedReceipt, setSelectedReceipt] = useState(null);
   const [selectedPantryImage, setSelectedPantryImage] = useState(null);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     fetchPantryItems();
@@ -224,6 +225,11 @@ const Pantry = () => {
                 />
               </label>
             </div>
+            {(selectedReceipt || selectedPantryImage) && (
+              <p className="mt-2 text-sm text-[#1e2d3d]">
+                {(selectedReceipt || selectedPantryImage)?.name}
+              </p>
+            )}
 
             {/* After file selected */}
             {selectedReceipt || selectedPantryImage ? (
@@ -297,35 +303,54 @@ const Pantry = () => {
           </div>
         </div>
 
-        {items.length === 0 ? (
-          <p className="text-gray-500">No items yet.</p>
-        ) : (
-          <ul className="space-y-2">
-            {items.map((item, i) => (
-              <li
-                key={i}
-                className="flex justify-between items-center bg-[#d0ded5] px-4 py-3 rounded-md shadow-sm"
+      {items.length === 0 ? (
+        <p className="text-gray-500">No items yet.</p>
+      ) : (
+        <>
+          {/* Pantry Items */}
+          <div className={`space-y-2 ${isExpanded ? '' : 'max-h-[400px] overflow-y-auto'} pr-2 transition-all duration-500`}>
+            <ul className="space-y-2">
+              {items.map((item, i) => (
+                <li
+                  key={i}
+                  className="flex justify-between items-center bg-[#d0ded5] px-4 py-3 rounded-md shadow-sm"
+                >
+                  <span className="text-[#1e2d3d] font-medium">{item}</span>
+                  <div className="flex items-center space-x-2">
+                    <button
+                      onClick={() => handleQuantityChange(i, (quantities[i] || 1) - 1)}
+                      className="px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded"
+                    >
+                      -
+                    </button>
+                    <span>{quantities[i] || 1}</span>
+                    <button
+                      onClick={() => handleQuantityChange(i, (quantities[i] || 1) + 1)}
+                      className="px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded"
+                    >
+                      +
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Expand/Collapse Button */}
+          {items.length > 5 && (
+            <div className="text-center mt-4">
+            <div className="text-center mt-4">
+              <button
+                className="bg-[#1e2d3d] hover:bg-[#16232e] text-white font-bold py-2 px-4 rounded-md"
+                onClick={() => setIsExpanded(!isExpanded)}
               >
-                <span className="text-[#1e2d3d] font-medium">{item}</span>
-                <div className="flex items-center space-x-2">
-                  <button
-                    onClick={() => handleQuantityChange(i, (quantities[i] || 1) - 1)}
-                    className="px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded"
-                  >
-                    -
-                  </button>
-                  <span>{quantities[i] || 1}</span>
-                  <button
-                    onClick={() => handleQuantityChange(i, (quantities[i] || 1) + 1)}
-                    className="px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded"
-                  >
-                    +
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
+                {isExpanded ? 'Collapse Pantry' : 'View Full Pantry'}
+              </button>
+            </div>
+            </div>
+          )}
+        </>
+      )}
       </div>
     </div>
   );
