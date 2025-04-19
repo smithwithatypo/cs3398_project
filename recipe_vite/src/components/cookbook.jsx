@@ -181,7 +181,7 @@ const Cookbook = () => {
             <input
               type="text"
               className="w-full p-3 border border-gray-300 rounded-md"
-              placeholder="Enter a single ingredient (e.g., chicken)"
+              placeholder="Enter an ingredient (e.g., chicken, onions)"
               value={ingredientSearch}
               onChange={(e) => setIngredientSearch(e.target.value)}
             />
